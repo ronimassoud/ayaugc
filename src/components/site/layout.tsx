@@ -54,7 +54,7 @@ const Navbar = () => {
 
         <nav className="hidden lg:flex mx-auto gap-1">
           {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="px-4 py-2 text-white hover:text-primary transition-colors">{n.label}</Link>
+            <Link key={n.to} to={n.to} className="px-4 py-2 whitespace-nowrap text-white hover:text-primary transition-colors">{n.label}</Link>
           ))}
         </nav>
 
