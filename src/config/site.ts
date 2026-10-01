@@ -25,6 +25,5 @@ export const nav = [
   { label: "15-Day Challenge", to: "/challenge" },
   { label: "Free guide", to: "/free-guide" },
   { label: "Templates", to: "/templates" },
-  { label: "Find your path", to: "/find-your-path" },
   { label: "About", to: "/about" },
 ];

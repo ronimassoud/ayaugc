@@ -9,7 +9,6 @@ import Challenge from "./pages/challenge";
 import Brands from "./pages/brands";
 import { About, Contact, FreeGuide, Privacy, Refunds, Templates, Terms } from "./pages/simple-pages";
 import NotFound from "./pages/not-found";
-import FindYourPath from "./pages/find-your-path";
 import CampaignTracker from "./components/campaign-tracker";
 
 const queryClient = new QueryClient();
@@ -30,7 +29,6 @@ const App = () => (
             <Route path="/ugc-guide" element={<Navigate to="/free-guide" replace />} />
             <Route path="/templates" element={<Templates />} />
             <Route path="/template" element={<Navigate to="/templates" replace />} />
-            <Route path="/find-your-path" element={<FindYourPath />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<Privacy />} />

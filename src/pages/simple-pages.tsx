@@ -111,9 +111,8 @@ const Legal = ({ title, path, sections }: { title: string; path: string; section
 export const Privacy = () => <Legal title="Privacy policy" path="/privacy" sections={[
   ["What I collect", "Your name and email when you join the guide, waitlist or challenge, and payment details handled securely by our payment provider. If you message me through the contact or quote forms, I receive what you write there."],
   ["Campaign tracking (how you found me)", "When you arrive from a tagged link on Instagram, TikTok or Pinterest, the site records which post or campaign brought you: the platform, the campaign label, and the page you landed on. This is a simple counter — no name, email, cookies or device identifiers are attached, and I can't link it back to you. I use it only to see which posts are worth making more of."],
-  ["The AI helper (Find your path)", "If you use the Find your path page, the niche, experience level and goals you type are sent to an AI service to write your recommendation. They are not added to a mailing list, not stored with your identity, and not used to contact you."],
   ["How I use it", "To deliver what you signed up for, send related emails, and understand which content brings visitors. You can unsubscribe from emails at any time."],
-  ["Who I share it with", "Only the services that run the site, email, payments and the AI helper. I never sell your data."],
+  ["Who I share it with", "Only the services that run the site, email and payments. I never sell your data."],
   ["Your rights", "Ask to see, correct or delete your data at any time by emailing me."],
 ]} />;
 
