@@ -3,6 +3,7 @@ import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { PageHero, Btn, Card, Eyebrow, H2, PhoneFrame, Section, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
+import { meta } from "@/config/seo";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -11,7 +12,7 @@ const field = "min-h-12 bg-background text-base";
 
 const Brands = () => (
   <Layout>
-    <SEO title="UGC for brands — strategy, scripting & creators | Aya UGC" description="High-performing UGC for ads and organic: strategy, scripting and creator selection by Aya, trusted by 100+ brands." path="/brands" />
+    <SEO {...meta["/brands"]} />
     <PageHero
       badges={["For brands", `Trusted by ${site.brandsCount} brands`]}
       title="UGC that looks real and sells like an ad"

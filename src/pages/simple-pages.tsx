@@ -2,6 +2,7 @@ import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { PageHero, Btn, Card, Eyebrow, H2, PhoneFrame, Section, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
+import { meta, type PagePath } from "@/config/seo";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Check } from "lucide-react";
@@ -17,7 +18,7 @@ const List = ({ items }: { items: string[] }) => (
 
 export const FreeGuide = () => (
   <Layout>
-    <SEO title="Free beginner UGC guide | Aya UGC" description="A free guide to what UGC is, what brands look for, and how to film your first sample." path="/free-guide" />
+    <SEO {...meta["/free-guide"]} />
     <Hero eyebrow="Free guide" title="Your first steps into UGC, free" sub="What UGC is, what brands actually look for, and how to film your first sample this week.">
       <Btn to={site.guide.optInUrl}>Get the free guide</Btn>
     </Hero>
@@ -32,7 +33,7 @@ export const FreeGuide = () => (
 
 export const Templates = () => (
   <Layout>
-    <SEO title="UGC template bundle — contract, portfolio, rate card | Aya UGC" description="The templates Aya uses: UGC contract, portfolio, rate card and a bonus pitch template. AED 79." path="/templates" />
+    <SEO {...meta["/templates"]} />
     <Hero eyebrow={site.templates.price} title="The templates I wish I had when I started" sub="Stop guessing. Send brands a professional contract, portfolio and rate card from day one.">
       <Btn to={site.templates.checkoutUrl}>Get the templates, {site.templates.price}</Btn>
     </Hero>
@@ -55,7 +56,7 @@ export const Templates = () => (
 
 export const About = () => (
   <Layout>
-    <SEO title="About Aya Karroum | Aya UGC" description="Aya's story, credentials and how she works with brands and new UGC creators." path="/about" />
+    <SEO {...meta["/about"]} />
     <Hero eyebrow="About" title="Hi, I'm Aya" sub={`UGC creator and strategist. ${site.brandsCount} brands, ${"[2+]"} years, and a lot of lessons learned the hard way.`}>
       <Btn to="/challenge">Join the challenge</Btn>
       <Btn to="/brands" variant="outline">Work with me</Btn>
@@ -84,7 +85,7 @@ export const About = () => (
 
 export const Contact = () => (
   <Layout>
-    <SEO title="Contact | Aya UGC" description="Questions for Aya? Send a message and she'll get back to you." path="/contact" />
+    <SEO {...meta["/contact"]} />
     <Hero title="Say hello" sub={`For general questions. Brands, please use the quote form on the For brands page. Or email ${site.email}.`} />
     <section className="pb-24">
       <Wrap>
@@ -94,9 +95,9 @@ export const Contact = () => (
   </Layout>
 );
 
-const Legal = ({ title, path, sections }: { title: string; path: string; sections: [string, string][] }) => (
+const Legal = ({ title, path, sections }: { title: string; path: PagePath; sections: [string, string][] }) => (
   <Layout>
-    <SEO title={`${title} | Aya UGC`} description={`${title} for ayaugc.com.`} path={path} />
+    <SEO {...meta[path]} />
     <PageHero title={title} />
     <section className="py-16 md:py-24">
       <Wrap className="max-w-3xl">

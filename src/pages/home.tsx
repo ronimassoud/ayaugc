@@ -2,12 +2,13 @@ import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { PageHero, Btn, Card, Eyebrow, H2, PhoneFrame, Section, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
+import { meta } from "@/config/seo";
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 
 const Home = () => (
   <Layout>
-    <SEO title="Aya UGC — UGC that sells, and the skills to make it yourself" description="Aya creates high-performing UGC for brands and teaches new creators how to land their first deals through the 15-Day UGC Challenge." path="/" />
+    <SEO {...meta["/"]} />
 
     <PageHero
       badges={[`UGC for ${site.brandsCount} brands`, <span key="c">Next cohort starts <span className="text-white">{site.challenge.startDate}</span></span>]}

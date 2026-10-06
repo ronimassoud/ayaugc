@@ -23,16 +23,20 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      # The prebuild script generates the sitemap with bunx.
+      # The prebuild and postbuild scripts run with bunx.
       - uses: oven-sh/setup-bun@v2
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm run build
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
+          # Link previews must point at this deployment, not the canonical domain.
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
           VITE_SUPABASE_URL: https://xsunkngtppzhewdsvkkc.supabase.co
           # Set the VITE_SUPABASE_PUBLISHABLE_KEY repository variable to enable campaign tracking.
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || 'placeholder-replace-me' }}
-      # Pages has no rewrite rules, so serve the app shell for deep links like /challenge.
+      # Fallback app shell for URLs the postbuild script didn't write a page for.
       - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3
         with:

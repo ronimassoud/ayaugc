@@ -2,6 +2,7 @@ import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { PageHero, Btn, Card, Eyebrow, H2, PhoneFrame, Section, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
+import { meta } from "@/config/seo";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Check, X } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -26,7 +27,7 @@ const faqs = [
 
 const Challenge = () => (
   <Layout hideCta>
-    <SEO title="15-Day UGC Challenge — your first UGC portfolio in 15 days" description={`One short lesson and one filming task a day, guided by Aya. Starts ${c.startDate}.`} path="/challenge" />
+    <SEO {...meta["/challenge"]} />
 
     <PageHero
       badges={[`15-Day UGC Challenge`, <span key="s">Starts <span className="text-white">{c.startDate}</span></span>, `${c.minutesPerDay} min a day`]}
