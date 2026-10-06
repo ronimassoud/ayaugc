@@ -81,7 +81,7 @@ const CTA = () => (
 const Footer = () => (
   <footer className="relative bg-black text-white pt-36 pb-8 overflow-hidden">
     <div className="absolute bottom-0 left-0 pointer-events-none w-[533px] h-[601px] z-10">
-      <img src="/images/common/footer-pattern.svg" alt="" />
+      <img src={`${import.meta.env.BASE_URL}images/common/footer-pattern.svg`} alt="" />
     </div>
     <Container className="relative z-20">
       <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">

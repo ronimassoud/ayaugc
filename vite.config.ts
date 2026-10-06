@@ -5,6 +5,8 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
+  // GitHub Pages serves the site from /<repo>/; everywhere else it lives at the root.
+  base: process.env.BASE_PATH || "/",
   server: {
     host: "::",
     port: 8080,
