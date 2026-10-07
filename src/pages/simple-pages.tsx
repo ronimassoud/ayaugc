@@ -110,8 +110,8 @@ const Legal = ({ title, path, sections }: { title: string; path: PagePath; secti
 );
 
 export const Privacy = () => <Legal title="Privacy policy" path="/privacy" sections={[
-  ["What I collect", "Your name and email when you join the guide, waitlist or challenge, and payment details handled securely by our payment provider. If you message me through the contact or quote forms, I receive what you write there."],
-  ["Campaign tracking (how you found me)", "When you arrive from a tagged link on Instagram, TikTok or Pinterest, the site records which post or campaign brought you: the platform, the campaign label, and the page you landed on. This is a simple counter — no name, email, cookies or device identifiers are attached, and I can't link it back to you. I use it only to see which posts are worth making more of."],
+  ["What I collect", "Your name and email when you join the guide, waitlist or challenge, and payment details handled securely by our payment provider. If you message me through the contact or quote forms, I receive what you write there. The challenge runs in a WhatsApp community, so if you join it your phone number is visible to the community admins."],
+  ["Campaign tracking (how you found me)", "When you arrive from a tagged link on Instagram or Pinterest, the site records which post or campaign brought you: the platform, the campaign label, and the page you landed on. This is a simple counter — no name, email, cookies or device identifiers are attached, and I can't link it back to you. I use it only to see which posts are worth making more of."],
   ["How I use it", "To deliver what you signed up for, send related emails, and understand which content brings visitors. You can unsubscribe from emails at any time."],
   ["Who I share it with", "Only the services that run the site, email and payments. I never sell your data."],
   ["Your rights", "Ask to see, correct or delete your data at any time by emailing me."],
@@ -120,7 +120,7 @@ export const Privacy = () => <Legal title="Privacy policy" path="/privacy" secti
 export const Terms = () => <Legal title="Terms" path="/terms" sections={[
   ["Using this site", "Content on this site is for your personal use and may not be copied or resold."],
   ["Purchases", "Prices are shown in AED. Access details are emailed after payment."],
-  ["Digital products", "Templates and course content are licensed to you personally and may not be shared."],
+  ["Digital products", "Templates, ebooks and challenge content are licensed to you personally and may not be shared."],
   ["Results", "UGC income depends on your effort and the market. No earnings are guaranteed."],
 ]} />;
 

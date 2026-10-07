@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 
-const SOURCES = ["instagram", "tiktok", "pinterest"];
+const SOURCES = ["instagram", "pinterest"];
 
 /** Records a visit when someone arrives through a tagged social link (?utm_source=instagram&utm_campaign=...). */
 const CampaignTracker = () => {

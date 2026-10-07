@@ -12,7 +12,7 @@ const JOIN = c.checkoutUrl;
 
 const phases = [
   { name: "Days 1–5 · Foundations", days: ["What UGC is and what brands buy", "Set up your phone, light and sound", "Hooks that stop the scroll", "Film your first product video", "Edit simply on your phone"] },
-  { name: "Days 6–10 · Portfolio", days: ["Choose your niche", "Unboxing and testimonial formats", "Day-7 checkpoint: portfolio video #2", "Writing your own scripts", "Build your portfolio page"] },
+  { name: "Days 6–10 · Portfolio", days: ["Choose your niche", "Unboxing and testimonial formats", "Film portfolio video #2", "Writing your own scripts", "Build your portfolio page"] },
   { name: "Days 11–15 · Getting paid", days: ["Set your rates", "Build your rate card", "Find brands to pitch", "Write and send your pitches", "Celebrate and plan what's next"] },
 ];
 
@@ -20,8 +20,8 @@ const faqs = [
   ["Do I need followers?", "No. Brands pay UGC creators for content, not audience size."],
   ["I'm shy on camera. Can I still do this?", "Yes. Many UGC formats show only hands and products. We build confidence step by step."],
   ["What phone do I need?", "Any recent smartphone with a decent camera is enough."],
-  ["What time zone is it in?", "Lessons are on demand. Live calls are at [time, GST] with replays."],
-  ["What if I miss a day?", "Catch up anytime. Lessons stay open for [duration]."],
+  ["What time zone is it in?", "Any. Each day's ebook arrives by email, so you can read it whenever suits you."],
+  ["What if I miss a day?", "Catch up anytime. The ebooks are yours to download and keep."],
   ["Can I get a refund?", "Yes, within the terms of the refund policy."],
 ];
 
@@ -32,7 +32,7 @@ const Challenge = () => (
     <PageHero
       badges={[`15-Day UGC Challenge`, <span key="s">Starts <span className="text-white">{c.startDate}</span></span>, `${c.minutesPerDay} min a day`]}
       title="Go from zero to your first UGC portfolio in 15 days"
-      sub="One short lesson and one filming task a day, with me guiding you. By day 15 you'll have [portfolio videos, a rate card and pitches ready to send]."
+      sub="One ebook in your inbox every day, and a WhatsApp community to keep you going. By day 15 you'll have [portfolio videos, a rate card and pitches ready to send]."
       media={<p className="text-center text-sm text-muted">Doors close {c.closeDate} · <Link to="/refunds" className="underline">Refund policy</Link></p>}
     >
       <Btn to={JOIN}>Join the challenge, {c.price}</Btn>
@@ -79,17 +79,8 @@ const Challenge = () => (
     <Section>
       <H2>How it works</H2>
       <div className="mt-10 grid gap-6 md:grid-cols-4">
-        {[["Lessons", "In your member area, released each morning."], ["Community", "A private group to share work and get feedback."], ["Time", `${c.minutesPerDay} minutes a day.`], ["Live calls", "[Weekly] calls with me, with replays."]].map(([t, d]) => (
+        {[["Daily ebooks", "One ebook by email each day, to download and keep as a reference."], ["WhatsApp community", "You're added as soon as you join."], ["Time", `${c.minutesPerDay} minutes a day.`], ["Monthly check-in", "A check-in once a month on how your challenge is going."]].map(([t, d]) => (
           <Card key={t}><h3 className="text-xl">{t}</h3><p className="mt-2 text-muted-foreground">{d}</p></Card>
-        ))}
-      </div>
-    </Section>
-
-    <Section className="bg-ink text-ink-foreground">
-      <h2 className="h3">Streaks and bonuses</h2>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {[["Day-7 unlock", "Finish week one and unlock [bonus]."], ["Full-streak bonus", "Complete all 15 days for [bonus]."], ["Recognition", "Finishers get featured in [community spotlight]."]].map(([t, d]) => (
-          <div key={t} className="rounded-lg border border-white/10 bg-foreground p-7"><h3 className="text-2xl">{t}</h3><p className="mt-2 text-muted">{d}</p></div>
         ))}
       </div>
     </Section>
@@ -129,7 +120,7 @@ const Challenge = () => (
         <p className="text-muted-foreground">Cohort starts {c.startDate}</p>
         <p className="mt-2 font-semibold text-6xl">{c.price}</p>
         <ul className="mt-8 space-y-3 text-left">
-          {["15 daily lessons and filming tasks", "Private community", "Live calls with replays", "Rate card and pitch templates", "Day-7 and full-streak bonuses"].map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}
+          {["15 daily ebooks by email, yours to keep", "WhatsApp community", "Monthly check-in on your progress", "Rate card and pitch templates"].map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}
         </ul>
         <div className="mt-8"><Btn to={JOIN} className="sm:w-full">Join the challenge</Btn></div>
         <p className="mt-3 text-sm text-muted-foreground">Doors close {c.closeDate} · <Link to="/refunds" className="underline">Refund policy</Link></p>

@@ -71,7 +71,7 @@ const CTA = () => (
     <Container>
       <AnimateOnView once blur className="max-w-[721px] mx-auto text-center">
         <h2 className="h1 mb-6">Ready to start your UGC journey?</h2>
-        <p className="text-lg text-muted mb-10">Next cohort starts {site.challenge.startDate}. One short lesson and one filming task a day, with Aya guiding you.</p>
+        <p className="text-lg text-muted mb-10">Next cohort starts {site.challenge.startDate}. One ebook a day by email, and a WhatsApp community to keep you going.</p>
         <Button asChild><Link to="/challenge">Join the 15-Day Challenge <ArrowRight className="w-5 h-5" /></Link></Button>
       </AnimateOnView>
     </Container>
@@ -109,7 +109,6 @@ const Footer = () => (
             <h3 className="text-lg font-semibold mb-6">Follow</h3>
             <ul className="space-y-3">
               <li><a href={site.instagram.url} target="_blank" rel="noreferrer" className="text-muted hover:text-white">Instagram {site.instagram.handle}</a></li>
-              <li><a href={site.tiktok.url} className="text-muted hover:text-white">TikTok {site.tiktok.handle}</a></li>
               <li><a href={site.equipmentUrl} className="text-muted hover:text-white">My equipment list</a></li>
             </ul>
           </div>

@@ -5,7 +5,6 @@ export const site = {
   domain: "https://www.ayaugc.com",
   email: "[hello@ayaugc.com]",
   instagram: { handle: "@aya.ugc", url: "https://www.instagram.com/aya.ugc" },
-  tiktok: { handle: "[TikTok]", url: "#" },
   equipmentUrl: "#",
   brandsCount: "100+",
   sinceYear: "[year]",
