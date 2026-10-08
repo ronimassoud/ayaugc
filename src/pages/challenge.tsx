@@ -79,7 +79,7 @@ const Challenge = () => (
     <Section>
       <H2>How it works</H2>
       <div className="mt-10 grid gap-6 md:grid-cols-4">
-        {[["Daily ebooks", "One ebook by email each day, to download and keep as a reference."], ["WhatsApp community", "You're added as soon as you join."], ["Time", `${c.minutesPerDay} minutes a day.`], ["Monthly check-in", "A check-in once a month on how your challenge is going."]].map(([t, d]) => (
+        {[["Daily ebooks", "One ebook by email each day, to download and keep as a reference."], ["WhatsApp community", "You're added as soon as you join."], ["Time", `${c.minutesPerDay} minutes a day.`], ["1:1 check-in", "Once during the 15 days, I check in with you personally for a follow-up on your progress."]].map(([t, d]) => (
           <Card key={t}><h3 className="text-xl">{t}</h3><p className="mt-2 text-muted-foreground">{d}</p></Card>
         ))}
       </div>
@@ -120,7 +120,7 @@ const Challenge = () => (
         <p className="text-muted-foreground">Cohort starts {c.startDate}</p>
         <p className="mt-2 font-semibold text-6xl">{c.price}</p>
         <ul className="mt-8 space-y-3 text-left">
-          {["15 daily ebooks by email, yours to keep", "WhatsApp community", "Monthly check-in on your progress", "Rate card and pitch templates"].map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}
+          {["15 daily ebooks by email, yours to keep", "WhatsApp community", "A personal 1:1 check-in with me during the 15 days", "Rate card and pitch templates"].map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}
         </ul>
         <div className="mt-8"><Btn to={JOIN} className="sm:w-full">Join the challenge</Btn></div>
         <p className="mt-3 text-sm text-muted-foreground">Doors close {c.closeDate} · <Link to="/refunds" className="underline">Refund policy</Link></p>
