@@ -40,6 +40,7 @@ export const site = {
 
   // Copy Aya writes in her own words.
   story: {
+    home: "[Two or three sentences from Aya in her own words: how she started, what she does now.]",
     challenge: "[One or two sentences from Aya on how she started.]",
   },
 

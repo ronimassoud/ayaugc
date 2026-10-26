@@ -177,13 +177,13 @@ export const CheckList = ({ items, icon = "check", className }: { items: React.R
 );
 
 /** Numbered steps with serif Pine numbers (01, 02...). */
-export const Steps = ({ items, className }: { items: { title: string; body: React.ReactNode }[]; className?: string }) => (
+export const Steps = ({ items, className }: { items: { title: string; body?: React.ReactNode }[]; className?: string }) => (
   <ol className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-4", className)}>
     {items.map((s, i) => (
       <li key={s.title}>
         <span className="num block text-[44px] leading-none">{String(i + 1).padStart(2, "0")}</span>
         <h3 className="h4 mt-4">{s.title}</h3>
-        <p className="supporting mt-2">{s.body}</p>
+        {s.body && <p className="supporting mt-2">{s.body}</p>}
       </li>
     ))}
   </ol>
