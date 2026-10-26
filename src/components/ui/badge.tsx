@@ -24,7 +24,7 @@ export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement>, Varian
 
 function Badge({ className, variant, children, ...props }: BadgeProps) {
   return <div className={cn(badgeVariants({ variant }), className)} {...props}>
-    <BadgeCheck className={cn("w-4 h-4", variant === "secondary" ? " fill-transparent stroke-muted" : variant === "color" ? "fill-revio-light-orchid stroke-black" : "fill-transparent stroke-primary")} />
+    <BadgeCheck className={cn("w-4 h-4", variant === "secondary" ? " fill-transparent stroke-muted" : variant === "color" ? "fill-mint stroke-ink" : "fill-transparent stroke-primary")} />
     {children}
   </div>;
 }
