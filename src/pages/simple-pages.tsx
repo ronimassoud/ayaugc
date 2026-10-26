@@ -16,35 +16,6 @@ const List = ({ items }: { items: string[] }) => (
   <ul className="space-y-3">{items.map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}</ul>
 );
 
-export const About = () => (
-  <Layout>
-    <SEO {...meta["/about"]} />
-    <Hero eyebrow="About" title="Hi, I'm Aya" sub={`UGC creator and strategist. ${site.brandsCount} brands, ${"[2+]"} years, and a lot of lessons learned the hard way.`}>
-      <Btn to="/challenge">Join the challenge</Btn>
-      <Btn to="/brands" variant="outline">Work with me</Btn>
-    </Hero>
-    <Section className="bg-card">
-      <div className="grid gap-10 md:grid-cols-[1fr_1.5fr]">
-        <PhoneFrame label="Aya" tone={1} className="mx-auto max-w-[260px]" />
-        <div className="space-y-5 text-lg text-muted-foreground">
-          <p>[How Aya started in UGC.]</p>
-          <p>[What she learned the hard way — no portfolio, no rate card, no idea how to pitch — and why she built the templates.]</p>
-          <p>[How she works with brands today, and why she teaches new creators.]</p>
-        </div>
-      </div>
-    </Section>
-    <section id="contact" className="pb-24">
-      <Wrap>
-        <div className="max-w-xl">
-          <H2>Email me directly</H2>
-          <p className="mt-2 text-muted-foreground">Questions about UGC, the challenge or the templates? Fill this in and it opens in your own email app, ready to send to {site.email}.</p>
-          <ContactForm className="mt-8" />
-        </div>
-      </Wrap>
-    </section>
-  </Layout>
-);
-
 export const Contact = () => (
   <Layout>
     <SEO {...meta["/contact"]} />

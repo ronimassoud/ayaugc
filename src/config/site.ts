@@ -57,6 +57,11 @@ export const site = {
   story: {
     home: "[Two or three sentences from Aya in her own words: how she started, what she does now.]",
     challenge: "[One or two sentences from Aya on how she started.]",
+    about: [
+      "[Paragraph 1, in Aya's words: how she started in UGC.]",
+      "[Paragraph 2: what she learned the hard way, and the moment she started charging properly.]",
+      "[Paragraph 3: what a working week looks like now.]",
+    ],
   },
 
   // Real, consented quotes only (first name and city). Sections that show them stay hidden while this is empty.

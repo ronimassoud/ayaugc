@@ -1,5 +1,6 @@
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
+import LaneCards from "@/components/site/lane-cards";
 import { Btn, Card, CheckList, DayBadge, Eyebrow, H1, H2, PhoneFrame, Rise, Section, Steps, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
@@ -50,23 +51,9 @@ const Home = () => {
         </Wrap>
       </section>
 
-      {/* 5.3 Two-lane chooser: whole cards are clickable. */}
+      {/* 5.3 Two-lane chooser */}
       <Section>
-        <H2>{t.lanes.title}</H2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <Card clickable>
-            <Eyebrow>{t.lanes.studio.eyebrow}</Eyebrow>
-            <h3 className="h3">{t.lanes.studio.title}</h3>
-            <p className="mt-3">{t.lanes.studio.body}</p>
-            <div className="mt-8"><Btn to="/brands#quote" variant="secondary" stretched>{t.lanes.studio.cta}</Btn></div>
-          </Card>
-          <Card variant="school" clickable>
-            <Eyebrow className="text-ink">{t.lanes.school.eyebrow}</Eyebrow>
-            <h3 className="h3">{t.lanes.school.title}</h3>
-            <p className="mt-3">{t.lanes.school.body}</p>
-            <div className="mt-8"><Btn to="/challenge" stretched>{t.lanes.school.cta}</Btn></div>
-          </Card>
-        </div>
+        <LaneCards />
       </Section>
 
       {/* 5.4 Challenge feature: Beige, with the day preview on a Mint school card. */}
