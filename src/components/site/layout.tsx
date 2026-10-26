@@ -174,8 +174,8 @@ const Footer = () => (
   </footer>
 );
 
-/** Page shell: sticky header, optional announcement band, footer. `hideCta` is ignored and goes once every page moves over. */
-const Layout = ({ children, band = false }: { children: React.ReactNode; band?: boolean; hideCta?: boolean }) => {
+/** Page shell: sticky header, optional announcement band, footer. */
+const Layout = ({ children, band = false }: { children: React.ReactNode; band?: boolean }) => {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();

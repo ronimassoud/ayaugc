@@ -1,15 +1,19 @@
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
-import { Btn, Wrap } from "@/components/site/ui";
+import { Btn, H1, Section } from "@/components/site/ui";
+import { notFoundContent as t } from "@/content/not-found";
 
 const NotFound = () => (
-  <Layout hideCta>
-    <SEO title="Page not found | Aya UGC" description="This page doesn't exist." path="/404" noindex />
-    <section className="bg-black text-white banner-top-padding pb-28 text-center"><Wrap>
-      <h1 className="h1">Page not found</h1>
-      <p className="mt-4 text-muted-foreground">Let's get you back on track.</p>
-      <div className="mt-8"><Btn to="/">Go home</Btn></div>
-    </Wrap></section>
+  <Layout>
+    <SEO {...t.seo} path="/404" noindex />
+    <Section className="md:py-32">
+      <H1>{t.title}</H1>
+      <p className="mt-6 max-w-text">{t.body}</p>
+      <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center">
+        <Btn to="/">{t.home}</Btn>
+        <Btn to="/challenge" variant="link">{t.challenge}</Btn>
+      </div>
+    </Section>
   </Layout>
 );
 export default NotFound;

@@ -51,13 +51,10 @@ export const H2 = ({ children, className }: { children: React.ReactNode; classNa
   <h2 className={cn("h2 max-w-text", className)}>{children}</h2>
 );
 
-// Old names, accepted until every page uses the new variants.
-type LegacyVariant = "outline" | "ghost";
-
 type BtnProps = {
   to: string;
   children: React.ReactNode;
-  variant?: BtnVariant | LegacyVariant;
+  variant?: BtnVariant;
   className?: string;
   /** Systeme.io link: keeps utm params and stays inert while the URL is a [placeholder]. */
   systeme?: boolean;
@@ -66,8 +63,7 @@ type BtnProps = {
   onClick?: () => void;
 };
 
-export const Btn = ({ to, children, variant: v = "primary", className, systeme = false, stretched = false, onClick }: BtnProps) => {
-  const variant: BtnVariant = v === "outline" ? "secondary" : v === "ghost" ? "link" : v;
+export const Btn = ({ to, children, variant = "primary", className, systeme = false, stretched = false, onClick }: BtnProps) => {
   const cls = cn(btnBase, btnClass[variant], stretched && "after:absolute after:inset-0 after:rounded-card", className);
   const inner = (
     <>
@@ -122,7 +118,7 @@ export const Takeaway = ({ children, className }: { children: React.ReactNode; c
 
 /** 9:16 phone frame for vertical video. Shows a labelled placeholder until real footage is supplied. */
 export const PhoneFrame = ({ label, src, poster, captions, className }: {
-  label?: string; src?: string; poster?: string; captions?: string; className?: string; tone?: number;
+  label?: string; src?: string; poster?: string; captions?: string; className?: string;
 }) => (
   <figure className={cn("relative aspect-[9/16] w-full overflow-hidden rounded-[28px] border-[5px] border-ink bg-disabled-bg", className)}>
     {src ? (
@@ -266,23 +262,4 @@ export const CheckboxGroup = ({ id, name, legend, options, error, className }: {
     </div>
     <FieldError id={`${id}-error`}>{error}</FieldError>
   </fieldset>
-);
-
-// ---------- Kept only while the remaining pages move to the new layouts ----------
-
-/** Simple left-aligned page hero on Beige. */
-export const PageHero = ({ badges = [], title, sub, children, media }: {
-  badges?: React.ReactNode[]; title: React.ReactNode; sub?: React.ReactNode; children?: React.ReactNode; media?: React.ReactNode;
-}) => (
-  <section className="py-16 md:py-24">
-    <Wrap>
-      <Rise>
-        {badges.length > 0 && <p className="eyebrow mb-4 flex flex-wrap gap-x-3">{badges.map((b, i) => <span key={i}>{b}</span>)}</p>}
-        <h1 className="h1 max-w-[18ch]">{title}</h1>
-        {sub && <p className="mt-6 max-w-text">{sub}</p>}
-        {children && <div className="mt-8 flex flex-col gap-4 md:flex-row md:items-center">{children}</div>}
-        {media && <div className="mt-12">{media}</div>}
-      </Rise>
-    </Wrap>
-  </section>
 );
