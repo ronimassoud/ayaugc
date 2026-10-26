@@ -215,6 +215,25 @@ export const FAQ = ({ items, className }: { items: { q: string; a: React.ReactNo
   </AccordionPrimitive.Root>
 );
 
+/** 3:4 product cover mock-up: Mint for free products, Beige with an Ink line for paid templates. */
+export const ProductCover = ({ eyebrow, title, tone, className }: { eyebrow: string; title: string; tone: "mint" | "beige"; className?: string }) => (
+  <div
+    role="img"
+    aria-label={`Cover: ${title}`}
+    className={cn(
+      "flex aspect-[3/4] w-full max-w-[360px] flex-col justify-between rounded-lg p-8",
+      tone === "mint" ? "bg-mint" : "border-[1.2px] border-ink bg-beige",
+      className,
+    )}
+  >
+    <div>
+      <p className="eyebrow text-ink">{eyebrow}</p>
+      <p className="h2 mt-4 max-w-[10ch]">{title}</p>
+    </div>
+    <img src={`${import.meta.env.BASE_URL}brand/AYAUGC_Logo_Accent_Pine.svg`} alt="" width={90} height={24} className="h-6 w-auto self-start" />
+  </div>
+);
+
 // ---------- Forms: labels above fields, never placeholder-only ----------
 
 export const controlClass =

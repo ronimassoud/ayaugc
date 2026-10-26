@@ -44,8 +44,14 @@ export const site = {
     budgetBands: ["Under AED [x]", "AED [x] to [y]", "AED [y] to [z]", "Above AED [z]", "Not sure yet"],
     samplePlaceholder: "[Category · format]",
   },
-  templates: { name: "UGC starter templates", price: "AED 79", checkoutUrl: "[Systeme.io templates checkout URL]" },
-  guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]" },
+  templates: {
+    name: "UGC starter templates",
+    price: "AED 79",
+    checkoutUrl: "[Systeme.io templates checkout URL]",
+    formats: "[File formats, e.g. Canva links and editable PDF.]",
+    editAnswer: "[Answer.]",
+  },
+  guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]", contentsNote: "[Aya to confirm contents]" },
 
   // Copy Aya writes in her own words.
   story: {

@@ -16,21 +16,6 @@ const List = ({ items }: { items: string[] }) => (
   <ul className="space-y-3">{items.map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}</ul>
 );
 
-export const FreeGuide = () => (
-  <Layout>
-    <SEO {...meta["/free-guide"]} />
-    <Hero eyebrow="Free guide" title="Your first steps into UGC, free" sub="What UGC is, what brands actually look for, and how to film your first sample this week.">
-      <Btn to={site.guide.optInUrl}>Get the free guide</Btn>
-    </Hero>
-    <Section className="bg-card">
-      <div className="grid gap-10 md:grid-cols-2 md:items-center">
-        <div><H2>Inside the guide</H2><div className="mt-8"><List items={["What brands pay for (and what they don't)", "The phone setup I started with", "3 easy formats to film first", "How to share your first samples"]} /></div></div>
-        <PhoneFrame label="Guide preview" tone={3} className="mx-auto max-w-[240px]" />
-      </div>
-    </Section>
-  </Layout>
-);
-
 export const Templates = () => (
   <Layout>
     <SEO {...meta["/templates"]} />
