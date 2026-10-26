@@ -16,18 +16,6 @@ const List = ({ items }: { items: string[] }) => (
   <ul className="space-y-3">{items.map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}</ul>
 );
 
-export const Contact = () => (
-  <Layout>
-    <SEO {...meta["/contact"]} />
-    <Hero title="Say hello" sub={`For general questions. Brands, please use the quote form on the For brands page. Or email ${site.email}.`} />
-    <section className="pb-24">
-      <Wrap>
-        <ContactForm className="max-w-xl" />
-      </Wrap>
-    </section>
-  </Layout>
-);
-
 const Legal = ({ title, path, sections }: { title: string; path: PagePath; sections: [string, string][] }) => (
   <Layout>
     <SEO {...meta[path]} />

@@ -4,6 +4,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { AlertCircle, Check, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { isPlaceholder, systemeHref } from "@/config/challenge";
+import { btnBase, btnClass, controlClass, type BtnVariant } from "@/components/site/styles";
 
 // Shared building blocks for every page, built on the AYA UGC brand tokens (docs/SITE-SPEC.md section 3).
 
@@ -49,18 +50,6 @@ export const H1 = ({ children, className, display = false }: { children: React.R
 export const H2 = ({ children, className }: { children: React.ReactNode; className?: string }) => (
   <h2 className={cn("h2 max-w-text", className)}>{children}</h2>
 );
-
-export type BtnVariant = "primary" | "secondary" | "link" | "onPine" | "linkOnPine";
-
-const btnBase = "inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-[0.01em] transition-colors duration-brand ease-brand";
-const btnPill = "min-h-12 rounded-pill px-[26px]";
-const btnClass: Record<BtnVariant, string> = {
-  primary: cn(btnPill, "w-full bg-pine text-white hover:bg-pine-hover active:bg-pine-active md:w-auto"),
-  secondary: cn(btnPill, "w-full border-[1.5px] border-ink text-ink hover:bg-ink/5 md:w-auto"),
-  onPine: cn(btnPill, "w-full bg-beige text-ink hover:bg-line md:w-auto"),
-  link: "min-h-11 text-pine underline-offset-4 hover:underline",
-  linkOnPine: "min-h-11 text-beige underline-offset-4 hover:underline",
-};
 
 // Old names, accepted until every page uses the new variants.
 type LegacyVariant = "outline" | "ghost";
@@ -235,9 +224,6 @@ export const ProductCover = ({ eyebrow, title, tone, className }: { eyebrow: str
 );
 
 // ---------- Forms: labels above fields, never placeholder-only ----------
-
-export const controlClass =
-  "w-full min-h-12 rounded-sm border border-brown bg-beige px-4 text-base text-ink focus-visible:border-pine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine aria-[invalid=true]:border-error";
 
 export const FieldError = ({ id, children }: { id: string; children?: React.ReactNode }) =>
   children ? (

@@ -2,7 +2,8 @@ import { FormEvent, useState } from "react";
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { SentMessage } from "@/components/site/contact-form";
-import { Btn, Card, CheckboxGroup, Eyebrow, Field, H1, H2, PhoneFrame, Rise, Section, Steps, Tip, Wrap, controlClass } from "@/components/site/ui";
+import { Btn, Card, CheckboxGroup, Eyebrow, Field, H1, H2, PhoneFrame, Rise, Section, Steps, Tip, Wrap } from "@/components/site/ui";
+import { controlClass, selectClass, selectStyle, submitClass } from "@/components/site/styles";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
 import { isPlaceholder } from "@/config/challenge";
@@ -48,7 +49,7 @@ const QuoteForm = () => {
     const optional = "optional" in f && f.optional;
     const control =
       f.kind === "select" ? (
-        <select name={f.name} defaultValue="" className={`${controlClass} appearance-none bg-[length:20px] bg-[right_1rem_center] bg-no-repeat pe-12`} style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E2A24' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E\")" }}>
+        <select name={f.name} defaultValue="" className={selectClass} style={selectStyle}>
           <option value="" disabled>Choose one</option>
           {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
         </select>
@@ -63,7 +64,7 @@ const QuoteForm = () => {
   return (
     <form noValidate onSubmit={onSubmit} className="space-y-6">
       {q.fields.map(render)}
-      <button type="submit" className="inline-flex min-h-12 w-full items-center justify-center rounded-pill bg-pine px-[26px] font-semibold tracking-[0.01em] text-white transition-colors duration-brand ease-brand hover:bg-pine-hover active:bg-pine-active md:w-auto">
+      <button type="submit" className={submitClass}>
         {q.submit}
       </button>
       <p className="caption">{q.note}</p>
