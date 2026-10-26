@@ -35,6 +35,15 @@ export const site = {
     checkoutUrl: "[Systeme.io checkout URL]",
     waitlistUrl: "[Systeme.io waitlist opt-in URL]",
   },
+  studio: {
+    categories: "[Beauty, skincare, food, home, fashion, tech]",
+    turnaround: "[x working days]",
+    revisions: "[one]",
+    languages: "English, Arabic (Gulf and Levantine) [Aya to confirm dialects]",
+    // [Aya to set bands]
+    budgetBands: ["Under AED [x]", "AED [x] to [y]", "AED [y] to [z]", "Above AED [z]", "Not sure yet"],
+    samplePlaceholder: "[Category · format]",
+  },
   templates: { name: "UGC starter templates", price: "AED 79", checkoutUrl: "[Systeme.io templates checkout URL]" },
   guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]" },
 

@@ -246,10 +246,10 @@ export const Field = ({ id, label, optional = false, error, children, className 
 );
 
 /** A labelled group of checkboxes sharing one name. */
-export const CheckboxGroup = ({ name, legend, options, error, className }: {
-  name: string; legend: string; options: string[]; error?: string; className?: string;
+export const CheckboxGroup = ({ id, name, legend, options, error, className }: {
+  id: string; name: string; legend: string; options: string[]; error?: string; className?: string;
 }) => (
-  <fieldset className={className} aria-describedby={error ? `${name}-error` : undefined}>
+  <fieldset id={id} tabIndex={-1} className={className} aria-describedby={error ? `${id}-error` : undefined}>
     <legend className="mb-2 block text-base font-medium text-ink">{legend}</legend>
     <div className="flex flex-wrap gap-x-6 gap-y-2">
       {options.map((o) => (
@@ -259,7 +259,7 @@ export const CheckboxGroup = ({ name, legend, options, error, className }: {
         </label>
       ))}
     </div>
-    <FieldError id={`${name}-error`}>{error}</FieldError>
+    <FieldError id={`${id}-error`}>{error}</FieldError>
   </fieldset>
 );
 
