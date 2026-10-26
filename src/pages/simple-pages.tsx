@@ -16,29 +16,6 @@ const List = ({ items }: { items: string[] }) => (
   <ul className="space-y-3">{items.map((t) => <li key={t} className="flex gap-3"><Check className="shrink-0 text-primary" />{t}</li>)}</ul>
 );
 
-export const Templates = () => (
-  <Layout>
-    <SEO {...meta["/templates"]} />
-    <Hero eyebrow={site.templates.price} title="The templates I wish I had when I started" sub="Stop guessing. Send brands a professional contract, portfolio and rate card from day one.">
-      <Btn to={site.templates.checkoutUrl}>Get the templates, {site.templates.price}</Btn>
-    </Hero>
-    <Section className="bg-card">
-      <H2>What's in the bundle</H2>
-      <div className="mt-10 grid gap-6 md:grid-cols-4">
-        {[["Contract", "Protect your work and get paid on time."], ["Portfolio", "A clean layout to show your best videos."], ["Rate card", "Clear pricing brands understand."], ["Pitch (bonus)", "A ready-to-send email to win your first deals."]].map(([t, d], i) => (
-          <div key={t}><PhoneFrame tone={i} className="mx-auto max-w-[180px]" /><h3 className="mt-4 text-xl">{t}</h3><p className="text-muted-foreground">{d}</p></div>
-        ))}
-      </div>
-    </Section>
-    <Section>
-      <Card className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div><h3 className="text-2xl">Want me to guide you through using them?</h3><p className="mt-2 text-muted-foreground">The 15-Day Challenge starts {site.challenge.startDate}.</p></div>
-        <Btn to="/challenge" variant="outline">See the challenge</Btn>
-      </Card>
-    </Section>
-  </Layout>
-);
-
 export const About = () => (
   <Layout>
     <SEO {...meta["/about"]} />
