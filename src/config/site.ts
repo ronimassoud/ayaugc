@@ -28,11 +28,20 @@ export const site = {
     startDate: "[start date]",
     closeDate: "[doors-close date]",
     minutesPerDay: "[20 to 30]",
+    portfolioVideos: "[number]",
+    checkInBooking: "[How the check-in is booked, e.g. you'll get a booking link in your welcome email.]",
+    language: "[Language of the ebooks and community.]",
+    graduatePerk: "Strong graduates get priority consideration for upcoming AYA UGC brand campaigns [Aya to confirm wording]",
     checkoutUrl: "[Systeme.io checkout URL]",
     waitlistUrl: "[Systeme.io waitlist opt-in URL]",
   },
   templates: { name: "UGC starter templates", price: "AED 79", checkoutUrl: "[Systeme.io templates checkout URL]" },
   guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]" },
+
+  // Copy Aya writes in her own words.
+  story: {
+    challenge: "[One or two sentences from Aya on how she started.]",
+  },
 
   // Real, consented quotes only (first name and city). Sections that show them stay hidden while this is empty.
   testimonials: [] as Testimonial[],

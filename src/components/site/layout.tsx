@@ -140,7 +140,7 @@ const footerColumns = [
 ];
 
 const Footer = () => (
-  <footer className="bg-pine text-beige">
+  <footer className="border-t border-beige/20 bg-pine text-beige">
     <Wrap className="py-16 md:py-24">
       <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
         <div>
