@@ -39,8 +39,8 @@ const Header = () => {
 
   return (
     <header className={cn("sticky top-0 z-40 border-b bg-beige transition-colors duration-brand ease-brand", scrolled ? "border-line" : "border-transparent")}>
-      <Wrap className="flex h-[72px] items-center justify-between gap-6">
-        <Link to="/" className="shrink-0"><Logo /></Link>
+      <Wrap className="flex h-[72px] items-center justify-between gap-4">
+        <Link to="/" className="inline-flex min-h-11 shrink-0 items-center"><Logo /></Link>
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -49,7 +49,7 @@ const Header = () => {
                 <NavLink
                   to={n.to}
                   className={({ isActive }) => cn(
-                    "inline-flex min-h-11 items-center whitespace-nowrap px-3 font-medium text-ink transition-colors duration-brand hover:text-pine",
+                    "inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-medium text-ink transition-colors duration-brand hover:text-pine xl:px-3",
                     isActive && "text-pine underline decoration-[1.5px] underline-offset-[8px]",
                   )}
                 >
@@ -71,7 +71,7 @@ const Header = () => {
             <Dialog.Content className="fixed inset-0 z-50 flex flex-col bg-beige data-[state=open]:animate-in data-[state=open]:fade-in-0">
               <Dialog.Title className="sr-only">Menu</Dialog.Title>
               <Wrap className="flex h-[72px] shrink-0 items-center justify-between">
-                <Link to="/" onClick={() => setOpen(false)}><Logo /></Link>
+                <Link to="/" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center"><Logo /></Link>
                 <Dialog.Close aria-label="Close menu" className="inline-flex size-11 items-center justify-center text-ink">
                   <X aria-hidden strokeWidth={1.75} className="size-6" />
                 </Dialog.Close>
@@ -144,7 +144,7 @@ const Footer = () => (
     <Wrap className="py-16 md:py-24">
       <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
         <div>
-          <Link to="/" className="inline-block"><Logo onDark /></Link>
+          <Link to="/" className="inline-flex min-h-11 items-center"><Logo onDark /></Link>
           <p className="mt-6 max-w-[32ch]">Content that feels real. Skills that are taught honestly.</p>
         </div>
         <div className="grid gap-10 sm:grid-cols-3">

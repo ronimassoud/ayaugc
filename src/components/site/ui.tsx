@@ -3,28 +3,43 @@ import { Link } from "react-router-dom";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { AlertCircle, Check, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { inViewport } from "@/lib/in-viewport";
 import { isPlaceholder, systemeHref } from "@/config/challenge";
 import { btnBase, btnClass, controlClass, type BtnVariant } from "@/components/site/styles";
 
 // Shared building blocks for every page, built on the AYA UGC brand tokens (docs/SITE-SPEC.md section 3).
 
-/** Content column: max 1200 px, margins 24 mobile / 80 desktop. */
+/** Content column: max 1200 px, margins 24 mobile, 40 tablet, 80 wide desktop. */
 export const Wrap = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <div className={cn("mx-auto w-full max-w-[calc(1200px+160px)] px-6 lg:px-20", className)}>{children}</div>
+  <div className={cn("mx-auto w-full max-w-[calc(1200px+160px)] px-6 md:px-10 xl:px-20", className)}>{children}</div>
 );
 
-/** Fades content up 12 px once it scrolls into view. Reduced-motion users see it immediately. */
+/**
+ * Fades content up 12 px as it scrolls into view. Content is visible by default: only blocks that start
+ * below the fold are held back, and only until they scroll in. Reduced-motion users see everything at once.
+ */
 export const Rise = ({ children, className, as: Tag = "div" }: { children: React.ReactNode; className?: string; as?: React.ElementType }) => {
   const ref = useRef<HTMLElement>(null);
-  const [shown, setShown] = useState(false);
+  const [state, setState] = useState<"idle" | "pending" | "shown">("idle");
   useEffect(() => {
     const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return setShown(true);
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setShown(true); io.disconnect(); } }, { rootMargin: "0px 0px -40px 0px" });
-    io.observe(el);
-    return () => io.disconnect();
+    if (!el) return;
+    if (inViewport(el)) return setState("shown");
+    setState("pending");
+    const check = () => {
+      if (!inViewport(el, 40)) return;
+      setState("shown");
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check);
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
   }, []);
-  return <Tag ref={ref} data-rise="" data-shown={shown || undefined} className={className}>{children}</Tag>;
+  return <Tag ref={ref} data-rise={state} className={className}>{children}</Tag>;
 };
 
 type Tone = "beige" | "pine" | "mint";

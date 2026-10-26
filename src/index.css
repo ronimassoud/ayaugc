@@ -98,16 +98,16 @@
 }
 
 /* Scroll-in motion for <Rise>: headlines and cards rise 12 px and fade in. */
-[data-rise] {
+[data-rise="pending"] {
   opacity: 0;
 }
 
-[data-rise][data-shown] {
+[data-rise="shown"] {
   @apply animate-rise;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-rise] {
+  [data-rise="pending"] {
     opacity: 1 !important;
   }
 

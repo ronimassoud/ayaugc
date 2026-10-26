@@ -4,6 +4,7 @@ import { Clapperboard, LayoutGrid, PenLine, Send, Tag, Target, type LucideIcon }
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { Btn, Card, CheckList, DayBadge, Eyebrow, FAQ, H1, H2, MetaPills, PhoneFrame, Rise, Section, Steps, Tip, Wrap } from "@/components/site/ui";
+import { inViewport } from "@/lib/in-viewport";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
 import { challengeCta } from "@/config/challenge";
@@ -26,16 +27,19 @@ const TermsCaption = ({ close, refund, note, className }: { close: string; refun
   </p>
 );
 
-/** Watches an element and reports whether it is on screen. */
+/** Reports whether an element is on screen, updated on scroll and resize. */
 const useOnScreen = <T extends Element>() => {
   const ref = useRef<T>(null);
   const [onScreen, setOnScreen] = useState(true);
   useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting));
-    io.observe(el);
-    return () => io.disconnect();
+    const update = () => { if (ref.current) setOnScreen(inViewport(ref.current)); };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
   }, []);
   return [ref, onScreen] as const;
 };
