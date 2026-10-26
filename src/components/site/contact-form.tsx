@@ -1,25 +1,30 @@
-import { FormEvent } from "react";
+import { useState } from "react";
+import { Check } from "lucide-react";
 import { site } from "@/config/site";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Field, controlClass } from "@/components/site/ui";
+import { mailtoSubmit } from "@/lib/mailto";
 
-// Shared mailto handler — forms open the visitor's own email app, no backend needed.
-export const mailtoSubmit = (subject: string) => (e: FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  const data = new FormData(e.currentTarget);
-  const body = Array.from(data.entries())
-    .map(([k, v]) => `${k}: ${String(v).trim().slice(0, 2000)}`)
-    .join("\n");
-  window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-};
-
-const ContactForm = ({ subject = "Website message", className = "" }: { subject?: string; className?: string }) => (
-  <form onSubmit={mailtoSubmit(subject)} className={`space-y-4 ${className}`}>
-    <Input required name="Name" maxLength={100} autoComplete="name" placeholder="Your name" className="min-h-12 bg-background text-base" />
-    <Input required type="email" name="Email" maxLength={255} autoComplete="email" placeholder="Your email" className="min-h-12 bg-background text-base" />
-    <Textarea required name="Message" rows={6} maxLength={2000} placeholder="Your message" className="bg-background text-base" />
-    <button className="min-h-12 w-full rounded-[10px] bg-primary px-7 font-medium text-white sm:w-auto">Send message</button>
-  </form>
+/** Pine confirmation shown after the email app opens. */
+export const SentMessage = ({ children }: { children: React.ReactNode }) => (
+  <p role="status" className="mt-4 flex items-start gap-3 font-medium text-pine">
+    <Check aria-hidden strokeWidth={1.75} className="mt-1 size-5 shrink-0" />
+    <span>{children}</span>
+  </p>
 );
+
+const ContactForm = ({ subject = "Website message", className = "" }: { subject?: string; className?: string }) => {
+  const [sent, setSent] = useState(false);
+  return (
+    <form onSubmit={mailtoSubmit(subject, () => setSent(true))} className={`space-y-6 ${className}`}>
+      <Field id="contact-name" label="Your name"><input required name="Name" maxLength={100} autoComplete="name" className={controlClass} /></Field>
+      <Field id="contact-email" label="Email"><input required type="email" name="Email" maxLength={255} autoComplete="email" className={controlClass} /></Field>
+      <Field id="contact-message" label="Message"><textarea required name="Message" rows={6} maxLength={2000} className={`${controlClass} py-3`} /></Field>
+      <button className="inline-flex min-h-12 w-full items-center justify-center rounded-pill bg-pine px-[26px] font-semibold text-white transition-colors duration-brand ease-brand hover:bg-pine-hover active:bg-pine-active md:w-auto">
+        Send a message
+      </button>
+      {sent && <SentMessage>Your email app should be open. Hit send and I'll reply within {site.replyTime}.</SentMessage>}
+    </form>
+  );
+};
 
 export default ContactForm;

@@ -1,4 +1,4 @@
-import { mailtoSubmit } from "@/components/site/contact-form";
+import { mailtoSubmit } from "@/lib/mailto";
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import { PageHero, Btn, Card, Eyebrow, H2, PhoneFrame, Section, Wrap } from "@/components/site/ui";
