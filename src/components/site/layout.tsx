@@ -9,7 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { AnimateOnView } from "@/components/ui/motion/animate-on-view";
 
-const Logo = () => <span className="text-xl font-semibold tracking-tight text-white">aya<span className="text-primary">.ugc</span></span>;
+// Supplied logo artwork only; never retype the wordmark.
+const Logo = ({ onDark = false }: { onDark?: boolean }) => (
+  <img
+    src={`${import.meta.env.BASE_URL}brand/${onDark ? "AYAUGC_Logo_OnDark_Beige-Mint.svg" : "AYAUGC_Logo_Accent_Pine.svg"}`}
+    alt="AYA UGC home"
+    width={121}
+    height={32}
+    className="h-8 w-auto"
+  />
+);
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -87,7 +96,7 @@ const Footer = () => (
       <div className="flex flex-col md:flex-row justify-between gap-10 mb-12">
         <div className="space-y-[60px] max-w-[310px]">
           <div>
-            <Link to="/" className="mb-6 inline-block"><Logo /></Link>
+            <Link to="/" className="mb-6 inline-block"><Logo onDark /></Link>
             <p className="text-muted">UGC that sells for brands, and a clear path for new creators.</p>
           </div>
           <div className="space-y-2.5">
