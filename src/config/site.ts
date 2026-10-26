@@ -53,6 +53,14 @@ export const site = {
   },
   guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]", contentsNote: "[Aya to confirm contents]" },
 
+  // Draft legal text: Aya reviews it before launch.
+  legal: {
+    updated: "[date]",
+    whatsappVisibility: "visible to the community admins and other members [confirm]",
+    challengeRefund: "[Refund window and conditions, e.g. full refund up to day [x] if you've completed the first tasks.]",
+    templatesRefund: "[Refund terms for digital downloads.]",
+  },
+
   // Copy Aya writes in her own words.
   story: {
     home: "[Two or three sentences from Aya in her own words: how she started, what she does now.]",

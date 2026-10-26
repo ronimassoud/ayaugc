@@ -7,7 +7,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/home";
 import Challenge from "./pages/challenge";
 import Brands from "./pages/brands";
-import { Privacy, Refunds, Terms } from "./pages/simple-pages";
+import { Privacy, Refunds, Terms } from "./pages/legal";
 import Contact from "./pages/contact";
 import About from "./pages/about";
 import Templates from "./pages/templates";

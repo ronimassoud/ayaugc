@@ -106,9 +106,9 @@ export const Card = ({ children, className, variant = "studio", clickable = fals
 );
 
 /** Mint panel with an Ink outline. */
-export const Tip = ({ children, label = "Tip", className }: { children: React.ReactNode; label?: string; className?: string }) => (
+export const Tip = ({ children, label = "Tip", className }: { children: React.ReactNode; label?: string | null; className?: string }) => (
   <div className={cn("rounded-lg border-[1.2px] border-ink bg-mint p-6 text-ink", className)}>
-    <p className="eyebrow mb-2 text-ink">{label}</p>
+    {label && <p className="eyebrow mb-2 text-ink">{label}</p>}
     <div className="max-w-text">{children}</div>
   </div>
 );
