@@ -24,7 +24,6 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Separate vendor chunks for better caching
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['framer-motion', 'lottie-react'],
           'radix-vendor': [
             '@radix-ui/react-accordion',
             '@radix-ui/react-dialog',
