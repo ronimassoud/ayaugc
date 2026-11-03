@@ -45,11 +45,14 @@ export const Rise = ({ children, className, as: Tag = "div" }: { children: React
 type Tone = "beige" | "pine" | "mint";
 const toneClass: Record<Tone, string> = { beige: "bg-beige text-ink", pine: "bg-pine text-beige", mint: "bg-mint text-ink" };
 
-/** Page section: 72 to 96 px vertical rhythm. */
+/**
+ * Page section. Beige sections stack with 72 px (mobile) to 96 px (desktop) between their content, per the
+ * brand's section gap; Pine and Mint bands get more inner room because their edges are visible.
+ */
 export const Section = ({ children, className, id, tone = "beige", wrapClassName }: {
   children: React.ReactNode; className?: string; id?: string; tone?: Tone; wrapClassName?: string;
 }) => (
-  <section id={id} className={cn("scroll-mt-24 py-[72px] md:py-24", toneClass[tone], className)}>
+  <section id={id} className={cn("scroll-mt-24", tone === "beige" ? "py-9 md:py-12" : "py-16 md:py-24", toneClass[tone], className)}>
     <Wrap className={wrapClassName}><Rise>{children}</Rise></Wrap>
   </section>
 );
@@ -79,11 +82,13 @@ type BtnProps = {
 };
 
 export const Btn = ({ to, children, variant = "primary", className, systeme = false, stretched = false, onClick }: BtnProps) => {
-  const cls = cn(btnBase, btnClass[variant], stretched && "after:absolute after:inset-0 after:rounded-card", className);
+  const cls = cn(btnBase, btnClass[variant], stretched && "after:absolute after:inset-0 after:rounded-card focus-visible:outline-none", className);
   const inner = (
     <>
       {children}
-      {(variant === "link" || variant === "linkOnPine") && <span aria-hidden className="rtl:-scale-x-100">›</span>}
+      {(variant === "link" || variant === "linkOnPine") && (
+        <span aria-hidden className="inline-block transition-transform duration-brand ease-brand group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5">›</span>
+      )}
     </>
   );
   const href = systeme ? systemeHref(to) : isPlaceholder(to) ? null : to;
@@ -107,7 +112,7 @@ export const Card = ({ children, className, variant = "studio", clickable = fals
     className={cn(
       "rounded-card p-6 md:p-8",
       variant === "studio" ? "border border-line" : "bg-mint text-ink",
-      clickable && "relative transition-colors duration-brand ease-brand focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-2 focus-within:outline-mint",
+      clickable && "relative transition-[border-color,background-color,transform] duration-brand ease-brand hover:-translate-y-0.5 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-pine",
       clickable && (variant === "studio" ? "hover:border-pine" : "hover:bg-mint-hover"),
       className,
     )}
@@ -143,7 +148,7 @@ export const PhoneFrame = ({ label, src, poster, captions, className }: {
     ) : (
       <div role="img" aria-label={label ? `${label} (photo coming soon)` : "Video coming soon"} className="h-full w-full" />
     )}
-    {label && !src && <figcaption className="caption absolute inset-x-3 bottom-4 text-center">{label}</figcaption>}
+    {label && !src && <figcaption className="caption absolute inset-x-1.5 bottom-3 text-center [overflow-wrap:anywhere] md:inset-x-3 md:bottom-4">{label}</figcaption>}
   </figure>
 );
 
@@ -157,7 +162,7 @@ const dayClass: Record<DayState, string> = {
 /** "DAY 07" pill. Done = Pine, today = Mint with an Ink ring, ahead = Warm Line ring. */
 export const DayBadge = ({ day, state = "ahead", className }: { day: number; state?: DayState; className?: string }) => (
   <span aria-label={`Day ${day}`} className={cn("inline-flex shrink-0 items-baseline gap-1.5 rounded-pill px-3 py-0.5", dayClass[state], className)}>
-    <span aria-hidden className="text-[11px] font-semibold tracking-[0.16em]">DAY</span>
+    <span aria-hidden className="text-[12px] font-semibold tracking-[0.14em]">DAY</span>
     <span aria-hidden className={cn("font-display text-[22px] italic leading-none", state === "ahead" && "text-pine")}>{String(day).padStart(2, "0")}</span>
   </span>
 );
@@ -178,7 +183,7 @@ export const CheckList = ({ items, icon = "check", className }: { items: React.R
 
 /** Numbered steps with serif Pine numbers (01, 02...). */
 export const Steps = ({ items, className }: { items: { title: string; body?: React.ReactNode }[]; className?: string }) => (
-  <ol className={cn("grid gap-8 md:grid-cols-2 lg:grid-cols-4", className)}>
+  <ol className={cn("stagger grid gap-8 md:grid-cols-2 lg:grid-cols-4", className)}>
     {items.map((s, i) => (
       <li key={s.title}>
         <span className="num block text-[44px] leading-none">{String(i + 1).padStart(2, "0")}</span>
@@ -202,7 +207,7 @@ export const FAQ = ({ items, className }: { items: { q: string; a: React.ReactNo
     {items.map(({ q, a }) => (
       <AccordionPrimitive.Item key={q} value={q} className="border-b border-line">
         <AccordionPrimitive.Header>
-          <AccordionPrimitive.Trigger className="flex min-h-14 w-full items-center justify-between gap-6 py-4 text-start text-[17px] font-semibold md:text-lg [&[data-state=open]>svg]:rotate-45">
+          <AccordionPrimitive.Trigger className="flex min-h-14 w-full items-center justify-between gap-6 py-4 text-start text-[17px] font-semibold transition-colors duration-brand hover:text-pine md:text-lg [&[data-state=open]>svg]:rotate-45">
             {q}
             <Plus aria-hidden strokeWidth={1.75} className="size-6 shrink-0 text-pine transition-transform duration-brand ease-brand" />
           </AccordionPrimitive.Trigger>

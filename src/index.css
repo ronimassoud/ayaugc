@@ -39,9 +39,25 @@
     line-height: 1.6;
   }
 
+  /* Pine focus ring reads on Beige and Mint (6.5:1); Mint takes over on Pine surfaces. */
   :focus-visible {
-    outline: 3px solid theme("colors.mint.DEFAULT");
+    outline: 2px solid theme("colors.pine.DEFAULT");
     outline-offset: 2px;
+  }
+
+  .bg-pine :focus-visible {
+    outline-color: theme("colors.mint.DEFAULT");
+  }
+
+  html {
+    /* Anchored sections clear the 72 px sticky header. */
+    scroll-padding-top: 88px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 }
 
@@ -97,6 +113,15 @@
   }
 }
 
+/* Horizontal scrollers (proof strip on phones) keep native swipe but hide the bar. */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Scroll-in motion for <Rise>: headlines and cards rise 12 px and fade in. */
 [data-rise="pending"] {
   opacity: 0;
@@ -105,6 +130,17 @@
 [data-rise="shown"] {
   @apply animate-rise;
 }
+
+/* Cards and list items in a .stagger group follow the section in, 60 ms apart. */
+[data-rise="shown"] .stagger > * {
+  @apply animate-rise;
+}
+
+[data-rise="shown"] .stagger > :nth-child(2) { animation-delay: 60ms; }
+[data-rise="shown"] .stagger > :nth-child(3) { animation-delay: 120ms; }
+[data-rise="shown"] .stagger > :nth-child(4) { animation-delay: 180ms; }
+[data-rise="shown"] .stagger > :nth-child(5) { animation-delay: 240ms; }
+[data-rise="shown"] .stagger > :nth-child(n + 6) { animation-delay: 300ms; }
 
 @media (prefers-reduced-motion: reduce) {
   [data-rise="pending"] {

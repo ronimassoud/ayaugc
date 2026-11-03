@@ -49,8 +49,9 @@ const Header = () => {
                 <NavLink
                   to={n.to}
                   className={({ isActive }) => cn(
-                    "inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-medium text-ink transition-colors duration-brand hover:text-pine xl:px-3",
-                    isActive && "text-pine underline decoration-[1.5px] underline-offset-[8px]",
+                    "relative inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-medium text-ink transition-colors duration-brand ease-brand hover:text-pine xl:px-3",
+                    "after:absolute after:inset-x-2.5 after:bottom-1.5 after:h-[1.5px] after:origin-left after:scale-x-0 after:bg-pine after:transition-transform after:duration-brand after:ease-brand hover:after:scale-x-100 xl:after:inset-x-3 rtl:after:origin-right",
+                    isActive && "text-pine after:scale-x-100",
                   )}
                 >
                   {n.label}
@@ -68,7 +69,7 @@ const Header = () => {
             <Menu aria-hidden strokeWidth={1.75} className="size-6" />
           </Dialog.Trigger>
           <Dialog.Portal>
-            <Dialog.Content className="fixed inset-0 z-50 flex flex-col bg-beige data-[state=open]:animate-in data-[state=open]:fade-in-0">
+            <Dialog.Content className="fixed inset-0 z-50 flex flex-col bg-beige duration-brand data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-2 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-top-2">
               <Dialog.Title className="sr-only">Menu</Dialog.Title>
               <Wrap className="flex h-[72px] shrink-0 items-center justify-between">
                 <Link to="/" onClick={() => setOpen(false)} className="inline-flex min-h-11 items-center"><Logo /></Link>
@@ -84,7 +85,7 @@ const Header = () => {
                         <NavLink
                           to={n.to}
                           onClick={() => setOpen(false)}
-                          className={({ isActive }) => cn("h3 flex min-h-14 items-center", isActive ? "text-pine" : "text-ink")}
+                          className={({ isActive }) => cn("h3 flex min-h-14 items-center transition-colors duration-brand hover:text-pine", isActive ? "text-pine" : "text-ink")}
                         >
                           {n.label}
                         </NavLink>
@@ -139,9 +140,10 @@ const footerColumns = [
   { title: "AYA UGC", links: [{ label: "About", to: "/about" }, { label: "Contact", to: "/contact" }, { label: "Equipment list", to: site.equipmentUrl }] },
 ];
 
-const Footer = () => (
+/** `stickyBarSpace` leaves room under the footer for a page's mobile sticky bar so it never covers the last links. */
+const Footer = ({ stickyBarSpace = false }: { stickyBarSpace?: boolean }) => (
   <footer className="border-t border-beige/20 bg-pine text-beige">
-    <Wrap className="py-16 md:py-24">
+    <Wrap className={cn("py-16 md:py-24", stickyBarSpace && "pb-[136px] md:pb-24")}>
       <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
         <div>
           <Link to="/" className="inline-flex min-h-11 items-center"><Logo onDark /></Link>
@@ -175,11 +177,12 @@ const Footer = () => (
 );
 
 /** Page shell: sticky header, optional announcement band, footer. */
-const Layout = ({ children, band = false }: { children: React.ReactNode; band?: boolean }) => {
+const Layout = ({ children, band = false, stickyBar = false }: { children: React.ReactNode; band?: boolean; stickyBar?: boolean }) => {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
-    else window.scrollTo(0, 0);
+    // A new page starts at the top straight away; smooth scrolling is only for in-page anchors.
+    else window.scrollTo({ top: 0, behavior: "instant" as ScrollBehavior });
   }, [pathname, hash]);
   return (
     <>
@@ -189,7 +192,7 @@ const Layout = ({ children, band = false }: { children: React.ReactNode; band?: 
       <Header />
       {band && <AnnouncementBand />}
       <main id="main">{children}</main>
-      <Footer />
+      <Footer stickyBarSpace={stickyBar} />
     </>
   );
 };

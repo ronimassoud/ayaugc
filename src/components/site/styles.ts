@@ -4,18 +4,18 @@ import { cn } from "@/lib/utils";
 
 export type BtnVariant = "primary" | "secondary" | "link" | "onPine" | "linkOnPine";
 
-export const btnBase = "inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-[0.01em] transition-colors duration-brand ease-brand";
-export const btnPill = "min-h-12 rounded-pill px-[26px]";
+export const btnBase = "group inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-[0.01em] transition-[color,background-color,border-color,transform] duration-brand ease-brand";
+export const btnPill = "min-h-12 rounded-pill px-[26px] active:translate-y-px";
 export const btnClass: Record<BtnVariant, string> = {
-  primary: cn(btnPill, "w-full bg-pine text-white hover:bg-pine-hover active:bg-pine-active md:w-auto"),
+  primary: cn(btnPill, "w-full bg-pine text-white hover:bg-pine-hover active:bg-pine-active focus-visible:bg-pine-active focus-visible:outline-[3px] focus-visible:outline-offset-0 focus-visible:outline-mint md:w-auto"),
   secondary: cn(btnPill, "w-full border-[1.5px] border-ink text-ink hover:bg-ink/5 md:w-auto"),
-  onPine: cn(btnPill, "w-full bg-beige text-ink hover:bg-line md:w-auto"),
+  onPine: cn(btnPill, "w-full bg-beige text-ink hover:bg-line focus-visible:outline-mint md:w-auto"),
   link: "min-h-11 text-pine underline-offset-4 hover:underline",
-  linkOnPine: "min-h-11 text-beige underline-offset-4 hover:underline",
+  linkOnPine: "min-h-11 text-beige underline-offset-4 hover:underline focus-visible:outline-mint",
 };
 
 export const controlClass =
-  "w-full min-h-12 rounded-sm border border-brown bg-beige px-4 text-base text-ink focus-visible:border-pine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine aria-[invalid=true]:border-error";
+  "w-full min-h-12 rounded-sm border border-brown bg-beige px-4 text-base text-ink transition-colors duration-brand ease-brand hover:border-ink focus-visible:border-pine focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pine aria-[invalid=true]:border-error";
 
 /** Native select with an outline chevron at the end of the field. */
 export const selectClass = cn(controlClass, "appearance-none bg-[length:20px] bg-[right_1rem_center] bg-no-repeat pe-12 rtl:bg-[left_1rem_center]");

@@ -101,7 +101,7 @@ const Brands = () => (
     {/* 7.2 Recent work: placeholders until real clips arrive with written permission. */}
     <Section id="work">
       <H2>{t.work.title}</H2>
-      <ul className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+      <ul className="stagger mt-10 grid max-w-[880px] grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
         {Array.from({ length: t.work.samples }, (_, i) => (
           <li key={i}>
             <PhoneFrame />
@@ -115,7 +115,7 @@ const Brands = () => (
     {/* 7.3 What I do */}
     <Section>
       <H2>{t.services.title}</H2>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="stagger mt-10 grid gap-6 md:grid-cols-3">
         {t.services.items.map((s) => (
           <Card key={s.title}>
             <h3 className="h4">{s.title}</h3>

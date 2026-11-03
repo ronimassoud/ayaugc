@@ -7,7 +7,7 @@ const LaneCards = () => {
   return (
     <>
       <H2>{t.title}</H2>
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
+      <div className="stagger mt-10 grid gap-6 md:grid-cols-2">
         <Card clickable>
           <Eyebrow>{t.studio.eyebrow}</Eyebrow>
           <h3 className="h3">{t.studio.title}</h3>

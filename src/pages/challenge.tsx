@@ -52,7 +52,7 @@ const Challenge = () => {
   let day = 0;
 
   return (
-    <Layout>
+    <Layout stickyBar>
       <SEO {...meta["/challenge"]} />
 
       {/* 6.1 Hero: offer, date and price on one phone screen. */}
@@ -75,7 +75,7 @@ const Challenge = () => {
       {/* 6.2 The problem */}
       <Section>
         <H2>{t.problem.title}</H2>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
+        <div className="stagger mt-8 grid gap-6 md:grid-cols-3">
           {t.problem.quotes.map((q) => (
             <Card key={q}><p className="text-[20px] font-semibold leading-snug">{q}</p></Card>
           ))}
@@ -86,7 +86,7 @@ const Challenge = () => {
       {/* 6.3 What you'll have by Day 15 */}
       <Section>
         <H2>{t.outcomes.title}</H2>
-        <ul className="mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="stagger mt-10 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
           {t.outcomes.items.map((o) => {
             const Icon = outcomeIcons[o.icon];
             return (
@@ -104,7 +104,7 @@ const Challenge = () => {
       <Section id="days">
         <H2>{t.days.title}</H2>
         <p className="supporting mt-3 max-w-text">{t.days.intro}</p>
-        <div className="mt-10 grid gap-12 lg:grid-cols-3 lg:gap-8">
+        <div className="stagger mt-10 grid gap-12 lg:grid-cols-3 lg:gap-8">
           {t.days.phases.map((phase) => (
             <div key={phase.name}>
               <h3 className="eyebrow border-b border-line pb-3">{phase.name}</h3>
@@ -153,7 +153,7 @@ const Challenge = () => {
 
       {/* 6.7 For you / not for you */}
       <Section>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="stagger grid gap-6 md:grid-cols-2">
           <Card>
             <h2 className="h3">{t.fit.yes.title}</h2>
             <CheckList items={t.fit.yes.items} className="mt-6" />

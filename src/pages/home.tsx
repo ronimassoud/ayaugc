@@ -41,7 +41,7 @@ const Home = () => {
       <section className="border-y border-line py-12">
         <Wrap>
           <p className="caption text-center">{t.proof.caption}</p>
-          <ul className="-mx-6 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2 md:mx-0 md:grid md:grid-cols-6 md:overflow-visible md:px-0">
+          <ul className="no-scrollbar stagger -mx-6 mt-8 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 md:mx-auto md:grid md:max-w-[960px] md:grid-cols-6 md:overflow-visible md:px-0">
             {t.proof.categories.map((cat) => (
               <li key={cat} className="w-[calc((100%-2rem)/3)] shrink-0 snap-start md:w-auto">
                 <PhoneFrame label={cat} />
@@ -87,7 +87,7 @@ const Home = () => {
       <Section>
         <Eyebrow>{t.brands.eyebrow}</Eyebrow>
         <H2>{t.brands.title}</H2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
+        <div className="stagger mt-10 grid gap-6 md:grid-cols-3">
           {t.brands.services.map((s) => (
             <Card key={s.title}>
               <h3 className="h4">{s.title}</h3>
@@ -102,7 +102,7 @@ const Home = () => {
       {/* 5.6 About Aya */}
       <Section>
         <div className="grid items-center gap-12 md:grid-cols-[1fr_1.4fr]">
-          <div role="img" aria-label={`${t.about.portrait} (photo coming soon)`} className="relative aspect-[4/5] max-w-[420px] rounded-card bg-disabled-bg">
+          <div role="img" aria-label={`${t.about.portrait} (photo coming soon)`} className="relative aspect-[4/5] w-full max-w-[360px] rounded-card bg-disabled-bg">
             <span className="caption absolute inset-x-4 bottom-4 text-center">{t.about.portrait}</span>
           </div>
           <div>
@@ -117,7 +117,7 @@ const Home = () => {
       {/* 5.7 Free resources: two secondary buttons, no primary. */}
       <Section>
         <H2>{t.resources.title}</H2>
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="stagger mt-10 grid gap-6 md:grid-cols-2">
           {[{ ...t.resources.guide, to: "/free-guide" }, { ...t.resources.templates, to: "/templates" }].map((r) => (
             <Card key={r.to} variant="school" clickable>
               <Eyebrow className="text-ink">{r.eyebrow}</Eyebrow>

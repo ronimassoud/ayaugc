@@ -29,7 +29,7 @@ const Templates = () => (
 
     <Section>
       <H2>{t.bundle.title}</H2>
-      <ul className="mt-10 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
+      <ul className="stagger mt-10 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-4">
         {t.bundle.items.map((item) => (
           <Card key={item.title} as="li" className="p-4 md:p-6">
             <div role="img" aria-label={`${item.title} preview (coming soon)`} className="aspect-[3/4] rounded-sm bg-disabled-bg" />

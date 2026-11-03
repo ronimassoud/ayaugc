@@ -18,7 +18,7 @@ const About = () => (
             <H1>{t.hero.title}</H1>
             <p className="mt-6 max-w-text">{t.hero.body}</p>
           </div>
-          <div role="img" aria-label={`${t.hero.portrait} (photo coming soon)`} className="relative mx-auto aspect-[4/5] w-full max-w-[400px] rounded-card bg-disabled-bg md:mx-0 md:justify-self-end">
+          <div role="img" aria-label={`${t.hero.portrait} (photo coming soon)`} className="relative mx-auto aspect-[4/5] w-full max-w-[360px] rounded-card bg-disabled-bg md:mx-0 md:justify-self-end">
             <span className="caption absolute inset-x-4 bottom-4 text-center">{t.hero.portrait}</span>
           </div>
         </Rise>
@@ -41,7 +41,7 @@ const About = () => (
 
     <Section>
       <H2>{t.values.title}</H2>
-      <ul className="mt-8 max-w-3xl divide-y divide-line border-y border-line">
+      <ul className="stagger mt-8 max-w-3xl divide-y divide-line border-y border-line">
         {t.values.items.map((v) => (
           <li key={v.title} className="grid gap-1 py-5 md:grid-cols-[16rem_1fr] md:gap-8">
             <h3 className="h4">{v.title}</h3>
