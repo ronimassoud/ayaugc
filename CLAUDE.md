@@ -2,7 +2,7 @@
 
 Project brief for anyone (human or Claude) designing, writing or building the AYA UGC website. It collects what was learned while auditing the old site, rebuilding it, and planning the 15-Day Challenge launch, so a new site structure can start from here instead of from scratch.
 
-**Sources of truth, in order:** (1) decisions recorded in this file, (2) the brand guidelines `brand/AYA UGC - Brand Guidelines.pdf` and tokens in `brand/AYA UGC - Brand Assets.zip` (v1.0, October 2026), (3) the current code. Where the code disagrees with the brand guidelines, the code is out of date.
+**Sources of truth, in order:** (1) decisions recorded in this file, (2) the brand guidelines `brand/AYA UGC - Brand Guidelines.pdf` and tokens in `brand/AYA UGC - Brand Assets.zip` (v1.0, October 2026), (3) `docs/SITE-SPEC.md`, the page-by-page structure and copy the current site was built from, (4) the current code. Where the code disagrees with any of these, the code is out of date.
 
 ## 1. Project goal
 
@@ -71,7 +71,7 @@ Two lanes from the first screen, the challenge as the creators' lead offer, ever
 | Privacy, Terms, Refunds | `/privacy`, `/terms`, `/refunds` | Both | Trust at checkout | None |
 
 - Keep legacy URLs working: `/ugc-guide` → `/free-guide`, `/template` → `/templates` (they existed on the old Systeme.io site and may be shared).
-- **Navigation:** logo top left, five links (For brands · 15-Day Challenge · Free guide · Templates · About), one Pine "Join the challenge" button right; sticky on scroll. Mobile: logo plus a 44 px menu button. Labels never wrap onto two lines.
+- **Navigation:** logo top left, five links (For brands · 15-Day Challenge · Free guide · Templates · About), one Pine button right; sticky on scroll. The button follows the challenge status ("Join the waitlist", "Join early", "Join the challenge") and reads "Request a quote" on `/brands`. The full desktop menu shows from 1024 px; below that, logo plus a 44 px menu button. Labels never wrap onto two lines.
 - **Footer:** always Pine with the on-dark logo, contact email, Instagram, equipment list, Privacy, Terms, Refunds.
 - **Home, section by section:** hero (who Aya is, the two lanes, challenge strip with date and price) → proof strip of 9:16 phone-frame samples → two-lane chooser (Studio outlined card, School Mint card) → challenge feature (what you'll have by Day 15) → brands teaser (services, four-step process) → about Aya → free resources (guide and templates) → testimonials only once real ones exist.
 - **Challenge page:** hero with offer, date and price on one mobile screen → the problem in the reader's words → what you'll have by Day 15 → the 15 days in three phases → how it works (daily ebook, WhatsApp community, 1:1 check-in, time per day) → meet Aya → for you / not for you → proof (only real, consented) → price and inclusions → FAQ → final CTA with "Not ready? Send me the free guide". Sticky "Join" bar on mobile.
@@ -80,7 +80,7 @@ Two lanes from the first screen, the challenge as the creators' lead offer, ever
 
 ## 6. Design system (brand guidelines v1.0)
 
-The current code still uses the purchased template's look (olive `#848B52`, Inter Tight, black hero, gradient and glow tokens named `revio-*`). **Replace it with these tokens.** Full values are in `brand/.../Design tokens/tokens.css` and `tokens.json`.
+The site is built on these tokens: they live in `tailwind.config.ts` (colour, font, radius, motion and width names) and `src/index.css` (type scale classes `.display .h1 .h2 .h3 .h4 .supporting .eyebrow .caption .num`). Pages use the token names (`bg-beige`, `text-pine`, `rounded-card`...), never hex values. The purchased template's look (olive `#848B52`, Inter Tight, `revio-*` colours, gradients, glows, shadows) has been removed; do not bring any of it back. Source values are in `brand/.../Design tokens/tokens.css` and `tokens.json`.
 
 ### Colour
 | Token | Hex | Role |
@@ -111,6 +111,13 @@ The current code still uses the purchased template's look (olive `#848B52`, Inte
 - Motion: ease-out `cubic-bezier(0.2,0.7,0.2,1)`, 200 to 300 ms, headlines rise 12 px and fade, no bounce; respect reduced motion.
 - Accessibility: text 16 px minimum, touch targets 44 px+, visible focus, alt text on every image, captions on every video, works at 375 px wide.
 
+### How the site implements this
+- **Section rhythm:** `<Section>` gives Beige sections 72 px (mobile) to 96 px (desktop) between their content; Pine and Mint bands get more inner padding. Don't add one-off section padding.
+- **Focus:** a 2 px Pine outline on Beige and Mint, Mint on Pine surfaces; Pine buttons get the brand's Mint ring drawn flush (offset 0) so it contrasts with the button. Whole-card links (`Card clickable` + `Btn stretched`) outline the card.
+- **Motion:** `<Rise>` fades a section up as it scrolls in (content is visible by default; only blocks below the fold wait). Add the `stagger` class to a grid or list so its children follow 60 ms apart. Buttons dip 1 px on press, link arrows nudge on hover, clickable cards lift 2 px, nav links grow an underline, the mobile menu fades and slides. All of it switches off under reduced motion.
+- **Scrolling:** in-page anchors scroll smoothly and stop clear of the 72 px sticky header; a new page starts at the top instantly.
+- **Placeholder media:** grey 9:16 `PhoneFrame`s and 4:5 portrait boxes with a caption until Aya's own photos and video arrive. Wide-screen widths are capped (proof row 960 px, brand samples 880 px, portraits 360 px) so placeholders don't dominate.
+
 ### Logo
 - Always use the supplied files in `brand/.../Logo/`; never retype the wordmark. Primary Ink + Pine on light, Beige + Mint on dark (`OnDark`), `Accent_Pine` for the website header, compact mark for avatars, favicon file for under 32 px. Top left on web pages. Minimum 90 px wide on screen.
 
@@ -133,25 +140,35 @@ The current code still uses the purchased template's look (olive `#848B52`, Inte
 - **Deep links and previews:** a static host needs a real HTML file per route, or inner pages return 404 and WhatsApp/Instagram link previews break. `scripts/prerender-meta.ts` writes one per route from `src/config/seo.ts`. Keep page titles and descriptions in that one file. A share image (og:image) is still missing and needs a real photo or brand graphic.
 - **Removed on purpose:** the AI "Find your path" page and its edge function. Do not reintroduce it.
 - **Menu labels** must stay on one line at every width; with more than five links the desktop menu no longer fits at 1024 px.
-- **Placeholders** live in `src/config/site.ts` so they change in one place. Still needed from Aya: challenge price, start and doors-close dates, contact email (guidelines show `contact@ayaugc.com`; the site still shows `[hello@ayaugc.com]`), Systeme.io checkout, templates and opt-in URLs, equipment list link, her story, real photos and video samples, and review of the draft legal text.
+- **Placeholders** live in `src/config/site.ts` so they change in one place; pages never hard-code a bracketed value. Still needed from Aya: challenge price, early-bird price and dates, start and doors-close dates, contact email (the site shows `[contact@ayaugc.com]` until she confirms it), reply time, Systeme.io checkout, waitlist, templates and opt-in URLs, equipment list link, her story (Home, Challenge, About), brand turnaround, revisions, categories, dialects and budget bands, portfolio video count, how the 1:1 check-in is booked, challenge language, guide contents, template formats, refund terms, real photos and video samples, and review of the draft legal text.
+- **Placeholder links stay inert:** a button whose URL is still `[bracketed]` renders normally but goes nowhere (hover shows "Link coming soon"). Setting `site.challenge.status` (`waitlist`, `early-bird`, `open`, `closed`) changes every challenge button's label and target at once.
+- **Vite on Windows** sometimes misses a file change made right after another (branch switches, quick multi-file edits) and keeps serving the old version. If the preview looks wrong but the build is fine, restart the dev server.
+- **Local ignore rules need a leading slash:** `brand/` in `.git/info/exclude` once also matched `public/brand/`, so the logo files never got committed and the live logos 404'd. Private folders are excluded as `/brand/`, `/proposal/` and `/ebooks/`.
 - **Privacy:** the policy must mention the WhatsApp community (members' numbers are visible to admins) and the UTM campaign counter.
 
 ## 9. Current codebase
 
-- Vite, React 18, TypeScript, Tailwind 3, shadcn/ui (Radix), react-router 6, react-helmet-async. Originally exported from Lovable; Supabase (Lovable Cloud) only stores anonymous campaign visits.
-- Key files:
-  - `src/config/site.ts`: all site facts, prices, dates, links and placeholders.
-  - `src/config/seo.ts`: title and description per page.
-  - `src/components/site/layout.tsx`: header, mobile menu, CTA band, footer.
-  - `src/components/site/ui.tsx`: shared primitives (`Wrap`, `Section`, `Eyebrow`, `H2`, `Btn`, `PhoneFrame`, `Card`, `PageHero`).
-  - `src/pages/`: `home.tsx`, `challenge.tsx`, `brands.tsx`, `simple-pages.tsx` (Free guide, Templates, About, Contact, legal), `not-found.tsx`.
-  - `src/components/campaign-tracker.tsx`: records `utm_source=instagram|pinterest` visits.
-  - `src/index.css`, `tailwind.config.ts`: design tokens (to be replaced with the brand tokens).
-- Forms (brand quote, contact) open the visitor's email app via `mailto`; no backend at launch.
+- Vite, React 18, TypeScript, Tailwind 3, Radix (via a few shadcn/ui files), react-router 6, react-helmet-async, lucide-react icons. Originally exported from Lovable; Supabase (Lovable Cloud) only stores anonymous campaign visits. No animation library: motion is CSS plus the small `Rise` component.
+- **Config** (`src/config/`):
+  - `site.ts`: every site fact, price, date, link and `[placeholder]`, the challenge `status`, Aya's story text, legal placeholders, testimonials (empty until real) and the five `nav` links.
+  - `challenge.ts`: `challengeCta()` maps the status to each challenge button's label, Systeme.io URL and price line; `systemeHref()` carries `utm_*` params through to Systeme.io; `isPlaceholder()`.
+  - `seo.ts`: title and description per page (no em dashes; read by `<SEO>` and by `scripts/prerender-meta.ts`).
+- **Copy** (`src/content/`): one file per page (`home.ts`, `challenge.ts`, `brands.ts`, `free-guide.ts`, `templates.ts`, `about.ts`, `contact.ts`, `legal.ts`, `not-found.ts`). Pages are layout only and read their words from here, so an Arabic file can sit beside each later. Facts come from `site.ts`, never typed into copy.
+- **Pages** (`src/pages/`): `home.tsx`, `challenge.tsx`, `brands.tsx`, `free-guide.tsx`, `templates.tsx`, `about.tsx`, `contact.tsx`, `legal.tsx` (Privacy, Terms, Refunds), `not-found.tsx`. Routes and the legacy redirects are in `src/App.tsx`.
+- **Components** (`src/components/site/`):
+  - `ui.tsx`: brand primitives: `Wrap`, `Section`, `Rise`, `Eyebrow`, `H1`, `H2`, `Btn` (`primary`, `secondary`, `link`, `onPine`, `linkOnPine`; `systeme` and `stretched` props), `Card` (`studio` or `school`, `clickable`), `Tip`, `Takeaway`, `PhoneFrame`, `DayBadge`, `CheckList`, `Steps`, `MetaPills`, `FAQ`, `ProductCover`, `Field`, `CheckboxGroup`, `FieldError`.
+  - `styles.ts`: shared class strings (button variants, form controls, select, submit button).
+  - `layout.tsx`: sticky header, mobile menu, announcement band (pages opt in with `<Layout band>`), Pine footer; `<Layout stickyBar>` leaves room for the challenge page's mobile sticky bar.
+  - `lane-cards.tsx`: the Studio and School cards on Home and About. `contact-form.tsx`: the contact form and the shared sent message.
+- `src/components/campaign-tracker.tsx`: records `utm_source=instagram|pinterest` visits. `src/components/seo.tsx`: per-page head tags.
+- `src/lib/`: `mailto.ts` (form-to-email helpers), `in-viewport.ts`, `utils.ts` (`cn`).
+- `public/brand/`: the four supplied logo SVGs (header, footer, compact mark, favicon). `src/components/ui/` keeps a handful of shadcn files from the scaffold; most are unused.
+- Forms (brand quote, contact) validate inline, then open the visitor's email app via `mailto`; nothing is stored. No backend at launch.
 - Hosting: GitHub Pages at https://ronimassoud.github.io/ayaugc/ from `.github/workflows/deploy.yml` on every push to `main`. The site is served under `/ayaugc/`, so asset paths use `import.meta.env.BASE_URL` and the router uses it as `basename`; at the real domain it builds at `/`.
-- Commands: `npm install`, `npm run dev` (port 8080; the predev sitemap step needs Bun, or run `npx vite` directly), `npm run build` (also runs the sitemap and per-route HTML scripts), `npx tsc -p tsconfig.app.json --noEmit`, `npm run lint`.
+- Commands: `npm install`, `npm run dev` (port 8080; the predev sitemap step needs Bun, or run `npx vite` directly), `npm run build` (also runs the sitemap and per-route HTML scripts), `npx tsc -p tsconfig.app.json --noEmit`, `npm run lint` (one known error sits in Lovable's generated `src/integrations/supabase/previewAuthStorage.ts`; leave that file alone).
 - Local env: `.env.local` needs `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY`, or the app shows a blank page.
-- The repository is **public**. Never commit pricing proposals, client documents or secrets. The `brand/` folder and `proposal/` folder are not committed.
+- Pushing: the repo belongs to the `ronimassoud` GitHub account. If `git push` returns 403, the GitHub CLI's active account has changed; run `gh auth switch --user ronimassoud`.
+- The repository is **public**. Never commit pricing proposals, client documents, ebooks or secrets. The `brand/`, `proposal/` and `ebooks/` folders stay out of git.
 
 ## 10. Before publishing any page
 
