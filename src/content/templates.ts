@@ -30,7 +30,7 @@ export const templatesContent = {
   ],
   next: {
     title: "Want help using them?",
-    body: "Pricing, contracts and pitching are Days 9 to 13 of the 15-Day Challenge.",
+    body: "Pricing, contracts and pitching are Days 9 to 13 of the 15-Day Challenge.",
     link: "See the challenge",
   },
 };

@@ -5,11 +5,12 @@ import { cn } from "@/lib/utils";
 export type BtnVariant = "primary" | "secondary" | "link" | "onPine" | "linkOnPine";
 
 export const btnBase = "group inline-flex items-center justify-center gap-2 whitespace-nowrap font-sans text-base font-semibold tracking-[0.01em] transition-[color,background-color,border-color,transform] duration-brand ease-brand";
-export const btnPill = "min-h-12 rounded-pill px-[26px] active:translate-y-px";
+// Pill buttons are 3D (a darker ledge underneath), glow softly on hover, press down and ripple on click: .btn-3d in index.css.
+export const btnPill = "btn-3d min-h-12 rounded-pill px-[26px]";
 export const btnClass: Record<BtnVariant, string> = {
-  primary: cn(btnPill, "w-full bg-pine text-white hover:bg-pine-hover active:bg-pine-active focus-visible:bg-pine-active focus-visible:outline-[3px] focus-visible:outline-offset-0 focus-visible:outline-mint md:w-auto"),
-  secondary: cn(btnPill, "w-full border-[1.5px] border-ink text-ink hover:bg-ink/5 md:w-auto"),
-  onPine: cn(btnPill, "w-full bg-beige text-ink hover:bg-line focus-visible:outline-mint md:w-auto"),
+  primary: cn(btnPill, "btn-3d--pine w-full bg-pine text-white hover:bg-pine-hover active:bg-pine-active focus-visible:bg-pine-active focus-visible:outline-[3px] focus-visible:outline-offset-0 focus-visible:outline-mint md:w-auto"),
+  secondary: cn(btnPill, "btn-3d--outline w-full border-[1.5px] border-ink text-ink hover:bg-ink/5 md:w-auto"),
+  onPine: cn(btnPill, "btn-3d--beige w-full bg-beige text-ink hover:bg-line focus-visible:outline-mint md:w-auto"),
   link: "min-h-11 text-pine underline-offset-4 hover:underline",
   linkOnPine: "min-h-11 text-beige underline-offset-4 hover:underline focus-visible:outline-mint",
 };

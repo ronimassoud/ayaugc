@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { AlertCircle, Check, Plus, X } from "lucide-react";
+import { AlertCircle, ArrowUpRight, Check, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { inViewport } from "@/lib/in-viewport";
 import { isPlaceholder, systemeHref } from "@/config/challenge";
 import { btnBase, btnClass, controlClass, type BtnVariant } from "@/components/site/styles";
+import { CircularText } from "@/components/site/circular-text";
+import { TiltGlare } from "@/components/site/tilt-card";
+import { useTilt } from "@/lib/use-tilt";
 
 // Shared building blocks for every page, built on the AYA UGC brand tokens (docs/SITE-SPEC.md section 3).
 
@@ -24,10 +27,12 @@ export const Rise = ({ children, className, as: Tag = "div" }: { children: React
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (inViewport(el)) return setState("shown");
+    // Threshold 0.1: the block's top must be 10% of the viewport height into view.
+    const reached = () => inViewport(el) && el.getBoundingClientRect().top < window.innerHeight * 0.9;
+    if (reached()) return setState("shown");
     setState("pending");
     const check = () => {
-      if (!inViewport(el, 40)) return;
+      if (!reached()) return;
       setState("shown");
       window.removeEventListener("scroll", check);
       window.removeEventListener("resize", check);
@@ -43,7 +48,8 @@ export const Rise = ({ children, className, as: Tag = "div" }: { children: React
 };
 
 type Tone = "beige" | "pine" | "mint";
-const toneClass: Record<Tone, string> = { beige: "bg-beige text-ink", pine: "bg-pine text-beige", mint: "bg-mint text-ink" };
+// Beige sections are transparent so the page wash shows through; the page itself is Beige.
+const toneClass: Record<Tone, string> = { beige: "text-ink", pine: "bg-pine text-beige", mint: "bg-mint text-ink" };
 
 /**
  * Page section. Beige sections stack with 72 px (mobile) to 96 px (desktop) between their content, per the
@@ -104,43 +110,59 @@ export const Btn = ({ to, children, variant = "primary", className, systeme = fa
   return <a href={href} onClick={onClick} className={cls}>{inner}</a>;
 };
 
-/** Studio cards are outlined; School cards are Mint. Radius 20. */
+/**
+ * Studio cards are outlined in Warm Line; School cards are Mint; Pine for the price card. Radius 20. Every card has
+ * the hover tilt and sheen (useTilt, see tilt-card.tsx); Pine cards get a weaker sheen so Beige text keeps its contrast.
+ */
 export const Card = ({ children, className, variant = "studio", clickable = false, as: Tag = "div" }: {
-  children: React.ReactNode; className?: string; variant?: "studio" | "school"; clickable?: boolean; as?: React.ElementType;
-}) => (
-  <Tag
-    className={cn(
-      "rounded-card p-6 md:p-8",
-      variant === "studio" ? "border border-line" : "bg-mint text-ink",
-      clickable && "relative transition-[border-color,background-color,transform] duration-brand ease-brand hover:-translate-y-0.5 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-pine",
-      clickable && (variant === "studio" ? "hover:border-pine" : "hover:bg-mint-hover"),
-      className,
-    )}
-  >
-    {children}
-  </Tag>
-);
+  children: React.ReactNode; className?: string; variant?: "studio" | "school" | "pine"; clickable?: boolean; as?: React.ElementType;
+}) => {
+  const tilt = useTilt<HTMLElement>();
+  return (
+    <Tag
+      {...tilt}
+      className={cn(
+        "tilt relative rounded-card p-6 md:p-8",
+        variant === "studio" ? "border border-line" : variant === "school" ? "bg-mint text-ink" : "tilt--pine bg-pine text-beige",
+        clickable && "has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-pine",
+        clickable && (variant === "studio" ? "transition-[border-color,transform] hover:border-pine" : "transition-[background-color,transform] hover:bg-mint-hover"),
+        className,
+      )}
+    >
+      {children}
+      <TiltGlare />
+    </Tag>
+  );
+};
 
-/** Mint panel with an Ink outline. */
-export const Tip = ({ children, label = "Tip", className }: { children: React.ReactNode; label?: string | null; className?: string }) => (
-  <div className={cn("rounded-lg border-[1.2px] border-ink bg-mint p-6 text-ink", className)}>
-    {label && <p className="eyebrow mb-2 text-ink">{label}</p>}
-    <div className="max-w-text">{children}</div>
-  </div>
-);
+/** Mint panel (no outline), with the card hover tilt. */
+export const Tip = ({ children, label = "Tip", className }: { children: React.ReactNode; label?: string | null; className?: string }) => {
+  const tilt = useTilt({ tiltMax: 2 });
+  return (
+    <div {...tilt} className={cn("tilt relative rounded-lg bg-mint p-6 text-ink", className)}>
+      {label && <p className="eyebrow mb-2 text-ink">{label}</p>}
+      <div>{children}</div>
+      <TiltGlare />
+    </div>
+  );
+};
 
-/** One per page: a Pine panel with a serif statement. */
-export const Takeaway = ({ children, className }: { children: React.ReactNode; className?: string }) => (
-  <div className={cn("rounded-lg bg-pine p-8 md:p-12", className)}>
-    <p className="h2 text-beige">{children}</p>
-  </div>
-);
+/** One per page: a Pine panel with a serif statement, with the card hover tilt (weaker sheen on Pine). */
+export const Takeaway = ({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const tilt = useTilt({ tiltMax: 2 });
+  return (
+    <div {...tilt} className={cn("tilt tilt--pine relative rounded-lg bg-pine p-8 md:p-12", className)}>
+      <p className="h2 text-beige">{children}</p>
+      <TiltGlare />
+    </div>
+  );
+};
 
 /** 9:16 phone frame for vertical video. Shows a labelled placeholder until real footage is supplied. */
 export const PhoneFrame = ({ label, src, poster, captions, className }: {
   label?: string; src?: string; poster?: string; captions?: string; className?: string;
 }) => (
-  <figure className={cn("relative aspect-[9/16] w-full overflow-hidden rounded-[28px] border-[5px] border-ink bg-disabled-bg", className)}>
+  <figure className={cn("relative aspect-[9/16] w-full overflow-hidden rounded-card bg-disabled-bg", className)}>
     {src ? (
       <video className="h-full w-full object-cover" src={src} poster={poster} muted playsInline controls preload="none" aria-label={label}>
         {captions && <track kind="captions" src={captions} srcLang="en" label="English" default />}
@@ -161,19 +183,21 @@ const dayClass: Record<DayState, string> = {
 
 /** "DAY 07" pill. Done = Pine, today = Mint with an Ink ring, ahead = Warm Line ring. */
 export const DayBadge = ({ day, state = "ahead", className }: { day: number; state?: DayState; className?: string }) => (
-  <span aria-label={`Day ${day}`} className={cn("inline-flex shrink-0 items-baseline gap-1.5 rounded-pill px-3 py-0.5", dayClass[state], className)}>
+  <span aria-label={`Day ${day}`} className={cn("inline-flex min-w-[80px] shrink-0 items-baseline justify-center gap-1.5 self-start whitespace-nowrap rounded-pill px-3 py-0.5", dayClass[state], className)}>
     <span aria-hidden className="text-[12px] font-semibold tracking-[0.14em]">DAY</span>
     <span aria-hidden className={cn("font-display text-[22px] italic leading-none", state === "ahead" && "text-pine")}>{String(day).padStart(2, "0")}</span>
   </span>
 );
 
 /** Ticked list. "x" uses an outline X so the shape, not the colour, carries the meaning. */
-export const CheckList = ({ items, icon = "check", className }: { items: React.ReactNode[]; icon?: "check" | "x"; className?: string }) => (
+export const CheckList = ({ items, icon = "check", onPine = false, className }: {
+  items: React.ReactNode[]; icon?: "check" | "x"; onPine?: boolean; className?: string;
+}) => (
   <ul className={cn("space-y-3", className)}>
     {items.map((item, i) => (
       <li key={i} className="flex gap-3">
         {icon === "check"
-          ? <Check aria-hidden strokeWidth={1.75} className="mt-1 size-5 shrink-0 text-pine" />
+          ? <Check aria-hidden strokeWidth={1.75} className={cn("mt-1 size-5 shrink-0", onPine ? "text-mint" : "text-pine")} />
           : <X aria-hidden strokeWidth={1.75} className="mt-1 size-5 shrink-0 text-ink" />}
         <span>{item}</span>
       </li>
@@ -221,13 +245,22 @@ export const FAQ = ({ items, className }: { items: { q: string; a: React.ReactNo
 );
 
 /** 3:4 product cover mock-up: Mint for free products, Beige with an Ink line for paid templates. */
-export const ProductCover = ({ eyebrow, title, tone, className }: { eyebrow: string; title: string; tone: "mint" | "beige"; className?: string }) => (
+/**
+ * Product cover. With `cta`, a spinning ring of the call to action sits in the middle and links to the same place as
+ * the hero button (a Systeme.io URL; a [placeholder] URL renders inert, like Btn). Ink letters on Mint, Pine on Beige.
+ */
+export const ProductCover = ({ eyebrow, title, tone, cta, className }: {
+  eyebrow: string; title: string; tone: "mint" | "beige"; cta?: { label: string; to: string }; className?: string;
+}) => {
+  const tilt = useTilt();
+  return (
   <div
-    role="img"
-    aria-label={`Cover: ${title}`}
+    {...tilt}
+    role={cta ? undefined : "img"}
+    aria-label={cta ? undefined : `Cover: ${title}`}
     className={cn(
-      "flex aspect-[3/4] w-full max-w-[360px] flex-col justify-between rounded-lg p-8",
-      tone === "mint" ? "bg-mint" : "border-[1.2px] border-ink bg-beige",
+      "tilt relative flex aspect-[3/4] w-full max-w-[360px] flex-col justify-between rounded-lg p-8",
+      tone === "mint" ? "bg-mint" : "border border-line bg-beige",
       className,
     )}
   >
@@ -235,9 +268,36 @@ export const ProductCover = ({ eyebrow, title, tone, className }: { eyebrow: str
       <p className="eyebrow text-ink">{eyebrow}</p>
       <p className="h2 mt-4 max-w-[10ch]">{title}</p>
     </div>
+    {cta && <CoverRing {...cta} tone={tone} />}
     <img src={`${import.meta.env.BASE_URL}brand/AYAUGC_Logo_Accent_Pine.svg`} alt="" width={90} height={24} className="h-6 w-auto self-start" />
+    <TiltGlare />
   </div>
-);
+  );
+};
+
+const CoverRing = ({ label, to, tone }: { label: string; to: string; tone: "mint" | "beige" }) => {
+  const href = systemeHref(to);
+  const inert = isPlaceholder(to);
+  return (
+    <a
+      href={inert ? "#" : href}
+      aria-label={label}
+      aria-disabled={inert || undefined}
+      title={inert ? `Link coming soon: ${to}` : undefined}
+      onClick={inert ? (e) => e.preventDefault() : undefined}
+      className={cn(
+        "self-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4",
+        tone === "mint" ? "text-ink focus-visible:outline-ink" : "text-pine focus-visible:outline-pine",
+      )}
+    >
+      <CircularText text={`${label} · `} size={160} fontSize={16} className={cn("eyebrow tracking-[0.08em]", tone === "mint" ? "text-ink" : "text-pine")}>
+        <span className={cn("flex size-12 items-center justify-center rounded-full", tone === "mint" ? "bg-ink text-mint" : "bg-pine text-beige")}>
+          <ArrowUpRight aria-hidden strokeWidth={1.75} className="size-6 rtl:-scale-x-100" />
+        </span>
+      </CircularText>
+    </a>
+  );
+};
 
 // ---------- Forms: labels above fields, never placeholder-only ----------
 

@@ -14,6 +14,8 @@ export const site = {
   brandsCount: "100+", // must match Instagram
   sinceYear: "[year]",
   replyTime: "[2 working days]",
+  // Aya's portrait (4:5, window light), a path under public/ such as "photos/aya-portrait.jpg". Shows a grey placeholder card until then.
+  portraitPhoto: "[portrait photo]",
 
   challenge: {
     name: "The 15-Day UGC Creator Challenge",
@@ -21,11 +23,11 @@ export const site = {
     tagline: "From first deal to fully booked",
     // Drives every challenge CTA on the site (see src/config/challenge.ts).
     status: "waitlist" as ChallengeStatus,
-    price: "[AED price]",
+    price: "AED 949",
     earlyBirdPrice: "[AED early-bird price]",
     priceAnnounceDate: "[price announcement date]",
     earlyBirdEnds: "[early-bird end date]",
-    startDate: "[start date]",
+    startDate: "16 November 2026",
     closeDate: "[doors-close date]",
     minutesPerDay: "[20 to 30]",
     portfolioVideos: "[number]",

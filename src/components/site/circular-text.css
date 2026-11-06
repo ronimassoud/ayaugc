@@ -1,0 +1,32 @@
+/* Spinning ring of text (see circular-text.tsx). Each letter sits at the top of a full-size box rotated round the
+   centre, so the letters stand upright along the ring. */
+.circular-text {
+  position: relative;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.circular-text__tilt,
+.circular-text__ring {
+  position: absolute;
+  inset: 0;
+}
+
+.circular-text__tilt {
+  transform-style: preserve-3d;
+}
+
+.circular-text__letter {
+  position: absolute;
+  inset: 0;
+  display: inline-block;
+  white-space: pre;
+}
+
+.circular-text__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

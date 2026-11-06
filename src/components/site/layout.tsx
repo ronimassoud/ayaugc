@@ -6,6 +6,7 @@ import { nav, site } from "@/config/site";
 import { challengeCta, isPlaceholder } from "@/config/challenge";
 import { cn } from "@/lib/utils";
 import { Btn, Wrap } from "@/components/site/ui";
+import PageWash, { type WashName } from "@/components/site/page-wash";
 
 // Supplied logo artwork only; never retype the wordmark.
 const Logo = ({ onDark = false }: { onDark?: boolean }) => (
@@ -38,9 +39,9 @@ const Header = () => {
   }, []);
 
   return (
-    <header className={cn("sticky top-0 z-40 border-b bg-beige transition-colors duration-brand ease-brand", scrolled ? "border-line" : "border-transparent")}>
+    <header className={cn("sticky top-0 z-40 border-b bg-pine transition-colors duration-brand ease-brand", scrolled ? "border-beige/20" : "border-transparent")}>
       <Wrap className="flex h-[72px] items-center justify-between gap-4">
-        <Link to="/" className="inline-flex min-h-11 shrink-0 items-center"><Logo /></Link>
+        <Link to="/" className="inline-flex min-h-11 shrink-0 items-center"><Logo onDark /></Link>
 
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-1">
@@ -49,9 +50,9 @@ const Header = () => {
                 <NavLink
                   to={n.to}
                   className={({ isActive }) => cn(
-                    "relative inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-medium text-ink transition-colors duration-brand ease-brand hover:text-pine xl:px-3",
-                    "after:absolute after:inset-x-2.5 after:bottom-1.5 after:h-[1.5px] after:origin-left after:scale-x-0 after:bg-pine after:transition-transform after:duration-brand after:ease-brand hover:after:scale-x-100 xl:after:inset-x-3 rtl:after:origin-right",
-                    isActive && "text-pine after:scale-x-100",
+                    "relative inline-flex min-h-11 items-center whitespace-nowrap px-2.5 font-medium text-beige transition-colors duration-brand ease-brand hover:text-mint xl:px-3",
+                    "after:absolute after:inset-x-2.5 after:bottom-1.5 after:h-[1.5px] after:origin-left after:scale-x-0 after:bg-mint after:transition-transform after:duration-brand after:ease-brand hover:after:scale-x-100 xl:after:inset-x-3 rtl:after:origin-right",
+                    isActive && "text-mint after:scale-x-100",
                   )}
                 >
                   {n.label}
@@ -61,11 +62,11 @@ const Header = () => {
           </ul>
         </nav>
 
-        <div className="hidden lg:block"><Btn to={cta.to}>{cta.label}</Btn></div>
+        <div className="hidden lg:block"><Btn to={cta.to} variant="onPine">{cta.label}</Btn></div>
 
         {/* Mobile and tablet: full-height Beige menu panel. */}
         <Dialog.Root open={open} onOpenChange={setOpen}>
-          <Dialog.Trigger aria-label="Open menu" className="inline-flex size-11 items-center justify-center text-ink lg:hidden">
+          <Dialog.Trigger aria-label="Open menu" className="inline-flex size-11 items-center justify-center text-beige lg:hidden">
             <Menu aria-hidden strokeWidth={1.75} className="size-6" />
           </Dialog.Trigger>
           <Dialog.Portal>
@@ -103,7 +104,7 @@ const Header = () => {
   );
 };
 
-/** One Pine announcement band, under the header. Pages opt in; hidden once doors are closed. */
+/** One Ink announcement band under the Pine header, so the two read apart. Pages opt in; hidden once doors are closed. */
 const AnnouncementBand = () => {
   const c = site.challenge;
   if (c.status === "closed") return null;
@@ -114,15 +115,15 @@ const AnnouncementBand = () => {
       ? [`Starts ${c.startDate}`, `${c.earlyBirdPrice} until ${c.earlyBirdEnds}`]
       : [`Starts ${c.startDate}`, `Doors close ${c.closeDate}`, c.price];
   return (
-    <aside aria-label="Challenge announcement" className="bg-pine text-beige">
+    <aside aria-label="Challenge announcement" className="bg-ink text-beige">
       <Wrap className="flex min-h-14 flex-wrap items-center justify-between gap-x-6 gap-y-1 py-3 text-[15px]">
         <p>
           <strong className="font-semibold">{c.name}</strong>
           {facts.map((f) => <span key={f}> · {f}</span>)}
         </p>
         {waitlist
-          ? <Btn to={c.waitlistUrl} systeme variant="linkOnPine">Join the waitlist</Btn>
-          : <Btn to="/challenge#days" variant="linkOnPine">See the 15 days</Btn>}
+          ? <Btn to={c.waitlistUrl} systeme variant="linkOnPine" className="text-mint">Join the waitlist</Btn>
+          : <Btn to="/challenge#days" variant="linkOnPine" className="text-mint">See the 15 days</Btn>}
       </Wrap>
     </aside>
   );
@@ -176,9 +177,40 @@ const Footer = ({ stickyBarSpace = false }: { stickyBarSpace?: boolean }) => (
   </footer>
 );
 
-/** Page shell: sticky header, optional announcement band, footer. */
-const Layout = ({ children, band = false, stickyBar = false }: { children: React.ReactNode; band?: boolean; stickyBar?: boolean }) => {
+/** Page shell: sticky header, optional announcement band, the page wash behind <main>, footer. */
+const Layout = ({ children, band = false, stickyBar = false, wash }: { children: React.ReactNode; band?: boolean; stickyBar?: boolean; wash?: WashName }) => {
   const { pathname, hash } = useLocation();
+  // Pill buttons: the click ripple starts where the pointer went down (alternating a/b restarts it).
+  useEffect(() => {
+    const onDown = (e: PointerEvent) => {
+      const btn = (e.target as Element | null)?.closest?.<HTMLElement>(".btn-3d");
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty("--rx", `${e.clientX - r.left}px`);
+      btn.style.setProperty("--ry", `${e.clientY - r.top}px`);
+      btn.dataset.ripple = btn.dataset.ripple === "a" ? "b" : "a";
+    };
+    // Hover sheen and tilt: keep the light under the cursor and lean toward it (mouse and pen only).
+    const onMove = (e: PointerEvent) => {
+      if (e.pointerType === "touch") return;
+      const btn = (e.target as Element | null)?.closest?.<HTMLElement>(".btn-3d");
+      if (!btn) return;
+      const r = btn.getBoundingClientRect();
+      btn.style.setProperty("--bx", `${e.clientX - r.left}px`);
+      btn.style.setProperty("--by", `${e.clientY - r.top}px`);
+      // Gentle tilt toward the cursor, up to 2 degrees (the price card goes to 4).
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
+      btn.style.setProperty("--btn-tx", `${((0.5 - py) * 2 * 2).toFixed(2)}deg`);
+      btn.style.setProperty("--btn-ty", `${((px - 0.5) * 2 * 2).toFixed(2)}deg`);
+    };
+    document.addEventListener("pointerdown", onDown);
+    document.addEventListener("pointermove", onMove, { passive: true });
+    return () => {
+      document.removeEventListener("pointerdown", onDown);
+      document.removeEventListener("pointermove", onMove);
+    };
+  }, []);
   useEffect(() => {
     if (hash) document.getElementById(hash.slice(1))?.scrollIntoView();
     // A new page starts at the top straight away; smooth scrolling is only for in-page anchors.
@@ -191,7 +223,10 @@ const Layout = ({ children, band = false, stickyBar = false }: { children: React
       </a>
       <Header />
       {band && <AnnouncementBand />}
-      <main id="main">{children}</main>
+      <main id="main" className="relative isolate">
+        {wash && <PageWash name={wash} />}
+        {children}
+      </main>
       <Footer stickyBarSpace={stickyBar} />
     </>
   );

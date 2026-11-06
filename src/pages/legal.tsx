@@ -6,9 +6,9 @@ import { legalDraftNotice, legalQuestions, privacyContent, refundsContent, terms
 
 /** Practical pages: serif H1, Work Sans H2s, text max 680 px, no announcement band. */
 const Legal = ({ page }: { page: LegalPage }) => (
-  <Layout>
+  <Layout wash="legal">
     <SEO {...meta[page.path]} />
-    <Section>
+    <Section className="md:py-24">
       <div className="max-w-text">
         <H1>{page.title}</H1>
         <Tip label={null} className="mt-8">{legalDraftNotice}</Tip>

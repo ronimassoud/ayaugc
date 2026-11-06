@@ -20,10 +20,10 @@ const FaqAnswer = ({ item }: { item: FaqItem }) => (
   </p>
 );
 
-/** "Doors close [date] · Refund policy › · This is a skills program, not an income guarantee." */
-const TermsCaption = ({ close, refund, note, className }: { close: string; refund: string; note: string; className?: string }) => (
-  <p className={`caption ${className ?? ""}`}>
-    {close} · <Link to="/refunds" className="text-pine underline-offset-4 hover:underline">{refund} <span aria-hidden className="rtl:-scale-x-100">›</span></Link> · {note}
+/** "Refund policy › · This is a skills program, not an income guarantee." */
+const TermsCaption = ({ refund, note, className, onPine = false }: { refund: string; note: string; className?: string; onPine?: boolean }) => (
+  <p className={`caption ${onPine ? "text-beige/85" : ""} ${className ?? ""}`}>
+    <Link to="/refunds" className={`${onPine ? "text-beige underline" : "text-pine"} underline-offset-4 hover:underline`}>{refund} <span aria-hidden className="rtl:-scale-x-100">›</span></Link> · {note}
   </p>
 );
 
@@ -52,7 +52,7 @@ const Challenge = () => {
   let day = 0;
 
   return (
-    <Layout stickyBar>
+    <Layout stickyBar wash="challenge">
       <SEO {...meta["/challenge"]} />
 
       {/* 6.1 Hero: offer, date and price on one phone screen. */}
@@ -183,15 +183,16 @@ const Challenge = () => {
       {/* 6.9 Price and inclusions */}
       <Section id="join">
         <div ref={joinRef} className="mx-auto max-w-[560px]">
-          <Card className="text-center md:p-12">
-            <p className="eyebrow">{t.price.eyebrow}</p>
-            <p className="display num mt-4">{t.price.amount}</p>
-            <p className="supporting mt-2">{t.price.terms}</p>
-            <CheckList items={t.price.includes} className="mt-8 text-start" />
-            <p className="supporting mt-6 text-start">{t.price.addOn}</p>
-            <div className="mt-8"><Btn to={cta.url} systeme className="md:w-full">{cta.label}</Btn></div>
-            <TermsCaption {...t.price} className="mt-4" />
-          </Card>
+          {/* Solid Pine, the challenge's lead colour: Beige text, Mint for the large price and the ticks. */}
+            <Card variant="pine" className="text-center md:p-12">
+              <p className="eyebrow text-beige">{t.price.eyebrow}</p>
+              <p className="display mt-4 font-display italic text-mint">{t.price.amount}</p>
+              <p className="supporting mt-2 text-beige/85">{t.price.terms}</p>
+              <CheckList items={t.price.includes} onPine className="mt-8 text-start" />
+              <p className="supporting mt-6 text-start text-beige/85">{t.price.addOn}</p>
+              <div className="mt-8"><Btn to={cta.url} systeme variant="onPine" className="md:w-full">{cta.label}</Btn></div>
+              <TermsCaption {...t.price} onPine className="mt-4" />
+            </Card>
         </div>
       </Section>
 

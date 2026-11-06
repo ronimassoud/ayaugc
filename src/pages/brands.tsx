@@ -74,7 +74,7 @@ const QuoteForm = () => {
 };
 
 const Brands = () => (
-  <Layout>
+  <Layout wash="brands">
     <SEO {...meta["/brands"]} />
 
     {/* 7.1 Hero */}

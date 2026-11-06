@@ -4,7 +4,7 @@ import { Btn, H1, Section } from "@/components/site/ui";
 import { notFoundContent as t } from "@/content/not-found";
 
 const NotFound = () => (
-  <Layout>
+  <Layout wash="notFound">
     <SEO {...t.seo} path="/404" noindex />
     <Section className="md:py-32">
       <H1>{t.title}</H1>

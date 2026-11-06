@@ -6,7 +6,7 @@ import { meta } from "@/config/seo";
 import { freeGuideContent as t } from "@/content/free-guide";
 
 const FreeGuide = () => (
-  <Layout band>
+  <Layout band wash="freeGuide">
     <SEO {...meta["/free-guide"]} />
 
     <section className="py-12 md:py-24">
@@ -19,7 +19,7 @@ const FreeGuide = () => (
             <div className="mt-8"><Btn to={site.guide.optInUrl} systeme>{t.hero.cta}</Btn></div>
             <p className="caption mt-3">{t.hero.caption}</p>
           </div>
-          <ProductCover tone="mint" {...t.cover} className="mx-auto md:mx-0 md:justify-self-end" />
+          <ProductCover tone="mint" {...t.cover} cta={{ label: t.hero.cta, to: site.guide.optInUrl }} className="mx-auto md:mx-0 md:justify-self-end" />
         </Rise>
       </Wrap>
     </section>

@@ -1,5 +1,7 @@
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
+import { AyaPortrait } from "@/components/site/aya-portrait";
+import { RotatingText } from "@/components/site/rotating-text";
 import LaneCards from "@/components/site/lane-cards";
 import { Btn, Eyebrow, H1, H2, Rise, Section, Takeaway, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
@@ -7,7 +9,7 @@ import { meta } from "@/config/seo";
 import { aboutContent as t } from "@/content/about";
 
 const About = () => (
-  <Layout band>
+  <Layout band wash="about">
     <SEO {...meta["/about"]} />
 
     <section className="py-12 md:py-24">
@@ -18,9 +20,7 @@ const About = () => (
             <H1>{t.hero.title}</H1>
             <p className="mt-6 max-w-text">{t.hero.body}</p>
           </div>
-          <div role="img" aria-label={`${t.hero.portrait} (photo coming soon)`} className="relative mx-auto aspect-[4/5] w-full max-w-[360px] rounded-card bg-disabled-bg md:mx-0 md:justify-self-end">
-            <span className="caption absolute inset-x-4 bottom-4 text-center">{t.hero.portrait}</span>
-          </div>
+          <AyaPortrait label={t.hero.portrait} className="mx-auto md:mx-0 md:justify-self-end" />
         </Rise>
       </Wrap>
     </section>
@@ -36,7 +36,12 @@ const About = () => (
     </Section>
 
     <Section className="py-0 md:py-0">
-      <Takeaway>{t.takeaway}</Takeaway>
+      <Takeaway>
+        <span className="sr-only">{`${t.takeaway.before} ${t.takeaway.words[0]}${t.takeaway.after}`}</span>
+        <span aria-hidden>
+          {t.takeaway.before} <RotatingText texts={t.takeaway.words} className="text-mint" />{t.takeaway.after}
+        </span>
+      </Takeaway>
     </Section>
 
     <Section>

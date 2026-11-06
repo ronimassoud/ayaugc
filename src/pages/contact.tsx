@@ -8,9 +8,9 @@ import { meta } from "@/config/seo";
 import { contactContent as t } from "@/content/contact";
 
 const Contact = () => (
-  <Layout>
+  <Layout wash="contact">
     <SEO {...meta["/contact"]} />
-    <Section>
+    <Section className="md:py-24">
       <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr]">
         <div>
           <Eyebrow>{t.eyebrow}</Eyebrow>

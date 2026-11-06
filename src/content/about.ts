@@ -9,7 +9,8 @@ export const aboutContent = {
     portrait: "Portrait of Aya in window light",
   },
   story: { title: "How I got here", paragraphs: site.story.about },
-  takeaway: "Brands buy footage, not followers.",
+  // The middle word rotates on the page; screen readers hear the first version.
+  takeaway: { before: "Brands buy", words: ["footage", "content", "stories"], after: ", not followers." },
   values: {
     title: "What I believe",
     items: [

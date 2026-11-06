@@ -24,6 +24,11 @@
     --border: 227 211 180; /* Warm Line */
     --input: 107 95 80;
     --ring: 47 95 78;
+
+    /* Brand colours as RGB triplets for the hero gradient washes. */
+    --tint-mint: 162 216 191;
+    --tint-line: 227 211 180;
+    --tint-pine: 47 95 78;
   }
 
   * {
@@ -39,13 +44,14 @@
     line-height: 1.6;
   }
 
-  /* Pine focus ring reads on Beige and Mint (6.5:1); Mint takes over on Pine surfaces. */
+  /* Pine focus ring reads on Beige and Mint (6.5:1); Mint takes over on Pine and Ink surfaces. */
   :focus-visible {
     outline: 2px solid theme("colors.pine.DEFAULT");
     outline-offset: 2px;
   }
 
-  .bg-pine :focus-visible {
+  .bg-pine :focus-visible,
+  .bg-ink :focus-visible {
     outline-color: theme("colors.mint.DEFAULT");
   }
 
@@ -113,6 +119,70 @@
   }
 }
 
+/*
+ * Page wash blobs (src/components/site/page-wash.tsx): soft washes of brand colour that drift slowly behind
+ * each page. The one place gradients are allowed (CLAUDE.md, page wash exception). Strengths are capped so
+ * Brown captions keep 4.5:1 on top of them; transform-only motion, off under reduced motion.
+ */
+.hero-blob {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  transform: translate(-50%, -50%);
+  animation: hero-drift 22s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+  will-change: transform;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    transform: translate(calc(-50% + 6%), calc(-50% - 8%)) scale(1.12);
+  }
+}
+
+/*
+ * Hover tilt (TiltCard): the card leans toward the cursor and lifts; a soft white sheen follows the pointer.
+ * The sheen only lightens the Beige under the text, so contrast can only go up. Transform and opacity only.
+ */
+.tilt {
+  transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) scale(var(--tilt-lift, 1));
+  transition: transform 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: transform;
+}
+
+/* Pine surfaces get a weaker sheen (about 10% white at the brightest point) so Beige text keeps its contrast. */
+.tilt--pine {
+  --tilt-glare: 0.3;
+}
+
+.tilt__glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle farthest-side at var(--tilt-gx, 50%) var(--tilt-gy, 50%),
+    rgba(255, 255, 255, 0.34) 0%,
+    rgba(255, 255, 255, 0.17) 30%,
+    rgba(255, 255, 255, 0.05) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  opacity: calc(var(--tilt-sheen, 0) * var(--tilt-glare, 1));
+  transition: opacity 300ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tilt {
+    transform: none !important;
+  }
+
+  .tilt__glare {
+    display: none;
+  }
+}
+
 /* Horizontal scrollers (proof strip on phones) keep native swipe but hide the bar. */
 .no-scrollbar {
   scrollbar-width: none;
@@ -122,25 +192,33 @@
   display: none;
 }
 
-/* Scroll-in motion for <Rise>: headlines and cards rise 12 px and fade in. */
+/*
+ * Scroll flow for <Rise> (modelled on React Bits AnimatedContent): once a block's top is 10% into the
+ * viewport, each of its direct children rises 100 px and fades in over 0.8 s, 80 ms apart. A child with the
+ * .stagger class hands the motion down to its own children (cards, list items), which follow 80 ms apart.
+ */
 [data-rise="pending"] {
   opacity: 0;
 }
 
-[data-rise="shown"] {
+[data-rise="shown"] > :not(.stagger),
+[data-rise="shown"] > .stagger > * {
   @apply animate-rise;
 }
 
-/* Cards and list items in a .stagger group follow the section in, 60 ms apart. */
-[data-rise="shown"] .stagger > * {
-  @apply animate-rise;
-}
+[data-rise="shown"] > :nth-child(2) { animation-delay: 80ms; }
+[data-rise="shown"] > :nth-child(3) { animation-delay: 160ms; }
+[data-rise="shown"] > :nth-child(4) { animation-delay: 240ms; }
+[data-rise="shown"] > :nth-child(5) { animation-delay: 320ms; }
+[data-rise="shown"] > :nth-child(n + 6) { animation-delay: 400ms; }
 
-[data-rise="shown"] .stagger > :nth-child(2) { animation-delay: 60ms; }
-[data-rise="shown"] .stagger > :nth-child(3) { animation-delay: 120ms; }
-[data-rise="shown"] .stagger > :nth-child(4) { animation-delay: 180ms; }
-[data-rise="shown"] .stagger > :nth-child(5) { animation-delay: 240ms; }
-[data-rise="shown"] .stagger > :nth-child(n + 6) { animation-delay: 300ms; }
+/* Staggered groups usually follow a heading, so their children start one step in. */
+[data-rise="shown"] > .stagger > :nth-child(1) { animation-delay: 80ms; }
+[data-rise="shown"] > .stagger > :nth-child(2) { animation-delay: 160ms; }
+[data-rise="shown"] > .stagger > :nth-child(3) { animation-delay: 240ms; }
+[data-rise="shown"] > .stagger > :nth-child(4) { animation-delay: 320ms; }
+[data-rise="shown"] > .stagger > :nth-child(5) { animation-delay: 400ms; }
+[data-rise="shown"] > .stagger > :nth-child(n + 6) { animation-delay: 480ms; }
 
 @media (prefers-reduced-motion: reduce) {
   [data-rise="pending"] {
@@ -152,5 +230,122 @@
   *::after {
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/*
+ * Pill buttons (primary, secondary, onPine). Hover: the same effect as the challenge price card (TiltCard), much
+ * gentler: the button leans toward the cursor (up to 2 degrees), lifts 2%, and a soft sheen follows the cursor.
+ * Press: it shrinks slightly and a light ripple spreads from the pointer.
+ * layout.tsx sets --bx/--by and the tilt (--btn-tx/--btn-ty) on pointer move and --rx/--ry plus data-ripple (a/b, to restart it) on press. Both are
+ * background layers, so the button needs no positioning and stretched card links still work. Mouse and pen only.
+ */
+@property --btn-ripple {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@property --btn-ripple-o {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --btn-sheen {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.btn-3d {
+  --btn-sheen-c: 255 255 255;
+  /* Capped so white text on Pine stays above 4.5:1 even at the brightest point (5.0:1). */
+  --btn-sheen-a: 0.15;
+  --btn-ripple-c: 255 255 255;
+  background-image:
+    radial-gradient(
+      circle at var(--rx, 50%) var(--ry, 50%),
+      rgb(var(--btn-ripple-c) / var(--btn-ripple-o)) var(--btn-ripple),
+      transparent var(--btn-ripple)
+    ),
+    radial-gradient(
+      circle 120px at var(--bx, 50%) var(--by, 50%),
+      rgb(var(--btn-sheen-c) / calc(var(--btn-sheen-a) * var(--btn-sheen))) 0%,
+      rgb(var(--btn-sheen-c) / calc(var(--btn-sheen-a) * 0.5 * var(--btn-sheen))) 35%,
+      rgb(var(--btn-sheen-c) / 0) 100%
+    );
+  transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1);
+  transition:
+    transform 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    --btn-sheen 300ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 200ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    color 200ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* The outline button sits on Beige, so its sheen is a faint Pine instead of white. */
+.btn-3d--outline {
+  --btn-sheen-c: 47 95 78;
+  --btn-sheen-a: 0.14;
+  --btn-ripple-c: 46 42 36;
+}
+
+.btn-3d--beige {
+  --btn-sheen-a: 0.6;
+  --btn-ripple-c: 47 95 78;
+}
+
+@media (hover: hover) {
+  .btn-3d:hover {
+    --btn-sheen: 1;
+    transform: perspective(600px) rotateX(var(--btn-tx, 0deg)) rotateY(var(--btn-ty, 0deg)) scale(1.02);
+  }
+}
+
+.btn-3d:active,
+.btn-3d:hover:active {
+  transform: perspective(600px) rotateX(var(--btn-tx, 0deg)) rotateY(var(--btn-ty, 0deg)) scale(0.97);
+  transition-duration: 60ms;
+}
+
+.btn-3d[data-ripple="a"] {
+  animation: btn-ripple-a 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.btn-3d[data-ripple="b"] {
+  animation: btn-ripple-b 520ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@keyframes btn-ripple-a {
+  from {
+    --btn-ripple: 0%;
+    --btn-ripple-o: 0.35;
+  }
+  to {
+    --btn-ripple: 140%;
+    --btn-ripple-o: 0;
+  }
+}
+
+@keyframes btn-ripple-b {
+  from {
+    --btn-ripple: 0%;
+    --btn-ripple-o: 0.35;
+  }
+  to {
+    --btn-ripple: 140%;
+    --btn-ripple-o: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-3d:hover,
+  .btn-3d:active,
+  .btn-3d:hover:active {
+    transform: none;
+  }
+
+  .btn-3d:hover {
+    --btn-sheen: 0;
   }
 }

@@ -1,7 +1,10 @@
 import Layout from "@/components/site/layout";
 import SEO from "@/components/seo";
 import LaneCards from "@/components/site/lane-cards";
-import { Btn, Card, CheckList, DayBadge, Eyebrow, H1, H2, PhoneFrame, Rise, Section, Steps, Wrap } from "@/components/site/ui";
+import { AyaPortrait } from "@/components/site/aya-portrait";
+import DriftWall from "@/components/site/drift-wall";
+import CircularCarousel from "@/components/site/circular-carousel";
+import { Btn, Card, CheckList, DayBadge, Eyebrow, H1, H2, Rise, Section, Steps, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
 import { challengeCta } from "@/config/challenge";
@@ -10,15 +13,14 @@ import { homeContent as t } from "@/content/home";
 const Home = () => {
   const cta = challengeCta();
   return (
-    <Layout band>
+    <Layout band wash="home">
       <SEO {...meta["/"]} />
 
-      {/* 5.1 Hero: text left, three phone frames right (below on mobile). */}
-      <section className="py-12 md:py-24">
+      {/* 5.1 Hero: text left, drifting photo wall right (below on mobile). Tight top so the headline sits close to the band. */}
+      <section className="pb-12 pt-8 md:pb-24 md:pt-12">
         <Wrap>
-          <Rise className="grid items-center gap-12 lg:grid-cols-12">
+          <Rise className="grid items-center gap-12 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-7">
-              <Eyebrow>{t.hero.eyebrow}</Eyebrow>
               <H1 display className="max-w-[14ch]">{t.hero.title}</H1>
               <p className="mt-6 max-w-text">{t.hero.body}</p>
               <div className="mt-8 flex flex-col gap-4 md:flex-row">
@@ -30,25 +32,52 @@ const Home = () => {
                 {t.hero.strip.facts.map((f) => <span key={f}> · {f}</span>)}
               </p>
             </div>
-            <div className="grid max-w-[480px] grid-cols-3 gap-3 lg:col-span-5 lg:max-w-none">
-              {t.hero.phones.map((p, i) => <PhoneFrame key={p} label={p} className={i === 1 ? "lg:-translate-y-6" : undefined} />)}
+            {/* A drifting 3D wall of 9:16 photo tiles: the hero shots and the sample categories, grey placeholders
+                until Aya's photos arrive. Hover lifts a tile and stops its column. */}
+            <div className="-mx-6 h-[360px] md:mx-0 md:h-[520px] lg:col-span-5 lg:h-[600px]">
+              <DriftWall
+                items={[...t.hero.phones, ...t.proof.categories].map((title) => ({ title }))}
+                label={t.hero.wallLabel}
+                columns={4}
+                tileWidth={120}
+                tileHeight={213}
+                gap={16}
+                radius={20}
+                tilt={14}
+                turn={-12}
+                depth={100}
+                speed={26}
+                lift={48}
+                dim={1}
+                fade={0.45}
+              />
             </div>
           </Rise>
         </Wrap>
       </section>
 
       {/* 5.2 Proof strip: category placeholders until brands give written permission. */}
-      <section className="border-y border-line py-12">
+      <section className="overflow-hidden border-y border-line py-12">
         <Wrap>
           <p className="caption text-center">{t.proof.caption}</p>
-          <ul className="no-scrollbar stagger -mx-6 mt-8 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 md:mx-auto md:grid md:max-w-[960px] md:grid-cols-6 md:overflow-visible md:px-0">
-            {t.proof.categories.map((cat) => (
-              <li key={cat} className="w-[calc((100%-2rem)/3)] shrink-0 snap-start md:w-auto">
-                <PhoneFrame label={cat} />
-              </li>
-            ))}
-          </ul>
         </Wrap>
+        {/* A slowly turning ring of borderless 9:16 cards: about 80% of the page width on larger screens (the ring fills
+            about 94% of this 86vw box), on phones a wider box whose sides run off the screen. The six categories go round twice until real samples
+            fill it. Drag or use the arrow keys to turn it. */}
+        <div className="proof-ring mt-6 md:mt-8">
+          <CircularCarousel
+            items={[...t.proof.categories, ...t.proof.categories].map((cat) => ({ title: cat, alt: `${cat} sample video (coming soon)` }))}
+            label={t.proof.carouselLabel}
+            cardWidth={360}
+            aspectRatio={9 / 16}
+            gap={40}
+            cornerRadius={20}
+            speed={12}
+            fadeColor="rgb(var(--background))"
+            depthFade={0.5}
+            innerShade={0.85}
+          />
+        </div>
       </section>
 
       {/* 5.3 Two-lane chooser */}
@@ -102,9 +131,7 @@ const Home = () => {
       {/* 5.6 About Aya */}
       <Section>
         <div className="grid items-center gap-12 md:grid-cols-[1fr_1.4fr]">
-          <div role="img" aria-label={`${t.about.portrait} (photo coming soon)`} className="relative aspect-[4/5] w-full max-w-[360px] rounded-card bg-disabled-bg">
-            <span className="caption absolute inset-x-4 bottom-4 text-center">{t.about.portrait}</span>
-          </div>
+          <AyaPortrait label={t.about.portrait} />
           <div>
             <Eyebrow>{t.about.eyebrow}</Eyebrow>
             <H2>{t.about.title}</H2>

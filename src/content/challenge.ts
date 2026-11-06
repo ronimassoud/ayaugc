@@ -14,7 +14,6 @@ export const challengeContent = {
     title: "From first deal to fully booked.",
     body: "Fifteen days, one lesson a day by email, a WhatsApp community and a 1:1 check-in with me. For new creators who want a clear plan, and for creators with a few deals who want better rates.",
     meta: [`Starts ${c.startDate}`, `${c.minutesPerDay} min a day`, c.price],
-    close: `Doors close ${c.closeDate}`,
     refund: "Refund policy",
     note: skillsNote,
   },
@@ -30,7 +29,7 @@ export const challengeContent = {
   },
 
   outcomes: {
-    title: "What you'll have by Day 15",
+    title: "What you'll have by Day 15",
     items: [
       { icon: "niche", title: "A niche", body: "and the formats brands in it pay for." },
       { icon: "hooks", title: "Hooks and scripts", body: "a reusable way to write the first three seconds." },
@@ -83,7 +82,7 @@ export const challengeContent = {
     title: "How it works",
     steps: [
       { title: "Register", body: "Join through a secure checkout. You'll get a confirmation email straight away." },
-      { title: "Join the community", body: "I add you to the challenge WhatsApp community before Day 1." },
+      { title: "Join the community", body: "I add you to the challenge WhatsApp community before Day 1." },
       { title: "One ebook a day", body: "Each morning for 15 days, the day's ebook lands in your inbox. Download it and keep it." },
       { title: "Your 1:1 check-in", body: "Once during the 15 days, I check in with you personally to look at your progress and plan your next step." },
     ],
@@ -128,12 +127,11 @@ export const challengeContent = {
       "15 daily ebooks by email, yours to keep",
       "The challenge WhatsApp community",
       "A 1:1 check-in call with me during the 15 days",
-      "CapCut editing lesson (Day 6)",
-      "Pricing, contract and pitching lessons (Days 9 to 13)",
+      "CapCut editing lesson (Day 6)",
+      "Pricing, contract and pitching lessons (Days 9 to 13)",
       c.graduatePerk,
     ],
     addOn: `Add the ${site.templates.name} (${site.templates.price}) at checkout.`,
-    close: `Doors close ${c.closeDate}`,
     refund: "Refund policy",
     note: skillsNote,
   },
@@ -142,8 +140,8 @@ export const challengeContent = {
     title: "Questions",
     items: [
       { q: "Do I need followers?", a: "No. Brands pay UGC creators for the content itself, not for your audience." },
-      { q: "I've already done a few deals. Is this too basic?", a: "Days 1 to 7 tighten your craft; Days 8 to 15 are about pricing, usage fees, contracts, UAE permits, pitching and negotiation. Most established creators get the most from the second half." },
-      { q: "I'm shy on camera.", a: "Day 5 covers faceless formats: hands, product and B-roll. Plenty of paid UGC never shows a face." },
+      { q: "I've already done a few deals. Is this too basic?", a: "Days 1 to 7 tighten your craft; Days 8 to 15 are about pricing, usage fees, contracts, UAE permits, pitching and negotiation. Most established creators get the most from the second half." },
+      { q: "I'm shy on camera.", a: "Day 5 covers faceless formats: hands, product and B-roll. Plenty of paid UGC never shows a face." },
       { q: "What do I need?", a: `A recent smartphone, the free CapCut app and about ${c.minutesPerDay} minutes a day.`, link: { label: "My equipment list is here", to: site.equipmentUrl } },
       { q: "How does it work day to day?", a: "One ebook arrives by email each day for 15 days. You read it, do the task, and share questions in the WhatsApp community." },
       { q: "When is my 1:1 check-in?", a: c.checkInBooking },

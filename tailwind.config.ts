@@ -49,12 +49,13 @@ export default {
       keyframes: {
         "accordion-down": { from: { height: "0" }, to: { height: "var(--radix-accordion-content-height)" } },
         "accordion-up": { from: { height: "var(--radix-accordion-content-height)" }, to: { height: "0" } },
-        rise: { from: { opacity: "0", transform: "translateY(12px)" }, to: { opacity: "1", transform: "translateY(0)" } },
+        rise: { from: { opacity: "0", transform: "translateY(100px)" }, to: { opacity: "1", transform: "translateY(0)" } },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        rise: "rise 300ms cubic-bezier(0.2,0.7,0.2,1) both",
+        // Scroll flow modelled on React Bits AnimatedContent: 100 px, 0.8 s, GSAP power3.out.
+        rise: "rise 800ms cubic-bezier(0.215,0.61,0.355,1) backwards",
       },
     },
   },

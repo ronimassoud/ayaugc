@@ -7,7 +7,7 @@ import { meta } from "@/config/seo";
 import { templatesContent as t } from "@/content/templates";
 
 const Templates = () => (
-  <Layout band>
+  <Layout band wash="templates">
     <SEO {...meta["/templates"]} />
 
     <section className="py-12 md:py-24">
@@ -22,7 +22,7 @@ const Templates = () => (
               {t.hero.caption} · <Link to="/refunds" className="text-pine underline-offset-4 hover:underline">{t.hero.refund} <span aria-hidden className="rtl:-scale-x-100">›</span></Link>
             </p>
           </div>
-          <ProductCover tone="beige" {...t.cover} className="mx-auto md:mx-0 md:justify-self-end" />
+          <ProductCover tone="beige" {...t.cover} cta={{ label: t.hero.cta, to: site.templates.checkoutUrl }} className="mx-auto md:mx-0 md:justify-self-end" />
         </Rise>
       </Wrap>
     </section>
