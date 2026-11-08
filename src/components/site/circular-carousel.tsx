@@ -4,7 +4,9 @@
 import { CSSProperties, KeyboardEvent, MouseEvent, PointerEvent, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import "./circular-carousel.css";
 
-export type CarouselItem = { src?: string; alt?: string; title?: string; subtitle?: string };
+// `video`: a short silent loop that plays on the card while it faces the viewer (`src` is its poster). Use it with
+// curve={0}: a curved card is drawn in 8 strips, and a video in every strip would decode 8 times.
+export type CarouselItem = { src?: string; video?: string; alt?: string; title?: string; subtitle?: string };
 type Preset = "cylinder" | "orbit" | "wheel" | "panorama";
 type Intro = "assemble" | "rise" | "spin" | "none";
 type Layout = { axis: "x" | "y"; tilt: number; perspective: number; curve: number; spread: number; inward: boolean; billboard: boolean; backfaces: boolean; window: number };
@@ -526,6 +528,14 @@ const CircularCarousel = ({
         if (s.layout.inward) card.style.visibility = Math.abs(world) > 86 ? "hidden" : "";
         const fade = s.depthFade * Math.pow((1 - facing) / 2, 1.25);
         card.style.setProperty("--cc-depth", fade.toFixed(3));
+
+        // Video cards play only while they face the viewer, so at most about half the loops decode at once.
+        const video = card.querySelector<HTMLVideoElement>("video[data-cc-video]");
+        if (video) {
+          const play = !s.reduced && facing > 0.05;
+          if (play && video.paused) video.play().catch(() => {});
+          else if (!play && !video.paused) video.pause();
+        }
       }
 
       const index = ((Math.round(-state.angle / s.step) % s.count) + s.count) % s.count || 0;
@@ -573,6 +583,8 @@ const CircularCarousel = ({
         cancelAnimationFrame(raf);
         raf = 0;
         state.last = 0;
+        // Off screen: stop the video loops; the next frame on screen restarts the ones facing the viewer.
+        root.querySelectorAll<HTMLVideoElement>("video[data-cc-video]").forEach((video) => video.pause());
       }
     });
     io.observe(root);
@@ -771,9 +783,23 @@ const CircularCarousel = ({
   const current = list[active] || list[0];
   const label = current ? current.title || current.alt || `Image ${active + 1}` : "";
 
-  // The front face of the card: the photo, or a labelled placeholder when there is no photo yet.
-  const face = (item: CarouselItem, photoStyle: CSSProperties) =>
-    item.src ? (
+  // The front face of the card: a silent video loop, the photo, or a labelled placeholder when there is no photo yet.
+  // Back faces and reduced motion show the poster only.
+  const face = (item: CarouselItem, photoStyle: CSSProperties, back = false) =>
+    item.video && !back && !reduced ? (
+      <video
+        className="circular-carousel__photo"
+        src={item.video}
+        poster={item.src}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        disablePictureInPicture
+        data-cc-video=""
+        style={photoStyle}
+      />
+    ) : item.src ? (
       <img className="circular-carousel__photo" src={item.src} alt="" draggable={false} decoding="async" style={photoStyle} />
     ) : (
       <div className="circular-carousel__placeholder" style={photoStyle}>
@@ -808,7 +834,7 @@ const CircularCarousel = ({
         aria-hidden="true"
       >
         <div className="circular-carousel__frame" style={{ height: axis === "x" ? size : cardH, borderRadius: frameRadius }}>
-          {face(item, photoStyle)}
+          {face(item, photoStyle, back)}
           {gone?.src && leaving && (
             <img
               key={`leaving-${leaving.id}`}

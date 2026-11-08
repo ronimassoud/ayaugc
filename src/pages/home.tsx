@@ -8,7 +8,13 @@ import { Btn, Card, CheckList, Eyebrow, H1, H2, Rise, Section, Steps, Wrap } fro
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
 import { challengeCta } from "@/config/challenge";
+import { photos, samples } from "@/config/media";
 import { homeContent as t } from "@/content/home";
+
+// Hero wall: Aya's photos alternating with stills from her sample videos, so every column mixes both.
+const wallPhotos = Object.values(photos).map((p) => ({ image: p.src, title: p.alt }));
+const wallStills = samples.map((s) => ({ image: s.thumb, title: s.label }));
+const wallItems = wallStills.flatMap((s, i) => (wallPhotos[i] ? [wallPhotos[i], s] : [s]));
 
 const Home = () => {
   const cta = challengeCta();
@@ -32,11 +38,11 @@ const Home = () => {
                 {t.hero.strip.facts.map((f) => <span key={f}> · {f}</span>)}
               </p>
             </div>
-            {/* A drifting 3D wall of 9:16 photo tiles: the hero shots and the sample categories, grey placeholders
-                until Aya's photos arrive. Hover lifts a tile and stops its column. */}
+            {/* A drifting 3D wall of 9:16 tiles: Aya's photos mixed with stills from her sample videos.
+                Hover lifts a tile and stops its column. */}
             <div className="-mx-6 h-[360px] md:mx-0 md:h-[520px] lg:col-span-5 lg:h-[600px]">
               <DriftWall
-                items={[...t.hero.phones, ...t.proof.categories].map((title) => ({ title }))}
+                items={wallItems}
                 label={t.hero.wallLabel}
                 columns={4}
                 tileWidth={120}
@@ -56,17 +62,18 @@ const Home = () => {
         </Wrap>
       </section>
 
-      {/* 5.2 Proof strip: category placeholders until brands give written permission. */}
-      <section className="overflow-hidden border-y border-line py-12">
+      {/* 5.2 Proof strip: covers of Aya's sample videos, shown with each brand's permission. */}
+      <section className="overflow-hidden py-12">
         <Wrap>
           <p className="caption text-center">{t.proof.caption}</p>
         </Wrap>
         {/* A slowly turning ring of borderless 9:16 cards: about 80% of the page width on larger screens (the ring fills
-            about 94% of this 86vw box), on phones a wider box whose sides run off the screen. The six categories go round twice until real samples
-            fill it. Drag or use the arrow keys to turn it. */}
+            about 94% of this 86vw box), on phones a wider box whose sides run off the screen. Each card is the cover of
+            one sample video. Drag or use the arrow keys to turn it. */}
         <div className="proof-ring mt-6 md:mt-8">
           <CircularCarousel
-            items={[...t.proof.categories, ...t.proof.categories].map((cat) => ({ title: cat, alt: `${cat} sample video (coming soon)` }))}
+            items={samples.map((s) => ({ src: s.poster, video: s.loop, alt: `${s.label} sample video` }))}
+            curve={0}
             label={t.proof.carouselLabel}
             cardWidth={360}
             aspectRatio={9 / 16}

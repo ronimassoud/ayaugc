@@ -7,6 +7,7 @@ import { Btn, Card, CheckList, DayBadge, Eyebrow, FAQ, H1, H2, MetaPills, PhoneF
 import { inViewport } from "@/lib/in-viewport";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
+import { photos } from "@/config/media";
 import { challengeCta } from "@/config/challenge";
 import { challengeContent as t, type FaqItem } from "@/content/challenge";
 
@@ -140,7 +141,7 @@ const Challenge = () => {
       <Section>
         <div className="grid items-center gap-12 md:grid-cols-[1fr_1.3fr]">
           <div className="grid max-w-[420px] grid-cols-2 gap-4">
-            {t.meet.phones.map((p) => <PhoneFrame key={p} label={p} />)}
+            {[photos.selfie, photos.chair].map((p) => <PhoneFrame key={p.src} image={p.src} label={p.alt} />)}
           </div>
           <div>
             <Eyebrow>{t.meet.eyebrow}</Eyebrow>

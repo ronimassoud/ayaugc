@@ -15,14 +15,12 @@ export const brandsContent = {
     body: "Need Arabic and English UGC for your next campaign? I script, film and edit on brief, with usage terms agreed up front. Send me your product and timeline.",
     cta: "Request a quote",
     link: "See recent work",
-    phones: ["Client sample", "Client sample"],
     caption: `${site.brandsCount} brands · English and Arabic · Based in Dubai`,
   },
 
   work: {
     title: "Recent work",
-    samples: 6,
-    caption: "Shared with each brand's permission. More samples on request.",
+    samples: 9,
   },
 
   services: {
@@ -58,7 +56,6 @@ export const brandsContent = {
     body: `Tell me about the product and what you need. I reply within ${site.replyTime} with ideas and a quote.`,
     alt: "Prefer email?",
     submit: "Send my request",
-    note: "This opens your email app with everything filled in. Nothing is stored on this site.",
     sent: `Your email app should be open. Hit send and I'll reply within ${site.replyTime}.`,
     subject: "UGC quote request",
     required: "Please fill this in.",

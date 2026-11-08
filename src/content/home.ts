@@ -9,14 +9,12 @@ export const homeContent = {
     body: `I'm Aya. I make Arabic and English UGC for brands across the UAE, and I teach creators how to do it properly. ${site.brandsCount} brands so far, and every lesson comes from real client work.`,
     quote: "Request a quote",
     strip: { name: "15-Day UGC Creator Challenge", facts: [`Starts ${c.startDate}`] },
-    phones: ["Aya filming", "Hands and product", "Behind the scenes"],
-    wallLabel: "Photos of Aya at work and sample videos by category (coming soon)",
+    wallLabel: "Photos of Aya at work and stills from her sample videos",
   },
 
   proof: {
     caption: `Real work for ${site.brandsCount} brands. Shown with each brand's permission.`,
-    categories: ["Skincare", "Food", "Home", "Fashion", "Tech", "Fitness"],
-    carouselLabel: "Sample videos by category",
+    carouselLabel: "Covers of Aya's sample videos",
   },
 
   lanes: {

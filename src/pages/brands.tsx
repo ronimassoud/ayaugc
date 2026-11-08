@@ -6,6 +6,7 @@ import { Btn, Card, CheckboxGroup, Eyebrow, Field, H1, H2, PhoneFrame, Rise, Sec
 import { controlClass, selectClass, selectStyle, submitClass } from "@/components/site/styles";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
+import { photos, samples } from "@/config/media";
 import { isPlaceholder } from "@/config/challenge";
 import { openMailto } from "@/lib/mailto";
 import { brandsContent as t, type QuoteField } from "@/content/brands";
@@ -67,7 +68,6 @@ const QuoteForm = () => {
       <button type="submit" className={submitClass}>
         {q.submit}
       </button>
-      <p className="caption">{q.note}</p>
       {sent && <SentMessage>{q.sent}</SentMessage>}
     </form>
   );
@@ -92,24 +92,23 @@ const Brands = () => (
             <p className="caption mt-4">{t.hero.caption}</p>
           </div>
           <div className="grid max-w-[360px] grid-cols-2 gap-4 lg:col-span-5 lg:max-w-none">
-            {t.hero.phones.map((p, i) => <PhoneFrame key={i} label={p} />)}
+            {[photos.product, photos.cafe].map((p) => <PhoneFrame key={p.src} image={p.src} label={p.alt} />)}
           </div>
         </Rise>
       </Wrap>
     </section>
 
-    {/* 7.2 Recent work: placeholders until real clips arrive with written permission. */}
+    {/* 7.2 Recent work: Aya's sample videos (src/config/media.ts), shown with each brand's permission. */}
     <Section id="work">
       <H2>{t.work.title}</H2>
-      <ul className="stagger mt-10 grid max-w-[880px] grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
-        {Array.from({ length: t.work.samples }, (_, i) => (
-          <li key={i}>
-            <PhoneFrame />
-            <p className="caption mt-3 text-center">{site.studio.samplePlaceholder}</p>
+      <ul className="stagger mt-10 mx-auto grid max-w-[880px] grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">
+        {samples.slice(0, t.work.samples).map((s) => (
+          <li key={s.id}>
+            <PhoneFrame src={s.video} poster={s.poster} label={s.label} />
+            <p className="caption mt-3 text-center">{s.label}</p>
           </li>
         ))}
       </ul>
-      <p className="caption mt-8">{t.work.caption}</p>
     </Section>
 
     {/* 7.3 What I do */}
@@ -134,7 +133,7 @@ const Brands = () => (
     </Section>
 
     {/* 7.5 What to expect */}
-    <section className="border-y border-line py-12">
+    <section className="py-12">
       <Wrap>
         <ul className="grid gap-8 md:grid-cols-3">
           {t.expect.map((e) => (

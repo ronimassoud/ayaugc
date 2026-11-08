@@ -158,19 +158,21 @@ export const Takeaway = ({ children, className }: { children: React.ReactNode; c
   );
 };
 
-/** 9:16 phone frame for vertical video. Shows a labelled placeholder until real footage is supplied. */
-export const PhoneFrame = ({ label, src, poster, captions, className }: {
-  label?: string; src?: string; poster?: string; captions?: string; className?: string;
+/** 9:16 card for vertical video (`src`) or a photo (`image`). Shows a labelled placeholder until real media is supplied. */
+export const PhoneFrame = ({ label, src, poster, captions, image, className }: {
+  label?: string; src?: string; poster?: string; captions?: string; image?: string; className?: string;
 }) => (
   <figure className={cn("relative aspect-[9/16] w-full overflow-hidden rounded-card bg-disabled-bg", className)}>
     {src ? (
       <video className="h-full w-full object-cover" src={src} poster={poster} muted playsInline controls preload="none" aria-label={label}>
         {captions && <track kind="captions" src={captions} srcLang="en" label="English" default />}
       </video>
+    ) : image ? (
+      <img className="h-full w-full object-cover" src={image} alt={label ?? ""} loading="lazy" decoding="async" />
     ) : (
       <div role="img" aria-label={label ? `${label} (photo coming soon)` : "Video coming soon"} className="h-full w-full" />
     )}
-    {label && !src && <figcaption className="caption absolute inset-x-1.5 bottom-3 text-center [overflow-wrap:anywhere] md:inset-x-3 md:bottom-4">{label}</figcaption>}
+    {label && !src && !image && <figcaption className="caption absolute inset-x-1.5 bottom-3 text-center [overflow-wrap:anywhere] md:inset-x-3 md:bottom-4">{label}</figcaption>}
   </figure>
 );
 

@@ -90,7 +90,6 @@ export const challengeContent = {
   },
 
   meet: {
-    phones: ["Aya filming", "Client work"],
     eyebrow: "Who's teaching",
     title: "I teach what I do every week.",
     body: `I'm Aya, a bilingual UGC creator in Dubai. I've made content for ${site.brandsCount} brands, in English and Arabic. ${site.story.challenge} This challenge is the plan I wish I'd had.`,

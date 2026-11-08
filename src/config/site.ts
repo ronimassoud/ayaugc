@@ -23,7 +23,7 @@ export const site = {
   sinceYear: "[year]",
   replyTime: "[2 working days]",
   // Aya's portrait (4:5, window light), a path under public/ such as "photos/aya-portrait.jpg". Shows a grey placeholder card until then.
-  portraitPhoto: "[portrait photo]",
+  portraitPhoto: "media/photos/aya-portrait.jpg",
 
   challenge: {
     name: "The 15-Day UGC Creator Challenge",
