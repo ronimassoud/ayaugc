@@ -1,0 +1,138 @@
+/*
+ * AYA UGC brand layer for Systeme.io funnel pages (free guide opt-in, templates order page, thank-you pages).
+ * Paste between <style> and </style> in the page's custom head code (see BUILD-KIT.md, step 2).
+ *
+ * It only targets general elements (page, headings, text, fields, buttons). Systeme.io's own class names are
+ * generated and change between updates, so set colours, sizes and spacing in the editor first and let this
+ * file catch the rest. Values match the website (tailwind.config.ts and src/index.css).
+ */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600&display=swap");
+
+:root {
+  --aya-beige: #f9f1e4;
+  --aya-mint: #a2d8bf;
+  --aya-ink: #2e2a24;
+  --aya-brown: #6b5f50;
+  --aya-pine: #2f5f4e;
+  --aya-pine-hover: #2f5244;
+  --aya-line: #e3d3b4;
+  --aya-error: #a33a2b;
+}
+
+/* Page: Warm Beige, Ink text, Work Sans 18 px on desktop, 16 px on phones, line height 1.6. */
+html,
+body {
+  background: var(--aya-beige) !important;
+  color: var(--aya-ink);
+  font-family: "Work Sans", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+@media (max-width: 719px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* One serif statement per page: the headline. Everything else stays Work Sans. */
+h1,
+h2 {
+  font-family: "Instrument Serif", Georgia, serif !important;
+  font-style: italic !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em;
+  line-height: 1.05 !important;
+}
+
+h3,
+h4,
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: "Work Sans", Arial, sans-serif !important;
+}
+
+/* No drop shadows, glows or gradients anywhere (brand rule). */
+*,
+*::before,
+*::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* Form fields: 48 px tall, 12 px corners, Brown outline, Pine when focused. Labels sit above fields. */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input:not([type]),
+select,
+textarea {
+  min-height: 48px !important;
+  border: 1px solid var(--aya-brown) !important;
+  border-radius: 12px !important;
+  background: var(--aya-beige) !important;
+  color: var(--aya-ink) !important;
+  font-size: 16px !important;
+  padding: 0 16px !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--aya-pine) !important;
+  outline: 2px solid var(--aya-pine) !important;
+  outline-offset: 0 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--aya-brown) !important;
+  opacity: 1;
+}
+
+/* Buttons: Pine pill, white Work Sans 600 16 px, 48 px or taller. */
+button,
+[data-test-id="send-form-button"],
+a[role="button"] {
+  min-height: 48px;
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  letter-spacing: 0.01em;
+  transition: background-color 250ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 160ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+button:active,
+[data-test-id="send-form-button"]:active {
+  transform: scale(0.97);
+}
+
+/* Visible focus for keyboard users: Pine on light surfaces. */
+:focus-visible {
+  outline: 2px solid var(--aya-pine) !important;
+  outline-offset: 2px !important;
+}
+
+/* Links: Pine, underline on hover. */
+a {
+  color: var(--aya-pine);
+  text-underline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -4,7 +4,7 @@ import LaneCards from "@/components/site/lane-cards";
 import { AyaPortrait } from "@/components/site/aya-portrait";
 import DriftWall from "@/components/site/drift-wall";
 import CircularCarousel from "@/components/site/circular-carousel";
-import { Btn, Card, CheckList, DayBadge, Eyebrow, H1, H2, Rise, Section, Steps, Wrap } from "@/components/site/ui";
+import { Btn, Card, CheckList, Eyebrow, H1, H2, Rise, Section, Steps, Wrap } from "@/components/site/ui";
 import { site } from "@/config/site";
 import { meta } from "@/config/seo";
 import { challengeCta } from "@/config/challenge";
@@ -99,15 +99,16 @@ const Home = () => {
             </div>
             <p className="caption mt-4">{t.challenge.caption}</p>
           </div>
-          <Card variant="school" className="space-y-6">
-            {t.challenge.phases.map((phase) => (
-              <div key={phase.name}>
-                <p className="eyebrow mb-3 text-ink">{phase.name}</p>
-                <div className="flex flex-wrap gap-2">
-                  {phase.days.map((d) => <DayBadge key={d} day={d} state={d === 1 ? "today" : "ahead"} className={d === 1 ? undefined : "bg-beige"} />)}
-                </div>
-              </div>
-            ))}
+          {/* The three phases as day intervals on Pine (like the price card): Beige range over a white Work Sans heading. */}
+          <Card variant="pine" className="py-2 md:py-2">
+            <ol className="divide-y divide-beige/20">
+              {t.challenge.phases.map((phase) => (
+                <li key={phase.name} className="py-6">
+                  <p className="eyebrow text-beige">{t.challenge.dayRange(phase.from, phase.to)}</p>
+                  <p className="h3 mt-2 text-white">{phase.name}</p>
+                </li>
+              ))}
+            </ol>
           </Card>
         </div>
       </Section>

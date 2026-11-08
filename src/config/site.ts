@@ -3,6 +3,13 @@ export type ChallengeStatus = "waitlist" | "early-bird" | "open" | "closed";
 
 export type Testimonial = { quote: string; name: string; city: string };
 
+/**
+ * Where the Systeme.io funnels live. Today they are on the old Systeme.io site at www.ayaugc.com. Before the new
+ * website takes over www.ayaugc.com, connect go.ayaugc.com to Systeme.io, move these funnels to it and change this
+ * one value to "https://go.ayaugc.com" (the page paths stay the same). Otherwise /template would loop back to this site.
+ */
+const systeme = "https://www.ayaugc.com";
+
 export const site = {
   name: "AYA UGC", // in sentences; the logo is aya.ugc
   owner: "Aya Karroum",
@@ -10,7 +17,8 @@ export const site = {
   domain: "https://www.ayaugc.com",
   email: "[contact@ayaugc.com]",
   instagram: { handle: "@aya.ugc", url: "https://www.instagram.com/aya.ugc" },
-  equipmentUrl: "[equipment list link]",
+  // Aya's Amazon wishlist, linked as "Shop equipment must-haves" on the old Systeme.io home page.
+  equipmentUrl: "https://www.amazon.ae/hz/wishlist/ls/39UW0OLXZ1250",
   brandsCount: "100+", // must match Instagram
   sinceYear: "[year]",
   replyTime: "[2 working days]",
@@ -23,11 +31,12 @@ export const site = {
     tagline: "From first deal to fully booked",
     // Drives every challenge CTA on the site (see src/config/challenge.ts).
     status: "waitlist" as ChallengeStatus,
-    price: "AED 949",
+    // Not shown on the site while pricing is being decided; keep it here for when it returns.
+    price: "[challenge price]",
     earlyBirdPrice: "[AED early-bird price]",
     priceAnnounceDate: "[price announcement date]",
     earlyBirdEnds: "[early-bird end date]",
-    startDate: "16 November 2026",
+    startDate: "7 December 2026",
     closeDate: "[doors-close date]",
     minutesPerDay: "[20 to 30]",
     portfolioVideos: "[number]",
@@ -35,7 +44,8 @@ export const site = {
     language: "[Language of the ebooks and community.]",
     graduatePerk: "Strong graduates get priority consideration for upcoming AYA UGC brand campaigns [Aya to confirm wording]",
     checkoutUrl: "[Systeme.io checkout URL]",
-    waitlistUrl: "[Systeme.io waitlist opt-in URL]",
+    // Live Systeme.io waitlist page: a sign-up form ("Join the waitlist & save") that moves people to the next funnel step.
+    waitlistUrl: `${systeme}/waitlist`,
   },
   studio: {
     categories: "[Beauty, skincare, food, home, fashion, tech]",
@@ -49,11 +59,12 @@ export const site = {
   templates: {
     name: "UGC starter templates",
     price: "AED 79",
-    checkoutUrl: "[Systeme.io templates checkout URL]",
+    // Live Systeme.io order page: "Templates", AED 79, one-off payment.
+    checkoutUrl: `${systeme}/template`,
     formats: "[File formats, e.g. Canva links and editable PDF.]",
     editAnswer: "[Answer.]",
   },
-  guide: { name: "The beginner's guide to UGC", optInUrl: "[Systeme.io guide opt-in URL]", contentsNote: "[Aya to confirm contents]" },
+  guide: { name: "The beginner's guide to UGC", optInUrl: `${systeme}/ugc-guide`, contentsNote: "[Aya to confirm contents]" },
 
   // Draft legal text: Aya reviews it before launch.
   legal: {

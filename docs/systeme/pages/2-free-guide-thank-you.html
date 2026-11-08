@@ -1,0 +1,146 @@
+<!doctype html>
+<!--
+  Thank you · AYA UGC  (Systeme.io page: after the guide opt-in)
+
+  HOW TO USE (see docs/systeme/BUILD-KIT.md):
+  1. CSS: paste everything inside <style>...</style> below into the page's custom head code
+     (Settings > Tracking > head), once per page.
+  2. HTML: paste the BLOCK 1 markup (between the BLOCK comments at the end of this file) into one Raw HTML element.
+  3. JS: paste the <script> below into the page's custom body code (optional: it only keeps the footer year current).
+  Open this file in a browser to see the finished page.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thank you · AYA UGC</title>
+<style>
+/* AYA UGC funnel page styles. Every class starts with "aya-" so nothing clashes with Systeme.io's own styles. */
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600&display=swap");
+
+:root {
+  --aya-beige: #f9f1e4; --aya-mint: #a2d8bf; --aya-ink: #2e2a24; --aya-brown: #6b5f50;
+  --aya-pine: #2f5f4e; --aya-pine-hover: #2f5244; --aya-line: #e3d3b4;
+}
+html, body { background: var(--aya-beige) !important; }
+body { color: var(--aya-ink); font-family: "Work Sans", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+*, *::before, *::after { box-shadow: none !important; text-shadow: none !important; }
+
+.aya, .aya * { box-sizing: border-box; }
+.aya { font: 400 18px/1.6 "Work Sans", Arial, sans-serif; color: var(--aya-ink); }
+.aya p, .aya ul, .aya h1, .aya h2 { margin: 0; }
+
+/* Top bar and footer: Pine, on-dark logo only. */
+.aya-bar { background: var(--aya-pine); height: 72px; display: flex; align-items: center; padding: 0 48px; }
+.aya-logo { display: inline-block; height: 32px; aspect-ratio: 121 / 32; background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjEuNyAtNjcuMSAzNTcuOCA5NS4wIiB3aWR0aD0iMzU4IiBoZWlnaHQ9Ijk1IiByb2xlPSJpbWciIGFyaWEtbGFiZWw9ImF5YS51Z2MiPjxwYXRoIGZpbGw9IiNGOUYxRTQiIGQ9Ik0xMS41NyAxLjE3UTYuODkwMDAwMDAwMDAwMDAxIDEuMTcgNC4yOSAtMi44NjAwMDAwMDAwMDAwMDAzUTEuNjkgLTYuODkwMDAwMDAwMDAwMDAxIDEuNjkgLTE0LjY5MDAwMDAwMDAwMDAwMVExLjY5IC0yMi4xIDMuNzcwMDAwMDAwMDAwMDAwNSAtMjkuNTc1MDAwMDAwMDAwMDAzUTUuODUwMDAwMDAwMDAwMDAwNSAtMzcuMDUwMDAwMDAwMDAwMDA0IDkuNDkgLTQzLjgxUTEzLjEzIC01MC41NyAxNy43NDUgLTU1Ljc2OTk5OTk5OTk5OTk5NlEyMi4zNiAtNjAuOTcgMjcuNDk1IC02NC4wMjVRMzIuNjMgLTY3LjA4IDM3LjcgLTY3LjA4UTQwLjE3IC02Ny4wOCA0Mi4zOCAtNjYuMTA0OTk5OTk5OTk5OTlRNDQuNTkgLTY1LjEzIDQ2LjAyIC02My4wNTAwMDAwMDAwMDAwMDRRNDYuODAwMDAwMDAwMDAwMDA0IC02MS44OCA0Ny41OCAtNjEuODhRNDguMzYgLTYxLjg4IDQ5LjE0IC02My4wNTAwMDAwMDAwMDAwMDRRNTAuNTcgLTY1LjEzIDUxLjQ4MDAwMDAwMDAwMDAwNCAtNjUuNzE1UTUyLjM5IC02Ni4zIDUzLjE3IC02Ni4zUTU0Ljg2IC02Ni4zIDU0LjQ3IC02NC40OEw0Mi45IC0xNC42OTAwMDAwMDAwMDAwMDFRNDAuOTUgLTYuMjQgNDUuNSAtNi4yNFE0OC40OSAtNi4yNCA1MC44OTUgLTEwLjI3UTUzLjMwMDAwMDAwMDAwMDAwNCAtMTQuMyA1NS43NyAtMjIuNzVRNTYuMTYwMDAwMDAwMDAwMDA0IC0yNC4xOCA1Ny40NiAtMjQuMThRNTguMzcwMDAwMDAwMDAwMDA1IC0yNC4xOCA1OC42MyAtMjMuNFE1OC44OSAtMjIuNjIgNTguNjMgLTIxLjU4MDAwMDAwMDAwMDAwMlE1Ni4xNjAwMDAwMDAwMDAwMDQgLTkuMzYgNTIuMCAtNC4wOTVRNDcuODQgMS4xNyA0MS45OSAxLjE3UTM2LjkyIDEuMTcgMzQuNzc1MDAwMDAwMDAwMDA2IC0zLjEyUTMyLjYzIC03LjQxIDM0LjMyIC0xNC44MkwzNi4wMSAtMjEuOTcwMDAwMDAwMDAwMDAyUTM2LjI3IC0yMi44ODAwMDAwMDAwMDAwMDMgMzUuNjg1IC0yMy4wMVEzNS4xIC0yMy4xNCAzNC43MSAtMjIuMzZRMjcuNTYwMDAwMDAwMDAwMDAyIC05LjIzIDIyLjAzNTAwMDAwMDAwMDAwNCAtNC4wM1ExNi41MSAxLjE3IDExLjU3IDEuMTdaTTE0LjgyIC01LjQ2UTE3Ljk0IC01LjQ2IDIxLjcxIC05LjIzUTI1LjQ4IC0xMy4wIDI5LjE4NTAwMDAwMDAwMDAwMiAtMTguOThRMzIuODkgLTI0Ljk2IDM2LjAxMDAwMDAwMDAwMDAwNSAtMzEuODVRMzkuMTMgLTM4Ljc0IDQxLjAxNSAtNDUuMTFRNDIuOSAtNTEuNDgwMDAwMDAwMDAwMDA0IDQyLjkgLTU1LjlRNDIuOSAtNjMuODMwMDAwMDAwMDAwMDA1IDM3LjMxIC02My44MzAwMDAwMDAwMDAwMDVRMzMuOTMgLTYzLjgzMDAwMDAwMDAwMDAwNSAzMC4xNiAtNjAuNzc1MDAwMDAwMDAwMDA2UTI2LjM5IC01Ny43MiAyMi45NDUgLTUyLjUxOTk5OTk5OTk5OTk5NlExOS41IC00Ny4zMiAxNi43MDUgLTQwLjc1NDk5OTk5OTk5OTk5NVExMy45MSAtMzQuMTkgMTIuMjIgLTI3LjEwNDk5OTk5OTk5OTk5N1ExMC41MzAwMDAwMDAwMDAwMDEgLTIwLjAyIDEwLjUzMDAwMDAwMDAwMDAwMSAtMTMuMjZRMTAuNTMwMDAwMDAwMDAwMDAxIC04LjcxIDExLjYzNTAwMDAwMDAwMDAwMiAtNy4wODUwMDAwMDAwMDAwMDFRMTIuNzQgLTUuNDYgMTQuODIgLTUuNDZaIE01NC44MTAwMDAwMDAwMDAwMSAyNy45NVE0OS44NzAwMDAwMDAwMDAwMDUgMjcuOTUgNDcuMTQwMDAwMDAwMDAwMDEgMjUuNDE1UTQ0LjQxMDAwMDAwMDAwMDAxIDIyLjg4MDAwMDAwMDAwMDAwMyA0NC40MTAwMDAwMDAwMDAwMSAxOS4yNDAwMDAwMDAwMDAwMDJRNDQuNDEwMDAwMDAwMDAwMDEgMTYuNTEgNDUuODQwMDAwMDAwMDAwMDEgMTUuMTQ1MDAwMDAwMDAwMDAxUTQ3LjI3MDAwMDAwMDAwMDAxIDEzLjc4MDAwMDAwMDAwMDAwMSA0OC45NjAwMDAwMDAwMDAwMSAxMy43ODAwMDAwMDAwMDAwMDFRNTEuNDMwMDAwMDAwMDAwMDEgMTMuNzgwMDAwMDAwMDAwMDAxIDUyLjQ3MDAwMDAwMDAwMDAwNiAxNS4wOFE1My41MTAwMDAwMDAwMDAwMDUgMTYuMzggNTQuMDMgMTguMTM0OTk5OTk5OTk5OTk4UTU0LjU1MDAwMDAwMDAwMDAwNCAxOS44OSA1NS42NTUgMjEuMTlRNTYuNzYwMDAwMDAwMDAwMDA1IDIyLjQ5MDAwMDAwMDAwMDAwMiA1OS4yMzAwMDAwMDAwMDAwMDQgMjIuNDkwMDAwMDAwMDAwMDAyUTY0LjA0IDIyLjQ5MDAwMDAwMDAwMDAwMiA2OC43MiAxOC42NTVRNzMuNCAxNC44MiA3Ni4zOTAwMDAwMDAwMDAwMSA4LjEyNVE3OS4zODAwMDAwMDAwMDAwMSAxLjQzMDAwMDAwMDAwMDAwMDIgNzguOTkwMDAwMDAwMDAwMDEgLTYuODkwMDAwMDAwMDAwMDAxTDc3LjA0IC01My41NlE3Ni45MTAwMDAwMDAwMDAwMSAtNTYuOTQwMDAwMDAwMDAwMDA1IDc1Ljg3IC01OC4zMDUwMDAwMDAwMDAwMVE3NC44MzAwMDAwMDAwMDAwMSAtNTkuNjcgNzMuMjcwMDAwMDAwMDAwMDEgLTU5LjY3UTcwLjQxMDAwMDAwMDAwMDAxIC01OS42NyA2Ny44MSAtNTYuMjI1UTY1LjIxMDAwMDAwMDAwMDAxIC01Mi43OCA2My41MjAwMDAwMDAwMDAwMSAtNDMuMTYwMDAwMDAwMDAwMDA0UTYzLjEzMDAwMDAwMDAwMDAxIC00MS40NyA2MS44MzAwMDAwMDAwMDAwMDUgLTQxLjQ3UTYwLjAxMDAwMDAwMDAwMDAwNSAtNDEuNDcgNjAuNDAwMDAwMDAwMDAwMDA2IC00My44MVE2MS45NjAwMDAwMDAwMDAwMSAtNTIuNzggNjQuNzU1MDAwMDAwMDAwMDEgLTU3Ljg1UTY3LjU1MDAwMDAwMDAwMDAxIC02Mi45MiA3MC43MzUwMDAwMDAwMDAwMSAtNjUuMFE3My45MjAwMDAwMDAwMDAwMiAtNjcuMDggNzYuNjUgLTY3LjA4UTgwLjY4IC02Ny4wOCA4My4wMjAwMDAwMDAwMDAwMSAtNjQuMjg1UTg1LjM2MDAwMDAwMDAwMDAxIC02MS40OSA4NS42MiAtNTQuNzMwMDAwMDAwMDAwMDA0TDg3LjQ0MDAwMDAwMDAwMDAxIC00LjgxMDAwMDAwMDAwMDAwMDVRODcuNDQwMDAwMDAwMDAwMDEgLTMuOTAwMDAwMDAwMDAwMDAwNCA4OC4wMjUgLTMuNzA1UTg4LjYxMDAwMDAwMDAwMDAxIC0zLjUxMDAwMDAwMDAwMDAwMDIgODkuMTMwMDAwMDAwMDAwMDEgLTQuMjlROTMuNjggLTEwLjY2IDk3LjM4NSAtMTcuNDg1UTEwMS4wOSAtMjQuMzEwMDAwMDAwMDAwMDAyIDEwMy4zMDAwMDAwMDAwMDAwMSAtMzAuOTRRMTA1LjUxMDAwMDAwMDAwMDAyIC0zNy41NyAxMDUuNTEwMDAwMDAwMDAwMDIgLTQzLjE2MDAwMDAwMDAwMDAwNFExMDUuNTEwMDAwMDAwMDAwMDIgLTQ4LjYyMDAwMDAwMDAwMDAwNSAxMDQuMzQwMDAwMDAwMDAwMDIgLTUxLjgwNTAwMDAwMDAwMDAxUTEwMy4xNzAwMDAwMDAwMDAwMiAtNTQuOTkgMTAxLjkzNTAwMDAwMDAwMDAyIC01Ny4yUTEwMC43MDAwMDAwMDAwMDAwMiAtNTkuNDEwMDAwMDAwMDAwMDA0IDEwMC43MDAwMDAwMDAwMDAwMiAtNjIuMDEwMDAwMDAwMDAwMDA1UTEwMC43MDAwMDAwMDAwMDAwMiAtNjcuMDggMTA1LjEyIC02Ny4wOFExMTEuMzYwMDAwMDAwMDAwMDEgLTY3LjA4IDExMS4zNjAwMDAwMDAwMDAwMSAtNTMuMzAwMDAwMDAwMDAwMDA0UTExMS4zNjAwMDAwMDAwMDAwMSAtNDUuNzYwMDAwMDAwMDAwMDA1IDEwOC43NjAwMDAwMDAwMDAwMiAtMzYuODU1MDAwMDAwMDAwMDA0UTEwNi4xNjAwMDAwMDAwMDAwMSAtMjcuOTUgMTAxLjY3NTAwMDAwMDAwMDAxIC0xOC43ODVROTcuMTkwMDAwMDAwMDAwMDEgLTkuNjIwMDAwMDAwMDAwMDAxIDkxLjQwNSAtMS4zMDAwMDAwMDAwMDAwMDAzUTg1LjYyIDcuMDIwMDAwMDAwMDAwMDAwNSA3OS4zMTUgMTMuNjVRNzMuMDEgMjAuMjggNjYuNzA1MDAwMDAwMDAwMDEgMjQuMTE1MDAwMDAwMDAwMDAyUTYwLjQwMDAwMDAwMDAwMDAwNiAyNy45NSA1NC44MTAwMDAwMDAwMDAwMSAyNy45NVogTTEyMC45MyAxLjE3UTExNi4yNTAwMDAwMDAwMDAwMSAxLjE3IDExMy42NSAtMi44NjAwMDAwMDAwMDAwMDAzUTExMS4wNTAwMDAwMDAwMDAwMSAtNi44OTAwMDAwMDAwMDAwMDEgMTExLjA1MDAwMDAwMDAwMDAxIC0xNC42OTAwMDAwMDAwMDAwMDFRMTExLjA1MDAwMDAwMDAwMDAxIC0yMi4xIDExMy4xMzAwMDAwMDAwMDAwMSAtMjkuNTc1MDAwMDAwMDAwMDAzUTExNS4yMTAwMDAwMDAwMDAwMSAtMzcuMDUwMDAwMDAwMDAwMDA0IDExOC44NTAwMDAwMDAwMDAwMSAtNDMuODFRMTIyLjQ5MDAwMDAwMDAwMDAxIC01MC41NyAxMjcuMTA1MDAwMDAwMDAwMDIgLTU1Ljc2OTk5OTk5OTk5OTk5NlExMzEuNzIwMDAwMDAwMDAwMDMgLTYwLjk3IDEzNi44NTUwMDAwMDAwMDAwMiAtNjQuMDI1UTE0MS45OSAtNjcuMDggMTQ3LjA2IC02Ny4wOFExNDkuNTMwMDAwMDAwMDAwMDMgLTY3LjA4IDE1MS43NCAtNjYuMTA0OTk5OTk5OTk5OTlRMTUzLjk1MDAwMDAwMDAwMDAyIC02NS4xMyAxNTUuMzgwMDAwMDAwMDAwMDIgLTYzLjA1MDAwMDAwMDAwMDAwNFExNTYuMTYwMDAwMDAwMDAwMDMgLTYxLjg4IDE1Ni45NCAtNjEuODhRMTU3LjcyMDAwMDAwMDAwMDAzIC02MS44OCAxNTguNSAtNjMuMDUwMDAwMDAwMDAwMDA0UTE1OS45MyAtNjUuMTMgMTYwLjg0IC02NS43MTVRMTYxLjc1IC02Ni4zIDE2Mi41MzAwMDAwMDAwMDAwMyAtNjYuM1ExNjQuMjIwMDAwMDAwMDAwMDMgLTY2LjMgMTYzLjgzIC02NC40OEwxNTIuMjYwMDAwMDAwMDAwMDIgLTE0LjY5MDAwMDAwMDAwMDAwMVExNTAuMzEgLTYuMjQgMTU0Ljg2IC02LjI0UTE1Ny44NTAwMDAwMDAwMDAwMiAtNi4yNCAxNjAuMjU1MDAwMDAwMDAwMDIgLTEwLjI3UTE2Mi42NjAwMDAwMDAwMDAwMyAtMTQuMyAxNjUuMTMwMDAwMDAwMDAwMDIgLTIyLjc1UTE2NS41MiAtMjQuMTggMTY2LjgyMDAwMDAwMDAwMDAyIC0yNC4xOFExNjcuNzMwMDAwMDAwMDAwMDIgLTI0LjE4IDE2Ny45OSAtMjMuNFExNjguMjUgLTIyLjYyIDE2Ny45OSAtMjEuNTgwMDAwMDAwMDAwMDAyUTE2NS41MiAtOS4zNiAxNjEuMzYgLTQuMDk1UTE1Ny4yMDAwMDAwMDAwMDAwMiAxLjE3IDE1MS4zNTAwMDAwMDAwMDAwMiAxLjE3UTE0Ni4yODAwMDAwMDAwMDAwMyAxLjE3IDE0NC4xMzUwMDAwMDAwMDAwMiAtMy4xMlExNDEuOTkgLTcuNDEgMTQzLjY4IC0xNC44MkwxNDUuMzcgLTIxLjk3MDAwMDAwMDAwMDAwMlExNDUuNjMwMDAwMDAwMDAwMDIgLTIyLjg4MDAwMDAwMDAwMDAwMyAxNDUuMDQ1MDAwMDAwMDAwMDIgLTIzLjAxUTE0NC40NiAtMjMuMTQgMTQ0LjA3MDAwMDAwMDAwMDAyIC0yMi4zNlExMzYuOTIwMDAwMDAwMDAwMDIgLTkuMjMgMTMxLjM5NSAtNC4wM1ExMjUuODcwMDAwMDAwMDAwMDIgMS4xNyAxMjAuOTMgMS4xN1pNMTI0LjE4IC01LjQ2UTEyNy4zMDAwMDAwMDAwMDAwMSAtNS40NiAxMzEuMDcgLTkuMjNRMTM0Ljg0IC0xMy4wIDEzOC41NDUwMDAwMDAwMDAwMiAtMTguOThRMTQyLjI1IC0yNC45NiAxNDUuMzcgLTMxLjg1UTE0OC40OSAtMzguNzQgMTUwLjM3NSAtNDUuMTFRMTUyLjI2MDAwMDAwMDAwMDAyIC01MS40ODAwMDAwMDAwMDAwMDQgMTUyLjI2MDAwMDAwMDAwMDAyIC01NS45UTE1Mi4yNjAwMDAwMDAwMDAwMiAtNjMuODMwMDAwMDAwMDAwMDA1IDE0Ni42NzAwMDAwMDAwMDAwMiAtNjMuODMwMDAwMDAwMDAwMDA1UTE0My4yOTAwMDAwMDAwMDAwMiAtNjMuODMwMDAwMDAwMDAwMDA1IDEzOS41MiAtNjAuNzc1MDAwMDAwMDAwMDA2UTEzNS43NSAtNTcuNzIgMTMyLjMwNSAtNTIuNTE5OTk5OTk5OTk5OTk2UTEyOC44NiAtNDcuMzIgMTI2LjA2NTAwMDAwMDAwMDAxIC00MC43NTQ5OTk5OTk5OTk5OTVRMTIzLjI3MDAwMDAwMDAwMDAxIC0zNC4xOSAxMjEuNTgwMDAwMDAwMDAwMDEgLTI3LjEwNDk5OTk5OTk5OTk5N1ExMTkuODkwMDAwMDAwMDAwMDEgLTIwLjAyIDExOS44OTAwMDAwMDAwMDAwMSAtMTMuMjZRMTE5Ljg5MDAwMDAwMDAwMDAxIC04LjcxIDEyMC45OTUgLTcuMDg1MDAwMDAwMDAwMDAxUTEyMi4xMDAwMDAwMDAwMDAwMSAtNS40NiAxMjQuMTggLTUuNDZaIi8+PHBhdGggZmlsbD0iI0EyRDhCRiIgZD0iTTE4MS43OCAtMTUuM1ExODUuNzggLTE1LjMgMTg4LjEzIC0xMy4xMDAwMDAwMDAwMDAwMDFRMTkwLjQ4MDAwMDAwMDAwMDAyIC0xMC45IDE5MC40ODAwMDAwMDAwMDAwMiAtNy4yUTE5MC40ODAwMDAwMDAwMDAwMiAtMy40MDAwMDAwMDAwMDAwMDA0IDE4OC4xMyAtMS4yNTAwMDAwMDAwMDAwMDAyUTE4NS43OCAwLjkgMTgxLjc4IDAuOVExNzcuNzggMC45IDE3NS40MyAtMS4yNTAwMDAwMDAwMDAwMDAyUTE3My4wOCAtMy40MDAwMDAwMDAwMDAwMDA0IDE3My4wOCAtNy4yUTE3My4wOCAtMTAuOSAxNzUuNDMgLTEzLjEwMDAwMDAwMDAwMDAwMVExNzcuNzggLTE1LjMgMTgxLjc4IC0xNS4zWiBNMjE4LjM4IDEuMFEyMTMuMzggMS4wIDIwOS4zOCAtMC44UTIwNS4zOCAtMi42IDIwMy4wMyAtNi41NVEyMDAuNjggLTEwLjUgMjAwLjY4IC0xNi44Vi01MC4wSDIxNC4zOFYtMjAuMVEyMTQuMzggLTE0LjMgMjE2Ljc4IC0xMi4wNVEyMTkuMTggLTkuOCAyMjMuNjggLTkuOFEyMjUuNzggLTkuOCAyMjcuNzggLTEwLjU1UTIyOS43OCAtMTEuMyAyMzEuMzI5OTk5OTk5OTk5OTggLTEyLjlRMjMyLjg4IC0xNC41IDIzMy43OCAtMTcuMDVRMjM0LjY4IC0xOS42IDIzNC42OCAtMjMuMVYtNTAuMEgyNDguMzhWMC4wSDIzNi4xOEwyMzUuNjggLTguNzAwMDAwMDAwMDAwMDAxUTIzMy4xOCAtMy43IDIyOC44MyAtMS4zNVEyMjQuNDgwMDAwMDAwMDAwMDIgMS4wIDIxOC4zOCAxLjBaIE0zMDYuODggLTYxLjkwMDAwMDAwMDAwMDAwNiAzMDguNDggLTUyLjFRMzA4LjA4MDAwMDAwMDAwMDA0IC01Mi4xIDMwNy42MyAtNTIuMTUwMDAwMDAwMDAwMDA2UTMwNy4xOCAtNTIuMiAzMDYuNjggLTUyLjJRMzAyLjE4IC01Mi4yIDI5OS44MzAwMDAwMDAwMDAwNCAtNTAuMTUwMDAwMDAwMDAwMDA2UTI5Ny40OCAtNDguMSAyOTcuNDggLTQ0LjVMMjkxLjg4IC00Ni44MDAwMDAwMDAwMDAwMDRRMjkxLjg4IC01MC44MDAwMDAwMDAwMDAwMDQgMjkzLjQ4IC01NC4yNVEyOTUuMDgwMDAwMDAwMDAwMDQgLTU3LjcgMjk4LjIzIC01OS44MDAwMDAwMDAwMDAwMDRRMzAxLjM4IC02MS45MDAwMDAwMDAwMDAwMDYgMzA1Ljc4MDAwMDAwMDAwMDAzIC02MS45MDAwMDAwMDAwMDAwMDZRMzA1Ljk4IC02MS45MDAwMDAwMDAwMDAwMDYgMzA2LjI4MDAwMDAwMDAwMDAzIC02MS45MDAwMDAwMDAwMDAwMDZRMzA2LjU4MDAwMDAwMDAwMDA0IC02MS45MDAwMDAwMDAwMDAwMDYgMzA2Ljg4IC02MS45MDAwMDAwMDAwMDAwMDZaTTI5MC40OCAtOS40UTI5OC41ODAwMDAwMDAwMDAwNCAtOS40IDMwMi45OCAtNS45UTMwNy4zOCAtMi40MDAwMDAwMDAwMDAwMDA0IDMwNy4zOCAzLjkwMDAwMDAwMDAwMDAwMDRRMzA3LjM4IDkuNjAwMDAwMDAwMDAwMDAxIDMwNC4wODAwMDAwMDAwMDAwNCAxMy41NVEzMDAuNzgwMDAwMDAwMDAwMDMgMTcuNSAyOTQuODMwMDAwMDAwMDAwMDQgMTkuNVEyODguODggMjEuNSAyODEuMDgwMDAwMDAwMDAwMDQgMjEuNVEyNjguMTggMjEuNSAyNjIuMjMgMTcuOVEyNTYuMjgwMDAwMDAwMDAwMDMgMTQuMyAyNTYuMjgwMDAwMDAwMDAwMDMgOC41UTI1Ni4yODAwMDAwMDAwMDAwMyA0LjQgMjU5LjQzMDAwMDAwMDAwMDA2IDEuNlEyNjIuNTgwMDAwMDAwMDAwMDQgLTEuMjAwMDAwMDAwMDAwMDAwMiAyNjkuODggLTEuNUwyNjkuMzggMC4xUTI2NC4xOCAtMC44IDI2MS40MyAtMy4zNVEyNTguNjggLTUuOSAyNTguNjggLTEwLjRRMjU4LjY4IC0xNS4wIDI2Mi4yMyAtMTcuOTUwMDAwMDAwMDAwMDAzUTI2NS43ODAwMDAwMDAwMDAwMyAtMjAuOTAwMDAwMDAwMDAwMDAyIDI3MS44OCAtMjEuNDAwMDAwMDAwMDAwMDAyTDI3Ny44OCAtMTguNkgyNzYuNDhRMjcyLjE4IC0xOC4zIDI3MC40MyAtMTYuODVRMjY4LjY4IC0xNS40IDI2OC42OCAtMTMuNjAwMDAwMDAwMDAwMDAxUTI2OC42OCAtMTEuNSAyNzAuMzMwMDAwMDAwMDAwMDQgLTEwLjQ1UTI3MS45OCAtOS40IDI3NS4wODAwMDAwMDAwMDAwNCAtOS40Wk0yODEuMTggMTIuMTAwMDAwMDAwMDAwMDAxUTI4Ni4zOCAxMi4xMDAwMDAwMDAwMDAwMDEgMjg5LjczIDExLjIwMDAwMDAwMDAwMDAwMVEyOTMuMDgwMDAwMDAwMDAwMDQgMTAuMyAyOTQuNzMgOC45UTI5Ni4zOCA3LjUgMjk2LjM4IDUuODAwMDAwMDAwMDAwMDAxUTI5Ni4zOCAzLjkwMDAwMDAwMDAwMDAwMDQgMjk0Ljg4IDIuNzVRMjkzLjM4IDEuNiAyODkuNDggMS42SDI3Mi41ODAwMDAwMDAwMDAwNFEyNzAuMTggMS42IDI2OC42MyAyLjhRMjY3LjA4MDAwMDAwMDAwMDA0IDQuMCAyNjcuMDgwMDAwMDAwMDAwMDQgNi4xMDAwMDAwMDAwMDAwMDA1UTI2Ny4wODAwMDAwMDAwMDAwNCA4LjkgMjcwLjgzMDAwMDAwMDAwMDA0IDEwLjVRMjc0LjU4MDAwMDAwMDAwMDA0IDEyLjEwMDAwMDAwMDAwMDAwMSAyODEuMTggMTIuMTAwMDAwMDAwMDAwMDAxWk0yODEuMjgwMDAwMDAwMDAwMDMgLTUxLjBRMjg4LjI4MDAwMDAwMDAwMDAzIC01MS4wIDI5My40MzAwMDAwMDAwMDAwNiAtNDguOTVRMjk4LjU4MDAwMDAwMDAwMDA0IC00Ni45MDAwMDAwMDAwMDAwMDYgMzAxLjMzMDAwMDAwMDAwMDA0IC00My4xMDAwMDAwMDAwMDAwMVEzMDQuMDgwMDAwMDAwMDAwMDQgLTM5LjMwMDAwMDAwMDAwMDAwNCAzMDQuMDgwMDAwMDAwMDAwMDQgLTM0LjBRMzA0LjA4MDAwMDAwMDAwMDA0IC0yOC44IDMwMS4zMzAwMDAwMDAwMDAwNCAtMjUuMFEyOTguNTgwMDAwMDAwMDAwMDQgLTIxLjIwMDAwMDAwMDAwMDAwMyAyOTMuNDMwMDAwMDAwMDAwMDYgLTE5LjE1MDAwMDAwMDAwMDAwMlEyODguMjgwMDAwMDAwMDAwMDMgLTE3LjEgMjgxLjI4MDAwMDAwMDAwMDAzIC0xNy4xUTI3MC4xOCAtMTcuMSAyNjQuMjggLTIxLjY1MDAwMDAwMDAwMDAwMlEyNTguMzggLTI2LjIwMDAwMDAwMDAwMDAwMyAyNTguMzggLTM0LjBRMjU4LjM4IC0zOS4zMDAwMDAwMDAwMDAwMDQgMjYxLjE4IC00My4xMDAwMDAwMDAwMDAwMVEyNjMuOTggLTQ2LjkwMDAwMDAwMDAwMDAwNiAyNjkuMDgwMDAwMDAwMDAwMDQgLTQ4Ljk1UTI3NC4xOCAtNTEuMCAyODEuMjgwMDAwMDAwMDAwMDMgLTUxLjBaTTI4MS4yODAwMDAwMDAwMDAwMyAtNDIuNDAwMDAwMDAwMDAwMDA2UTI3Ny4yODAwMDAwMDAwMDAwMyAtNDIuNDAwMDAwMDAwMDAwMDA2IDI3NC42ODAwMDAwMDAwMDAwNiAtNDAuMlEyNzIuMDgwMDAwMDAwMDAwMDQgLTM4LjAgMjcyLjA4MDAwMDAwMDAwMDA0IC0zNC4xUTI3Mi4wODAwMDAwMDAwMDAwNCAtMzAuMjAwMDAwMDAwMDAwMDAzIDI3NC42ODAwMDAwMDAwMDAwNiAtMjcuOTUwMDAwMDAwMDAwMDAzUTI3Ny4yODAwMDAwMDAwMDAwMyAtMjUuNzAwMDAwMDAwMDAwMDAzIDI4MS4yODAwMDAwMDAwMDAwMyAtMjUuNzAwMDAwMDAwMDAwMDAzUTI4NS4yODAwMDAwMDAwMDAwMyAtMjUuNzAwMDAwMDAwMDAwMDAzIDI4Ny44MzAwMDAwMDAwMDAwNCAtMjcuOTUwMDAwMDAwMDAwMDAzUTI5MC4zOCAtMzAuMjAwMDAwMDAwMDAwMDAzIDI5MC4zOCAtMzQuMVEyOTAuMzggLTM4LjAgMjg3LjgzMDAwMDAwMDAwMDA0IC00MC4yUTI4NS4yODAwMDAwMDAwMDAwMyAtNDIuNDAwMDAwMDAwMDAwMDA2IDI4MS4yODAwMDAwMDAwMDAwMyAtNDIuNDAwMDAwMDAwMDAwMDA2WiBNMzM2LjM4IC01MS4wUTM0My4wODAwMDAwMDAwMDAwNCAtNTEuMCAzNDcuNzMgLTQ5LjA1UTM1Mi4zOCAtNDcuMSAzNTUuMjMgLTQzLjc1UTM1OC4wODAwMDAwMDAwMDAwNCAtNDAuNDAwMDAwMDAwMDAwMDA2IDM1OS4yODAwMDAwMDAwMDAwMyAtMzYuMzAwMDAwMDAwMDAwMDA0TDM0Ni40OCAtMzEuNzAwMDAwMDAwMDAwMDAzUTM0NS40OCAtMzYuMiAzNDMuMDgwMDAwMDAwMDAwMDQgLTM4LjVRMzQwLjY4IC00MC44MDAwMDAwMDAwMDAwMDQgMzM2LjU4MDAwMDAwMDAwMDA0IC00MC44MDAwMDAwMDAwMDAwMDRRMzMyLjc4MDAwMDAwMDAwMDAzIC00MC44MDAwMDAwMDAwMDAwMDQgMzMwLjA4MDAwMDAwMDAwMDA0IC0zOS4wNTAwMDAwMDAwMDAwMDRRMzI3LjM4IC0zNy4zMDAwMDAwMDAwMDAwMDQgMzI1Ljk4IC0zMy43NVEzMjQuNTgwMDAwMDAwMDAwMDQgLTMwLjIwMDAwMDAwMDAwMDAwMyAzMjQuNTgwMDAwMDAwMDAwMDQgLTI0LjkwMDAwMDAwMDAwMDAwMlEzMjQuNTgwMDAwMDAwMDAwMDQgLTE5LjYgMzI2LjAzMDAwMDAwMDAwMDAzIC0xNi4xUTMyNy40OCAtMTIuNjAwMDAwMDAwMDAwMDAxIDMzMC4yMyAtMTAuOTAwMDAwMDAwMDAwMDAyUTMzMi45OCAtOS4yMDAwMDAwMDAwMDAwMDEgMzM2LjY4IC05LjIwMDAwMDAwMDAwMDAwMVEzMzkuNjggLTkuMjAwMDAwMDAwMDAwMDAxIDM0MS43OCAtMTAuMjVRMzQzLjg4IC0xMS4zIDM0NS4yMyAtMTMuM1EzNDYuNTgwMDAwMDAwMDAwMDQgLTE1LjMgMzQ3LjA4MDAwMDAwMDAwMDA0IC0xOC4xTDM1OS40OCAtMTQuMTAwMDAwMDAwMDAwMDAxUTM1OC4zOCAtOS42MDAwMDAwMDAwMDAwMDEgMzU1LjM4IC02LjIwMDAwMDAwMDAwMDAwMVEzNTIuMzggLTIuODAwMDAwMDAwMDAwMDAwMyAzNDcuNjggLTAuOTAwMDAwMDAwMDAwMDAwMVEzNDIuOTggMS4wIDMzNi43ODAwMDAwMDAwMDAwMyAxLjBRMzI5LjA4MDAwMDAwMDAwMDA0IDEuMCAzMjMuMTgwMDAwMDAwMDAwMDYgLTIuMVEzMTcuMjgwMDAwMDAwMDAwMDMgLTUuMiAzMTQuMDgwMDAwMDAwMDAwMDQgLTExLjBRMzEwLjg4IC0xNi44IDMxMC44OCAtMjUuMFEzMTAuODggLTMzLjIgMzE0LjA4MDAwMDAwMDAwMDA0IC0zOS4wUTMxNy4yODAwMDAwMDAwMDAwMyAtNDQuODAwMDAwMDAwMDAwMDA0IDMyMy4wODAwMDAwMDAwMDAwNCAtNDcuOTAwMDAwMDAwMDAwMDA2UTMyOC44OCAtNTEuMCAzMzYuMzggLTUxLjBaIi8+PC9zdmc+") left center / contain no-repeat; }
+.aya-foot { background: var(--aya-pine); color: var(--aya-beige); padding: 32px 48px; display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; font-size: 15px; }
+.aya-foot .aya-logo { height: 28px; margin-right: auto; }
+.aya-foot a { color: var(--aya-beige); text-underline-offset: 4px; }
+
+/* Text styles from the website's type scale. */
+.aya-eyebrow { font: 600 13px/1.3 "Work Sans", Arial, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--aya-pine); }
+.aya-h1 { font: italic 400 64px/1.05 "Instrument Serif", Georgia, serif; letter-spacing: -.01em; margin-top: 16px !important; color: var(--aya-ink); }
+.aya-h3 { font: 600 24px/1.3 "Work Sans", Arial, sans-serif; }
+.aya-h4 { font: 600 18px/1.35 "Work Sans", Arial, sans-serif; }
+.aya-body { margin-top: 24px !important; max-width: 34em; }
+.aya-supporting { color: var(--aya-brown); font-size: 16px; }
+.aya-caption { color: var(--aya-brown); font-size: 13px; line-height: 1.5; }
+.aya a { color: var(--aya-pine); text-underline-offset: 4px; }
+
+/* Tick list. */
+.aya-list { list-style: none; padding: 0 !important; margin-top: 32px !important; display: grid; gap: 12px; }
+.aya-list li { display: grid; grid-template-columns: 24px 1fr; gap: 12px; }
+.aya-list li::before { content: ""; width: 20px; height: 20px; margin-top: 4px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F5F4E' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat; }
+
+/* Layout: text left, card right; one column under 720 px. */
+.aya-wrap { max-width: 1200px; margin: 0 auto; padding: 64px 48px 80px; display: grid; gap: 48px; grid-template-columns: 1.15fr 1fr; align-items: start; }
+.aya-thanks { max-width: 760px; margin: 0 auto; padding: 80px 48px 96px; text-align: center; }
+.aya-thanks .aya-body { margin-left: auto !important; margin-right: auto !important; }
+
+/* Cards and panels. */
+.aya-card { border-radius: 20px; padding: 32px; }
+.aya-card--mint { background: var(--aya-mint); }
+.aya-card--outline { background: var(--aya-beige); border: 1px solid var(--aya-line); }
+.aya-card--pine { background: var(--aya-pine); color: var(--aya-beige); }
+.aya-card--pine .aya-eyebrow { color: var(--aya-beige); }
+.aya-card--mint .aya-eyebrow, .aya-card--mint .aya-caption, .aya-card--mint a { color: var(--aya-ink); }
+.aya-card--pine .aya-caption, .aya-card--pine .aya-soft { color: var(--aya-beige); opacity: .85; }
+.aya-card--pine a { color: var(--aya-beige); }
+.aya-bundle { margin-top: 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.aya-bundle .aya-card { padding: 24px; }
+.aya-tip { margin-top: 32px; background: var(--aya-mint); border-radius: 16px; padding: 24px; }
+.aya-tip .aya-eyebrow { color: var(--aya-ink); }
+.aya-next { margin-top: 48px; text-align: left; }
+.aya-price { font: 600 36px/1.1 "Work Sans", Arial, sans-serif; color: var(--aya-pine); margin-top: 8px !important; }
+
+/* Buttons (also restyles Systeme.io form buttons and fields placed inside .aya cards). */
+.aya-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--aya-pine); color: #fff !important; font: 600 16px "Work Sans", Arial, sans-serif; text-decoration: none; transition: background-color 250ms cubic-bezier(.2,.7,.2,1), transform 160ms cubic-bezier(.2,.7,.2,1); }
+.aya-btn:hover { background: var(--aya-pine-hover); }
+.aya-btn:active { transform: scale(.97); }
+.aya-btn--beige { background: var(--aya-beige); color: var(--aya-ink) !important; }
+.aya-btn--beige:hover { background: var(--aya-line); }
+.aya :focus-visible { outline: 2px solid var(--aya-pine); outline-offset: 2px; }
+.aya-card--pine :focus-visible { outline-color: var(--aya-mint); }
+
+/* Systeme.io form fields and buttons anywhere on the page. */
+input[type="text"], input[type="email"], input[type="tel"], input:not([type]), select, textarea {
+  min-height: 48px !important; border: 1px solid var(--aya-brown) !important; border-radius: 12px !important;
+  background: var(--aya-beige) !important; color: var(--aya-ink) !important; font: 400 16px "Work Sans", Arial, sans-serif !important; padding: 0 16px !important;
+}
+input:focus, select:focus, textarea:focus { border-color: var(--aya-pine) !important; outline: 2px solid var(--aya-pine) !important; outline-offset: 0 !important; }
+button, [data-test-id="send-form-button"] { border-radius: 999px !important; min-height: 52px; font: 600 16px "Work Sans", Arial, sans-serif !important; }
+
+/* Where a native Systeme.io element goes (only visible when you preview this file on its own). */
+.aya-slot { margin-top: 16px; border: 1.5px dashed var(--aya-brown); border-radius: 12px; padding: 20px; font-size: 15px; color: var(--aya-brown); background: rgba(249, 241, 228, .6); }
+.aya-card--pine .aya-slot { color: var(--aya-beige); border-color: var(--aya-beige); background: transparent; }
+
+@media (max-width: 719px) {
+  .aya { font-size: 16px; }
+  .aya-bar, .aya-foot { padding-left: 24px; padding-right: 24px; }
+  .aya-wrap { grid-template-columns: 1fr; padding: 40px 24px 64px; }
+  .aya-thanks { padding: 56px 24px 72px; }
+  .aya-h1 { font-size: 44px; }
+  .aya-h3 { font-size: 20px; }
+  .aya-card { padding: 24px; }
+  .aya-bundle { grid-template-columns: 1fr; }
+  .aya-btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .aya *, .aya-btn { transition: none !important; } }
+</style>
+</head>
+<body style="margin:0">
+<div class="aya aya-bar"><a href="https://www.ayaugc.com/" aria-label="AYA UGC home"><span class="aya-logo" role="img" aria-label="aya.ugc"></span></a></div>
+<div class="aya aya-thanks">
+  <p class="aya-eyebrow">You're in</p>
+  <h1 class="aya-h1">Check your inbox.</h1>
+  <p class="aya-body">The guide is on its way to your email. If it isn't there in a few minutes, look in your spam or promotions folder.</p>
+  <div class="aya-card aya-card--pine aya-next">
+    <p class="aya-eyebrow">Ready for the full plan?</p>
+    <p class="aya-h3" style="margin-top:8px">The 15-Day UGC Creator Challenge starts 7 December 2026.</p>
+    <p class="aya-soft" style="margin-top:8px">One lesson a day by email, a WhatsApp community and a 1:1 check-in with me.</p>
+    <p style="margin-top:24px"><a class="aya-btn aya-btn--beige" href="https://www.ayaugc.com/challenge#days">See the 15 days</a></p>
+  </div>
+</div>
+<footer class="aya aya-foot"><span class="aya-logo" role="img" aria-label="aya.ugc"></span><a href="https://www.ayaugc.com/privacy">Privacy</a><a href="https://www.ayaugc.com/terms">Terms</a><a href="https://www.ayaugc.com/refunds">Refunds</a><span>© <span data-aya-year>2026</span> AYA UGC</span></footer>
+<script>
+document.querySelectorAll("[data-aya-year]").forEach(function (el) { el.textContent = new Date().getFullYear(); });
+</script>
+
+<template id="aya-blocks">
+<!-- ===== BLOCK 1: Whole page ===== -->
+<div class="aya aya-bar"><a href="https://www.ayaugc.com/" aria-label="AYA UGC home"><span class="aya-logo" role="img" aria-label="aya.ugc"></span></a></div>
+<div class="aya aya-thanks">
+  <p class="aya-eyebrow">You're in</p>
+  <h1 class="aya-h1">Check your inbox.</h1>
+  <p class="aya-body">The guide is on its way to your email. If it isn't there in a few minutes, look in your spam or promotions folder.</p>
+  <div class="aya-card aya-card--pine aya-next">
+    <p class="aya-eyebrow">Ready for the full plan?</p>
+    <p class="aya-h3" style="margin-top:8px">The 15-Day UGC Creator Challenge starts 7 December 2026.</p>
+    <p class="aya-soft" style="margin-top:8px">One lesson a day by email, a WhatsApp community and a 1:1 check-in with me.</p>
+    <p style="margin-top:24px"><a class="aya-btn aya-btn--beige" href="https://www.ayaugc.com/challenge#days">See the 15 days</a></p>
+  </div>
+</div>
+<footer class="aya aya-foot"><span class="aya-logo" role="img" aria-label="aya.ugc"></span><a href="https://www.ayaugc.com/privacy">Privacy</a><a href="https://www.ayaugc.com/terms">Terms</a><a href="https://www.ayaugc.com/refunds">Refunds</a><span>© <span data-aya-year>2026</span> AYA UGC</span></footer>
+</template>
+</body>
+</html>

@@ -186,7 +186,7 @@ const Challenge = () => {
           {/* Solid Pine, the challenge's lead colour: Beige text, Mint for the large price and the ticks. */}
             <Card variant="pine" className="text-center md:p-12">
               <p className="eyebrow text-beige">{t.price.eyebrow}</p>
-              <p className="display mt-4 font-display italic text-mint">{t.price.amount}</p>
+              <p className="h1 mt-4 font-display italic text-mint">{t.price.amount}</p>
               <p className="supporting mt-2 text-beige/85">{t.price.terms}</p>
               <CheckList items={t.price.includes} onPine className="mt-8 text-start" />
               <p className="supporting mt-6 text-start text-beige/85">{t.price.addOn}</p>

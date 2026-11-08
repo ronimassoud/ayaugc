@@ -13,7 +13,7 @@ export const challengeContent = {
     lockupLabel: ["Day UGC", "Creator", "Challenge"],
     title: "From first deal to fully booked.",
     body: "Fifteen days, one lesson a day by email, a WhatsApp community and a 1:1 check-in with me. For new creators who want a clear plan, and for creators with a few deals who want better rates.",
-    meta: [`Starts ${c.startDate}`, `${c.minutesPerDay} min a day`, c.price],
+    meta: [`Starts ${c.startDate}`, `${c.minutesPerDay} min a day`],
     refund: "Refund policy",
     note: skillsNote,
   },
@@ -119,10 +119,11 @@ export const challengeContent = {
 
   proof: { title: "From creators who've done it" },
 
+  // The join card. No price while pricing is being decided: the start date is the big statement instead.
   price: {
-    eyebrow: `Cohort starts ${c.startDate}`,
-    amount: c.price,
-    terms: "one payment · AED",
+    eyebrow: "Cohort starts",
+    amount: c.startDate,
+    terms: "Fixed-date cohort. The waitlist hears first when doors open.",
     includes: [
       "15 daily ebooks by email, yours to keep",
       "The challenge WhatsApp community",
@@ -155,9 +156,9 @@ export const challengeContent = {
 
   final: {
     title: "Fifteen days from now, you could be pitching brands.",
-    meta: `Starts ${c.startDate} · ${c.price}`,
+    meta: `Starts ${c.startDate}`,
     fallback: "Not ready? Send me the free guide",
   },
 
-  sticky: { starts: `Starts ${c.startDate}`, price: c.price, button: "Join" },
+  sticky: { starts: `Starts ${c.startDate}`, price: c.short, button: "Join" },
 };

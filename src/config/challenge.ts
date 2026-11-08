@@ -25,13 +25,13 @@ const c = site.challenge;
 export const challengeCta = (status: ChallengeStatus = c.status): ChallengeCta => {
   switch (status) {
     case "early-bird":
-      return { label: "Join early", url: c.checkoutUrl, priceLine: `${c.earlyBirdPrice} until ${c.earlyBirdEnds}` };
+      return { label: "Join early", url: c.checkoutUrl, priceLine: `Early access until ${c.earlyBirdEnds}` };
     case "open":
-      return { label: "Join the challenge", url: c.checkoutUrl, priceLine: `${c.price} · Doors close ${c.closeDate}` };
+      return { label: "Join the challenge", url: c.checkoutUrl, priceLine: `Doors close ${c.closeDate}` };
     case "closed":
       return { label: "Join the waitlist", url: c.waitlistUrl, priceLine: "Doors are closed. Join the waitlist for the next cohort." };
     case "waitlist":
     default:
-      return { label: "Join the waitlist", url: c.waitlistUrl, priceLine: `Price announced ${c.priceAnnounceDate}` };
+      return { label: "Join the waitlist", url: c.waitlistUrl, priceLine: "The waitlist gets early access" };
   }
 };

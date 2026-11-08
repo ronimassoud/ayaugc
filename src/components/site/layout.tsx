@@ -112,8 +112,8 @@ const AnnouncementBand = () => {
   const facts = waitlist
     ? [`Starts ${c.startDate}`, "Waitlist gets early access"]
     : c.status === "early-bird"
-      ? [`Starts ${c.startDate}`, `${c.earlyBirdPrice} until ${c.earlyBirdEnds}`]
-      : [`Starts ${c.startDate}`, `Doors close ${c.closeDate}`, c.price];
+      ? [`Starts ${c.startDate}`, `Early access until ${c.earlyBirdEnds}`]
+      : [`Starts ${c.startDate}`, `Doors close ${c.closeDate}`];
   return (
     <aside aria-label="Challenge announcement" className="bg-ink text-beige">
       <Wrap className="flex min-h-14 flex-wrap items-center justify-between gap-x-6 gap-y-1 py-3 text-[15px]">

@@ -3,7 +3,8 @@
 import { writeFileSync } from "fs"
 import { resolve } from "path"
 
-const BASE_URL = "https://ayaugc.lovable.app"
+// The canonical domain (search engines should index www.ayaugc.com, not the GitHub Pages preview address).
+const BASE_URL = "https://www.ayaugc.com"
 
 interface SitemapEntry {
   path: string

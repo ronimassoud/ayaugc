@@ -8,7 +8,7 @@ export const homeContent = {
     title: "UGC that sells, and the skills to make it yourself.",
     body: `I'm Aya. I make Arabic and English UGC for brands across the UAE, and I teach creators how to do it properly. ${site.brandsCount} brands so far, and every lesson comes from real client work.`,
     quote: "Request a quote",
-    strip: { name: "15-Day UGC Creator Challenge", facts: [`Starts ${c.startDate}`, c.price] },
+    strip: { name: "15-Day UGC Creator Challenge", facts: [`Starts ${c.startDate}`] },
     phones: ["Aya filming", "Hands and product", "Behind the scenes"],
     wallLabel: "Photos of Aya at work and sample videos by category (coming soon)",
   },
@@ -48,12 +48,13 @@ export const homeContent = {
       "A 30-day plan for what comes next",
     ],
     phases: [
-      { name: "Create", days: [1, 2, 3, 4, 5, 6, 7] },
-      { name: "Package", days: [8, 9, 10] },
-      { name: "Get booked", days: [11, 12, 13, 14, 15] },
+      { name: "Create", from: 1, to: 7 },
+      { name: "Package", from: 8, to: 10 },
+      { name: "Get booked", from: 11, to: 15 },
     ],
+    dayRange: (from: number, to: number) => `Day ${from} to Day ${to}`,
     link: "See the 15 days",
-    caption: `Starts ${c.startDate} · ${c.price} · This is a skills program, not an income guarantee.`,
+    caption: `Starts ${c.startDate} · This is a skills program, not an income guarantee.`,
   },
 
   brands: {
