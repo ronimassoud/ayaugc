@@ -15,7 +15,7 @@ export const site = {
   owner: "Aya Karroum",
   location: "Dubai, UAE",
   domain: "https://www.ayaugc.com",
-  email: "[contact@ayaugc.com]",
+  email: "contact@ayaugc.com",
   instagram: { handle: "@aya.ugc", url: "https://www.instagram.com/aya.ugc" },
   // Aya's Amazon wishlist, linked as "Shop equipment must-haves" on the old Systeme.io home page.
   equipmentUrl: "https://www.amazon.ae/hz/wishlist/ls/39UW0OLXZ1250",

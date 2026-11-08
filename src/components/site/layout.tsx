@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Instagram, Menu, X } from "lucide-react";
+import { Instagram, Mail, MapPin, Menu, X } from "lucide-react";
 import { nav, site } from "@/config/site";
 import { challengeCta, isPlaceholder } from "@/config/challenge";
 import { cn } from "@/lib/utils";
@@ -144,13 +144,32 @@ const footerColumns = [
 /** `stickyBarSpace` leaves room under the footer for a page's mobile sticky bar so it never covers the last links. */
 const Footer = ({ stickyBarSpace = false }: { stickyBarSpace?: boolean }) => (
   <footer className="border-t border-beige/20 bg-pine text-beige">
-    <Wrap className={cn("py-16 md:py-24", stickyBarSpace && "pb-[136px] md:pb-24")}>
+    <Wrap className={cn("pb-8 pt-16 md:pt-24", stickyBarSpace && "pb-[112px] md:pb-8")}>
       <div className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
+        {/* Brand column: logo, one line on what AYA UGC is, then how to reach Aya. */}
         <div>
           <Link to="/" className="inline-flex min-h-11 items-center"><Logo onDark /></Link>
-          <p className="mt-6 max-w-[32ch]">Content that feels real. Skills that are taught honestly.</p>
+          <p className="mt-4 max-w-[32ch]">Content that feels real. Skills that are taught honestly.</p>
+          <ul className="mt-6 space-y-1 text-[16px]">
+            <li>
+              <FooterLink to={isPlaceholder(site.email) ? site.email : `mailto:${site.email}`}>
+                <Mail aria-hidden strokeWidth={1.75} className="me-2 size-5 shrink-0" />
+                {site.email}
+              </FooterLink>
+            </li>
+            <li>
+              <a href={site.instagram.url} className="inline-flex min-h-11 items-center text-beige transition-colors duration-brand hover:text-mint">
+                <Instagram aria-hidden strokeWidth={1.75} className="me-2 size-5 shrink-0" />
+                {site.instagram.handle}
+              </a>
+            </li>
+            <li className="flex min-h-11 items-center text-beige/85">
+              <MapPin aria-hidden strokeWidth={1.75} className="me-2 size-5 shrink-0" />
+              {site.location}
+            </li>
+          </ul>
         </div>
-        <div className="grid gap-10 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
           {footerColumns.map((col) => (
             <div key={col.title}>
               <h2 className="text-[13px] font-semibold uppercase tracking-[0.16em] text-beige">{col.title}</h2>
@@ -161,17 +180,14 @@ const Footer = ({ stickyBarSpace = false }: { stickyBarSpace?: boolean }) => (
           ))}
         </div>
       </div>
-      <div className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-1 border-t border-beige/20 pt-6 text-[15px]">
-        <FooterLink to={isPlaceholder(site.email) ? site.email : `mailto:${site.email}`}>{site.email}</FooterLink>
-        <span>{site.location}</span>
-        <a href={site.instagram.url} className="inline-flex min-h-11 items-center gap-2 text-beige transition-colors duration-brand hover:text-mint">
-          <Instagram aria-hidden strokeWidth={1.75} className="size-5" />
-          {site.instagram.handle}
-        </a>
-        <FooterLink to="/privacy">Privacy</FooterLink>
-        <FooterLink to="/terms">Terms</FooterLink>
-        <FooterLink to="/refunds">Refunds</FooterLink>
-        <span>© {new Date().getFullYear()} {site.name}</span>
+      {/* Bottom bar: copyright on one side, the legal links on the other (stacked on phones). */}
+      <div className="mt-16 flex flex-col-reverse gap-2 border-t border-beige/20 pt-4 text-[15px] md:flex-row md:items-center md:justify-between">
+        <p className="text-beige/85">© {new Date().getFullYear()} {site.name}. All rights reserved.</p>
+        <ul className="flex flex-wrap gap-x-6">
+          <li><FooterLink to="/privacy">Privacy</FooterLink></li>
+          <li><FooterLink to="/terms">Terms</FooterLink></li>
+          <li><FooterLink to="/refunds">Refunds</FooterLink></li>
+        </ul>
       </div>
     </Wrap>
   </footer>
