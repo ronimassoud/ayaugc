@@ -33,9 +33,9 @@ jobs:
       # serves from the root of that domain and link previews use it.
       - run: npm run build
         env:
-          BASE_PATH: ${{ vars.CUSTOM_DOMAIN && / || format(/{0}/, github.event.repository.name) }}
+          BASE_PATH: ${{ vars.CUSTOM_DOMAIN && '/' || format('/{0}/', github.event.repository.name) }}
           # Link previews must point at the address this deployment is actually served from.
-          SITE_URL: ${{ vars.CUSTOM_DOMAIN && format(https://{0}, vars.CUSTOM_DOMAIN) || steps.pages.outputs.base_url }}
+          SITE_URL: ${{ vars.CUSTOM_DOMAIN && format('https://{0}', vars.CUSTOM_DOMAIN) || steps.pages.outputs.base_url }}
           VITE_SUPABASE_URL: https://xsunkngtppzhewdsvkkc.supabase.co
           # Set the VITE_SUPABASE_PUBLISHABLE_KEY repository variable to enable campaign tracking.
           VITE_SUPABASE_PUBLISHABLE_KEY: ${{ vars.VITE_SUPABASE_PUBLISHABLE_KEY || 'placeholder-replace-me' }}
