@@ -4,6 +4,15 @@ import { site, type ChallengeStatus } from "./site";
 export const isPlaceholder = (value: string) => /^\[[^\]]*\]$/.test(value.trim());
 
 /**
+ * Systeme.io funnel pages (waitlist, guide opt-in, templates checkout, challenge checkout) open in a new tab for now,
+ * so the website stays open behind them. Set to false to open them in the same tab.
+ */
+export const systemeNewTab = true;
+
+/** Extra link props for a Systeme.io page: new tab without giving it access to this window. */
+export const systemeTarget = systemeNewTab ? { target: "_blank", rel: "noopener noreferrer" } : {};
+
+/**
  * Link to a Systeme.io page. Carries any utm_* params on the current URL through, so campaign
  * tracking survives checkout. Placeholder URLs return null so callers can render a disabled link.
  */

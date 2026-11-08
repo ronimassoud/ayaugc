@@ -4,7 +4,7 @@ import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { AlertCircle, ArrowUpRight, Check, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { inViewport } from "@/lib/in-viewport";
-import { isPlaceholder, systemeHref } from "@/config/challenge";
+import { isPlaceholder, systemeHref, systemeNewTab, systemeTarget } from "@/config/challenge";
 import { btnBase, btnClass, controlClass, type BtnVariant } from "@/components/site/styles";
 import { CircularText } from "@/components/site/circular-text";
 import { TiltGlare } from "@/components/site/tilt-card";
@@ -107,7 +107,13 @@ export const Btn = ({ to, children, variant = "primary", className, systeme = fa
     );
   }
   if (href.startsWith("/")) return <Link to={href} onClick={onClick} className={cls}>{inner}</Link>;
-  return <a href={href} onClick={onClick} className={cls}>{inner}</a>;
+  const tab = systeme && systemeNewTab;
+  return (
+    <a href={href} onClick={onClick} className={cls} {...(systeme ? systemeTarget : {})}>
+      {inner}
+      {tab && <span className="sr-only"> (opens in a new tab)</span>}
+    </a>
+  );
 };
 
 /**
@@ -283,7 +289,8 @@ const CoverRing = ({ label, to, tone }: { label: string; to: string; tone: "mint
   return (
     <a
       href={inert ? "#" : href}
-      aria-label={label}
+      {...(inert ? {} : systemeTarget)}
+      aria-label={!inert && systemeNewTab ? `${label} (opens in a new tab)` : label}
       aria-disabled={inert || undefined}
       title={inert ? `Link coming soon: ${to}` : undefined}
       onClick={inert ? (e) => e.preventDefault() : undefined}
